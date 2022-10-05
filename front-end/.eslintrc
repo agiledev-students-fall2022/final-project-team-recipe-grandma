@@ -1,0 +1,14 @@
+{
+  "parser": "@babel/eslint-parser",
+  "extends": "react-app",
+  "plugins": [
+    "ft-flow"
+  ],
+  "rules": {
+  },
+  "settings": {
+    "ft-flow": {
+      "onlyFilesWithFlowAnnotation": false
+    }
+  }
+}
