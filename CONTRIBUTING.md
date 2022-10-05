@@ -13,6 +13,7 @@
 - Ensure before requesting a change, there are no flow or lint errors. Run `npm run flow` to confirm this.
 - All imports should be formatted in sections by components & imports, direct paths, unimported types & unimported enums, and finals/constants. Each section should be in lexical order.
 - Run all tests and make sure they are passing before requesting a review of your changes.
+- Have your code reviewed by a peer before merging
 
 ## Team Values 
 
