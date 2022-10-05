@@ -1,20 +1,42 @@
-[![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-c66648af7eb3fe8bc4f294546bfd86ef473780cde1dea487d3c4ff354943c9ae.svg)](https://classroom.github.com/online_ide?assignment_repo_id=8745660&assignment_repo_type=AssignmentRepo)
-# Project Repository
+# Project Description
 
-This repository will be used for team projects.
+## Project Vision Statement
 
-Several sets of instructions are included in this repository. They should each be treated as separate assignments with their own due dates and sets of requirements.
+## Team Members
+@geontackee	- Geon Tack Lee
+@JenniferZheng0430 - Jennifer Zheng
+@Mohammed Ajao - mohammedajao
+@OyungerelA	- Oyungerel Amarsanaa
+@yeonieheoo	- yeonie yeonieheoo
+@ - Nghĩa Trí Nìm
 
-1. See the [App Map & Wireframes](instructions-0a-app-map-wireframes.md) and [Prototyping](./instructions-0b-prototyping.md) instructions for the requirements of the initial user experience design of the app.
+## Project History
+This project came to be due to a recognized need amongst the group to be able to quickly assess food options available. It was realized that the inconvenience of figuring out the food items available from raw ingredients proves difficult for daily life for the average person. This compels them to eat out, lower the quality of the food they eat, or not eat at all. This app aims to solve this mutual dilemma we've all faced with a better user experience offered by competitors. Please look at [how to contribute](https://github.com/agiledev-students-fall2022/final-project-team-recipe-grandma/blob/master/CONTRIBUTING.md).
 
-1. Delete the contents of this file and replace with the contents of a proper README.md, as described in the [project setup instructions](./instructions-0c-project-setup.md)
+## Building the Project
+1. Fork the project with your own branch.
+2. Run `npm install` in the back-end and front-end directories.
+3. Set up a mongodb account and follow the back-end instructions to set up your database.
+4. Run `npm flow` on the front-end to confirm there are no errors.
+5. Run `npm run start` on both the back-end and front-end in separate terminal processes.
+6. Happy developing!
 
-1. See the [Sprint Planning instructions](instructions-0d-sprint-planning.md) for the requirements of Sprint Planning for each Sprint.
+## Testing the Project
 
-1. See the [Front-End Development instructions](./instructions-1-front-end.md) for the requirements of the initial Front-End Development.
 
-1. See the [Back-End Development instructions](./instructions-2-back-end.md) for the requirements of the initial Back-End Development.
+## Project roles
 
-1. See the [Database Integration instructions](./instructions-3-database.md) for the requirements of integrating a database into the back-end.
+| Week | Scrum Master | Product Owner | Developers |
+| ---- | ------------ | ------------- | ---------- |
+| Week 0 | | | |
 
-1. See the [Deployment instructions](./instructions-4-deployment.md) for the requirements of deploying an app.
+Each team will decide, using whatever decision-making process they prefer, on which two members will fill the initial roles of **Scrum Master** and **Product Owner**.
+
+- all team members, including Scrum Master and Product Owner, are also **Developers** - everyone is expected to do the design and code work in every sprint.
+- these roles must shift every Sprint, so each team member should fill each role at least once.
+- each team must announce which team members are **Scrum Master** and **Product Owner** at the start of each Sprint
+
+## Discord Channel
+`#team-recipe-grandma`
+
+## Other Helpful Links
