@@ -2,35 +2,35 @@
 
 ## Wireframe
 <img src="ux-design/wireframe/home.png">
-Title: Home Screen
+Title: Home Screen  
 Description: This is the home screen where user can start searching for recipes, and check out some popular top recipes.
 
 <img src="ux-design/wireframe/search_ingredients.png">
-Title: Search ingredients
+Title: Search ingredients  
 Description: This is the screen where user can add ingredients. Users just go to search in the search box.
 
 <img src="ux-design/wireframe/drop_down.png">
-Title: Drop down
+Title: Drop down  
 Description: This is the screen when user press search box and search. There will be drop down indicating relevant search.
 
 <img src="ux-design/wireframe/Add_searched_ingredients.png">
-Title: Add search ingredients 
+Title: Add search ingredients   
 Description: This is what will appear when you add an ingredient using search box.
 
 <img src="ux-design/wireframe/Recipe_searched.png">
-Title: Recipe searched
+Title: Recipe searched  
 Description: This is the screen shown after user click search recupe button.
 
-<img src="ux-design/wireframe/More_recommended_Recommended_Recipes.png">
-Title: More recommended recipes
+<img src="ux-design/wireframe/More_recommended_Recipes.png">
+Title: More recommended recipes  
 Description: This is the screen presenting more recommended recipes to explore.
 
 <img src="ux-design/wireframe/recipe_detail.png">
-Title: Recipe Detail
+Title: Recipe Detail  
 Description: This is the screen showing more details for one specific recipe.
 
 <img src="ux-design/wireframe/review.png">
-Title: Review
+Title: Review  
 Description: This is the screen presenting the reviews for one recipe.
 
 
