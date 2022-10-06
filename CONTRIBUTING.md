@@ -45,6 +45,22 @@ Team members should respond to messages in 24 hours on Github issues or Messenge
 ## Team Process
 We use Agile to run through sprints and curate new objectives based on what is deemed to best need for our users. As our users evolve, so will our requirements and the development lifecycle for our product.
 
+## Sprint Cadence
+- Every sprint will take approximately 1 week.
+- Every member is expected to work 1 to 4 hours a week.
+- We expect the first few sprints to be slower but will pick up pace fast once we get used to all the tools like ReactJS.
+- We aim to achieve an MVP within 4 sprints.
+
+## Daily Standups
+- Standups will occur at 9:15 pm every two days, and will be occur more frequent if needed.
+- Meetings will be conducted through Zoom.
+- All members are expected to attend punctually, and may be excused only by early notice (12h in advanced).
+- Members will not cover for unexcused absence.
+- Up to 3 late arrivals are acceptable (max 30 minutes late).
+- Up to 2 unexcused absences are acceptable.
+- If a member makes little to no progress after a week (roughly 3 standups), they will be reported to management.
+- Members are expected to be polite when disagreeing with someone’s idea
+
 ## Coding Standards
 - Linter: ESLint
 - Typechecker: Flow
@@ -53,3 +69,7 @@ We use Agile to run through sprints and curate new objectives based on what is d
 - When writing TODOs, write in the format: `TODO: [<github_username>] [date] Comment`
 - Write automated tests to cover critical integration points and functionality 
 
+## Concluding thoughts
+- We hope to foster a climate of trust and empathy
+- Members will focus on collaboration, not rivalry
+- Members will maintain a developmental mindset
