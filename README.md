@@ -1,15 +1,15 @@
 # Project Description
 
 ## Project Vision Statement
-<strong>User Stories</strong>
+**User Stories**
 - As a college student living in a dorm, I want to know how to cook, so that I can save money.
 - As a busy worker, I want to cook simple meals, so that I can save time cooking and focus on my work. 
 - As a parent with a daughter with high standards with her food, I want to know what to cook every day, so that I don’t have to be stressed about picking what to cook. 
 
-<strong>Minimum Viable Product</strong>
+**Minimum Viable Product**  
 The Minimum Viable Product of Recipe Grandma is the automatic recipe recommendation tool according to the ingredients input of the users. Based on the collected recipes in the internal database, users will be able to choose from the recommended recipes. 
 
-After receiving feedback from the early release of the Minimum Viable Product, our team aims to implement Computer Vision techniques to allow scanning ingredients, instead of manually inserting ingredients into the App. 
+After completing the Minimum Viable Product, our team aims to implement Computer Vision techniques to allow scanning ingredients, instead of manually inserting ingredients into the App. Furthermore, a Review page where users can share their comments each recipe will improve the user-interactions. 
 
 ## Team Members
 @geontackee	- Geon Tack Lee
