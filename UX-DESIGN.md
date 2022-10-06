@@ -5,6 +5,8 @@
 ## App Map
 <img src="ux-design/app_map.png" width="700"/>
 
+<a href="https://www.figma.com/file/1vdUMV2cn0o1P7lHbhstqE/Recipe-Grandma?node-id=0%3A1" target="_blank">Link to Figma</a>
+
 The app map shows the parent/child relationship of all the screens on our app. There are 5 different screens we will be creating: 
 1. Home
 2. Add ingredients
