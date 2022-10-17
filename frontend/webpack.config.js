@@ -15,6 +15,7 @@ module.exports = ({ mode } = { mode: 'production' }) => {
     {
       mode,
       entry: './src/index.js',
+      stats: 'errors-warnings',
       devServer: {
         hot: true,
         open: true,
