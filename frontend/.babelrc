@@ -1,0 +1,28 @@
+{
+  "presets": [
+      "@babel/preset-react",
+      "@babel/preset-flow",
+      "module:metro-react-native-babel-preset",
+      [
+          "@babel/preset-env",
+          {
+              "targets": {
+                  "browsers": "last 2 versions"
+              },
+              "modules": false,
+              "loose": false
+          }
+      ]
+  ],
+  "plugins": [
+      "transform-class-properties",
+      "@babel/plugin-syntax-flow"
+  ],
+  "env": {
+      "test": {
+          "plugins": [
+              "transform-es2015-modules-commonjs"
+          ]
+      }
+  }
+}
