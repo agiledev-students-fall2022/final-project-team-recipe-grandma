@@ -1,14 +1,40 @@
-import React, { useState, useEffect } from "react";
+import * as React from 'react';
 // import "./Recipe.css";
 
-function Recipe(props) {
+type Ingredient = $ReadOnly<{|
+  name: string,
+  quantity: string,
+  type: string
+|}>;
+
+type Props = $ReadOnly<{|
+  details: {
+    ingredients: Array<Ingredient>,
+    steps: Array<string>,
+    imageURL: string
+  }
+|}>;
+
+function Recipe(props: Props): React.Node {
+  const { details } = props;
   return (
     <article className="recipe">
-      <h3>{props.details.ingredients}</h3>
-      <h4>{props.details.steps}</h4>
-      <img src={props.details.imageURL}></img>
+      <h3>Ingredients</h3>
+      {
+      details.ingredients.map((ing) => (
+        <p>
+          {ing.name}
+          &nbsp;
+          -
+          &nbsp;
+          {ing.quantity}
+        </p>
+      ))
+      }
+      <h4>{details.steps}</h4>
+      {/* <img src={details.imageURL} alt="RecipeImage" /> */}
     </article>
   );
 }
 
-module.exports = Recipe;
+export default Recipe;
