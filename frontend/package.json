@@ -61,6 +61,7 @@
     "file-loader": "^6.2.0",
     "flow": "^0.2.3",
     "flow-bin": "^0.190.0",
+    "flow-typed": "^3.8.0",
     "html-webpack-plugin": "^5.5.0",
     "image-webpack-loader": "^8.1.0",
     "metro-react-native-babel-preset": "^0.73.2",
