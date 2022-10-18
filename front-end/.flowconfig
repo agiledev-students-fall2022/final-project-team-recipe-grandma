@@ -5,6 +5,8 @@
 .*\.test\.js
 .*\.test\.*
 .*/src/reportWebVitals\.js
+.*/config/.*
+.*/scripts/.*
 [include]
 [libs]
 [lints]
