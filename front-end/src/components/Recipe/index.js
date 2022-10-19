@@ -1,5 +1,5 @@
 import * as React from 'react';
-// import "./Recipe.css";
+import "./Recipe.css";
 
 type Ingredient = $ReadOnly<{|
   name: string,
@@ -19,7 +19,8 @@ function Recipe(props: Props): React.Node {
   const { details } = props;
   return (
     <article className="recipe">
-      <h3>Ingredients</h3>
+      <h3>{details.name}</h3>
+      <h4>Ingredients</h4>
       {
       details.ingredients.map((ing) => (
         <p>
@@ -31,7 +32,9 @@ function Recipe(props: Props): React.Node {
         </p>
       ))
       }
-      <h4>{details.steps}</h4>
+      <br></br>
+      <h4>Steps</h4>
+      <h5>{details.steps}</h5>
       {/* <img src={details.imageURL} alt="RecipeImage" /> */}
     </article>
   );
