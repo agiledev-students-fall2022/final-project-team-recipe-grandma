@@ -3,8 +3,8 @@
 ## Setup
 1. Fork the project with your own branch.
 2. Run `npm install` in the back-end and front-end directories.
-3. Set up a mongodb account and follow the back-end instructions to set up your database.
-4. Run `npm flow` on the front-end to confirm there are no errors.
+3. Run `npm install -g flow-typed` and `flow-typed install` in the front-end directory to build the lib files
+4. Set up a mongodb account and follow the back-end instructions to set up your database.
 5. Run `npm run start` on both the back-end and front-end in separate terminal processes.
 6. Happy developing!
 
