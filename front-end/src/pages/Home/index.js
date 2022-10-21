@@ -3,7 +3,7 @@ import axios from 'axios';
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 
-import Recipe from '../Recipe';
+import Recipe from '../../components/Recipe';
 
 function Home(): React.Node {
   const [data, setData] = useState([]);
