@@ -9,6 +9,7 @@ type Ingredient = $ReadOnly<{|
 
 type Props = $ReadOnly<{|
   details: {
+    name: string,
     ingredients: Array<Ingredient>,
     steps: Array<string>,
     imageURL: string
@@ -19,7 +20,7 @@ function Recipe(props: Props): React.Node {
   const { details } = props;
   return (
     <article className="recipe">
-      <h3>{Props.details.name}</h3>
+      <h3>{details.name}</h3>
       <h4>Ingredients</h4>
       {
       details.ingredients.map((ing) => (
