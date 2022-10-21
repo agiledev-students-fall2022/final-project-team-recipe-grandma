@@ -21,6 +21,7 @@
       "flowtype"
   ],
   "rules": {
+      "linebreak-style": 0,
       "react/jsx-filename-extension": [1, {"extensions": [".js"]}],
       "semi": 2,
       "no-console": "off",
