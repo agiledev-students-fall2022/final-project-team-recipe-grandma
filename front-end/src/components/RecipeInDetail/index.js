@@ -1,5 +1,5 @@
 import * as React from 'react';
-import './Recipe.css';
+import './RecipeInDetail.css';
 
 type Ingredient = $ReadOnly<{|
   name: string,
@@ -16,12 +16,12 @@ type Props = $ReadOnly<{|
   }
 |}>;
 
-function Recipe(props: Props): React.Node {
+function RecipeInDetail(props: Props): React.Node {
   const { details } = props;
   return (
-    <article className="recipe">
+    <article className="a_recipe_in_detail">
       <h3>{details.name}</h3>
-      {/* <h4>Ingredients</h4> */}
+      <h4>Ingredients</h4>
       {
       details.ingredients.map((ing) => (
         <p>
@@ -33,11 +33,11 @@ function Recipe(props: Props): React.Node {
         </p>
       ))
       }
-      {/* <h4>Steps</h4>
+      <h4>Steps</h4>
       <h5>{details.steps}</h5>
-      <img src={details.imageURL} alt="RecipeImage" /> */}
+      <img src={details.imageURL} className="centerImage" alt="RecipeImage" />
     </article>
   );
 }
 
-export default Recipe;
+export default RecipeInDetail;
