@@ -1,11 +1,11 @@
-import { useState } from "react";
-import "./IngredientsList.css";
+import { useState } from 'react';
+import './IngredientsList.css';
 import * as React from 'react';
 
-export default function IngredientsList() {
-  var initialState = ["apple", "peach"];
+function IngredientsList(): React.Node {
+  const initialState = ['apple', 'peach'];
   // var noIngredients = false;
-  var [state, setState] = useState(initialState);
+  const [state, setState] = useState(initialState);
 
   function removeItem(index) {
     // var newState = state.splice(index, 1);
@@ -16,21 +16,22 @@ export default function IngredientsList() {
 
   return (
     <ul className="list-group">
-      {state.map((item, i) => {
-        return state.length === 0 ? (
-          <li className="empty-list">input your ingredients</li>
-        ) : (
-          <li className="list-group-item">
-            <div className="list-box">
-              <p className="left">{item}</p>
-              <button className="right" onClick={() => removeItem(i)}>
-                remove
-              </button>
-              <div className="clear"></div>
-            </div>
-          </li>
-        );
-      })}
+      {state.map((item, i) => 
+      state.length === 0 ? (
+        <li className="empty-list">input your ingredients</li>
+      ) : (
+        <li className="list-group-item">
+          <div className="list-box">
+            <p className="left">{item}</p>
+            <button type="button" className="right" onClick={() => removeItem(i)}>
+              remove
+            </button>
+            {/* <div className="clear"></div> */}
+          </div>
+        </li>
+      ))}
     </ul>
   );
 }
+
+export default IngredientsList;
