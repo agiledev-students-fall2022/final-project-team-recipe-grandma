@@ -26,7 +26,7 @@ function IngredientsList(): React.Node {
             <button type="button" className="right" onClick={() => removeItem(i)}>
               remove
             </button>
-            {/* <div className="clear"></div> */}
+            <div className="clear"></div>
           </div>
         </li>
       ))}
