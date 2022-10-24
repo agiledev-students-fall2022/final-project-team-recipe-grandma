@@ -2,7 +2,7 @@ import axios from 'axios';
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import Recipe from '../../components/RecipeInDetail';
+// import Recipe from '../../components/RecipeInDetail';
 /* eslint-disable react/jsx-props-no-spreading */
 
 function RecipeInDetail(): React.Node {
@@ -25,11 +25,12 @@ function RecipeInDetail(): React.Node {
     <>
       {/* <h1></h1> */}
       <section className="recipes">
-        <Recipe
+        {recipeindex}
+        {/* <Recipe
           {...data[recipeindex].ingredients}
           {...data[recipeindex].steps}
           {...data[recipeindex].imageURL}
-        />
+        /> */}
       </section>
     </>
   );
