@@ -6,6 +6,7 @@ import {
 import Home from '../../pages/Home';
 import SearchIngredients from '../../pages/SearchIngredients';
 import RecipeInDetail from '../../pages/RecipeInDetail';
+import ReviewPage from '../../pages/ReviewPage/ReviewPage';
 import CustomButton from '../Button';
 import './Navbar.css';
 
@@ -36,6 +37,9 @@ function Navbar(): React.Node {
       </Routes>
       <Routes>
         <Route path="/:recipeindex" element={<RecipeInDetail />} />
+      </Routes>
+      <Routes>
+        <Route path="/:recipeindex/review" element={<ReviewPage />} />
       </Routes>
     </>
   );
