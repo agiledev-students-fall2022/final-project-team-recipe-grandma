@@ -17,7 +17,7 @@ After finalizing the Minimum Viable Product, our team aims to implement Computer
 @mohammedajao - Mohammedajao
 @OyungerelA	- Oyungerel Amarsanaa
 @yeonieheoo	- Yeonie Heo
-@NghiaNim - Nghĩa Trí Nìm
+@NghiaNim - Nghia Nim
 
 ## Project History
 This project came to be due to a recognized need amongst the group to be able to quickly assess food options available. It was realized that the inconvenience of figuring out the food items available from raw ingredients proves difficult for daily life for the average person. This compels them to eat out, lower the quality of the food they eat, or not eat at all. This app aims to solve this mutual dilemma we've all faced with a better user experience offered by competitors. Please look at [how to contribute](https://github.com/agiledev-students-fall2022/final-project-team-recipe-grandma/blob/master/CONTRIBUTING.md).
