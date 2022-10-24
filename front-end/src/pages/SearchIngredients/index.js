@@ -7,8 +7,8 @@ import IngredientsList from '../../components/IngredientsList/IngredientsList';
 function SearchIngredients(): React.Node {
   return (
     <div>
-    <SearchBar />
-    <IngredientsList />
+      <SearchBar />
+      <IngredientsList />
     </div>
   );
 }
