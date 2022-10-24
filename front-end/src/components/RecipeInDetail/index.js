@@ -21,6 +21,7 @@ function RecipeInDetail(props: Props): React.Node {
   return (
     <article className="a_recipe_in_detail">
       <h3>{details.name}</h3>
+      <img src={details.imageURL} className="centerImage" alt="RecipeImage" />
       <h4>Ingredients</h4>
       {
       details.ingredients.map((ing) => (
@@ -35,7 +36,6 @@ function RecipeInDetail(props: Props): React.Node {
       }
       <h4>Steps</h4>
       <h5>{details.steps}</h5>
-      <img src={details.imageURL} className="centerImage" alt="RecipeImage" />
     </article>
   );
 }
