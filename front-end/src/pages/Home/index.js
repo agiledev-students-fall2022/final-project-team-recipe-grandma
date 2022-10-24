@@ -1,13 +1,19 @@
 import axios from 'axios';
-
 import * as React from 'react';
 import { useState, useEffect } from 'react';
-// import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import filedjson from '../../temp_recipedata.json';
 
 import Recipe from '../../components/Recipe';
 
 function Home(): React.Node {
   const [data, setData] = useState([]);
+  const navigate = useNavigate();
+
+  const routeChange = (item) => {
+    const index = filedjson.indexOf(item);
+    navigate('/${index}');
+  };
 
   useEffect(() => {
     async function fetchData() {
@@ -21,30 +27,14 @@ function Home(): React.Node {
     fetchData();
   }, []);
 
-  // function selectedRecipe(item) {
-  //   const navigate = useNavigate();
-  //   const { item } = useParams();
-  // }
-
-  // return (
-  //   <>
-  //     <h1>Recommended Recipes</h1>
-  //     <section className="recipes">
-  //       <button onClick={() => selectedRecipe(item)}>
-  //         {data.map((item) => (
-  //           <Recipe key={item.name} details={item} />
-  //         ))}
-  //       </button>
-  //     </section>
-  //   </>
-  // );
-
   return (
     <>
       <h1>Recommended Recipes</h1>
       <section className="recipes">
         {data.map((item) => (
-          <Recipe key={item.name} details={item} />
+          <button type="button" onClick={routeChange()}>
+            <Recipe key={item.name} details={item} />
+          </button>
         ))}
       </section>
     </>

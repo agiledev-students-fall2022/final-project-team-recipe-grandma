@@ -4,7 +4,6 @@ import data from '../../temp_recipedata.json';
 import './RecipeInDetail.css';
 
 function OnePageRecipeInDetail(): React.Node {
-  // const navigate = useNavigate();
   const { recipeindex } = useParams();
 
   return (
