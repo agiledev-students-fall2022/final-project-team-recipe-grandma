@@ -1,39 +1,32 @@
-import axios from 'axios';
 import * as React from 'react';
-import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-// import Recipe from '../../components/RecipeInDetail';
-/* eslint-disable react/jsx-props-no-spreading */
+import data from '../../temp_recipedata.json';
+import './RecipeInDetail.css';
 
-function RecipeInDetail(): React.Node {
+function OnePageRecipeInDetail(): React.Node {
   // const navigate = useNavigate();
   const { recipeindex } = useParams();
-  const [data, setData] = useState([]);
-
-  useEffect(() => {
-    async function fetchData() {
-      const result = await axios(
-        'https://raw.githubusercontent.com/raywenderlich/recipes/master/Recipes.json',
-      );
-      console.log(result.json());
-      setData(result.data);
-    }
-    fetchData();
-  }, [data]);
 
   return (
-    <>
-      {/* <h1></h1> */}
-      <section className="recipes">
-        {recipeindex}
-        {/* <Recipe
-          {...data[recipeindex].ingredients}
-          {...data[recipeindex].steps}
-          {...data[recipeindex].imageURL}
-        /> */}
-      </section>
-    </>
+    <article className="a_recipe_in_detail">
+      <h3>{data[recipeindex].name}</h3>
+      <img src={data[recipeindex].imageURL} className="centerImage" alt="RecipeImage" />
+      <h4>Ingredients</h4>
+      {
+      data[recipeindex].ingredients.map((ing) => (
+        <p>
+          {ing.name}
+          &nbsp;
+          -
+          &nbsp;
+          {ing.quantity}
+        </p>
+      ))
+      }
+      <h4>Steps</h4>
+      <h5>{data[recipeindex].steps}</h5>
+    </article>
   );
 }
 
-export default RecipeInDetail;
+export default OnePageRecipeInDetail;
