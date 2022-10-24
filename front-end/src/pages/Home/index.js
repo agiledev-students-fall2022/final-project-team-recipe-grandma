@@ -2,6 +2,7 @@ import axios from 'axios';
 
 import * as React from 'react';
 import { useState, useEffect } from 'react';
+// import { useNavigate, useParams } from 'react-router-dom';
 
 import Recipe from '../../components/Recipe';
 
@@ -19,6 +20,25 @@ function Home(): React.Node {
     }
     fetchData();
   }, []);
+
+  // function selectedRecipe(item) {
+  //   const navigate = useNavigate();
+  //   const { item } = useParams();
+  // }
+
+  // return (
+  //   <>
+  //     <h1>Recommended Recipes</h1>
+  //     <section className="recipes">
+  //       <button onClick={() => selectedRecipe(item)}>
+  //         {data.map((item) => (
+  //           <Recipe key={item.name} details={item} />
+  //         ))}
+  //       </button>
+  //     </section>
+  //   </>
+  // );
+
   return (
     <>
       <h1>Recommended Recipes</h1>
