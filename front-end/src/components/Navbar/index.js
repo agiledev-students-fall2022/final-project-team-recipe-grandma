@@ -22,7 +22,7 @@ function Navbar(): React.Node {
             <a href="/"><img className="logo" src="http://placekitten.com/40/40" alt="Placeholder img of kitten" /></a>
           </div>
           <div className="back-btn-container">
-            <CustomButton text="Back" onAction={goBack} />
+            <CustomButton className="back-btn" text="Back" onAction={goBack} />
           </div>
         </div>
         <ul>
