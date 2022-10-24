@@ -2,7 +2,7 @@ import './IngredientsList.css';
 import * as React from 'react';
 
 type Props = $ReadOnly<{|
-  ingredients: Array<Ingredient>,
+  ingredients: Array<string>,
   onAction: (ingredient: int) => void
 |}>;
 
