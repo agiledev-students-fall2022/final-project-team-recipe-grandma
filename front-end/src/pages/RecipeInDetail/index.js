@@ -25,6 +25,7 @@ function RecipeInDetail(): React.Node {
     <>
       {/* <h1></h1> */}
       <section className="recipes">
+        {recipeindex}
         <Recipe
           {...data[recipeindex].ingredients}
           {...data[recipeindex].steps}
