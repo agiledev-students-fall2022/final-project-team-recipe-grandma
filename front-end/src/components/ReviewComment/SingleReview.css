@@ -1,0 +1,32 @@
+.review{
+    padding: 10px;
+    box-sizing: border-box;
+    border: 3px solid rgb(5, 5, 5);
+}
+.body{
+ font-size : 14px;
+ font-weight : normal;
+ text-transform: lowercase;
+ text-decoration: none;
+ margin-bottom:1px;
+ margin-left: 2px;
+}
+
+.body:first-letter{
+    text-transform:capitalize;
+}
+
+.username{
+    margin-bottom:1px;
+}
+
+.stars{
+    display: inline-block;
+    margin: auto;
+}
+
+.time{
+    font-weight : normal;
+    margin-left: 2px;
+}
+
