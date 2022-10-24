@@ -3,7 +3,7 @@ import './IngredientsList.css';
 import * as React from 'react';
 
 function IngredientsList(): React.Node {
-  const initialState = ['apple', 'peach'];
+  const initialState = ['apple','peach','orange'];
   // var noIngredients = false;
   const [state, setState] = useState(initialState);
 
