@@ -15,22 +15,23 @@ function IngredientsList(): React.Node {
   }
 
   return (
-    <ul className="list-group">
-      {state.map((item, i) => 
-      state.length === 0 ? (
-        <li className="empty-list">input your ingredients</li>
-      ) : (
-        <li className="list-group-item">
-          <div className="list-box">
-            <p className="left">{item}</p>
-            <button type="button" className="right" onClick={() => removeItem(i)}>
-              remove
-            </button>
-            <div className="clear"></div>
-          </div>
-        </li>
-      ))}
-    </ul>
+    <div>
+      <h4>Added Ingredients List</h4>
+    
+      <ul className="list-group">
+        {state.map((item, i) => 
+          <li className="list-group-item">
+            <div className="list-box">
+              <p className="left">{item}</p>
+              <button type="button" className="right" onClick={() => removeItem(i)}>
+                remove
+              </button>
+              <div className="clear"></div>
+            </div>
+          </li>
+        )}
+      </ul>
+    </div>
   );
 }
 
