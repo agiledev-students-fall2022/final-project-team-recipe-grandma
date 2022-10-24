@@ -18,7 +18,7 @@ type Props = $ReadOnly<{|
 
 function RecipeInDetail(props: Props): React.Node {
   const { details } = props;
-  return (
+  return details.ingredients ?? (
     <article className="a_recipe_in_detail">
       <h3>{details.name}</h3>
       <img src={details.imageURL} className="centerImage" alt="RecipeImage" />
