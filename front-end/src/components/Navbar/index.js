@@ -6,7 +6,7 @@ import {
 import Home from '../../pages/Home';
 import SearchIngredients from '../../pages/SearchIngredients';
 import RecipeInDetail from '../../pages/RecipeInDetail';
-import Button from '../Button';
+import CustomButton from '../Button';
 import './Navbar.css';
 
 function Navbar(): React.Node {
@@ -18,7 +18,7 @@ function Navbar(): React.Node {
     <>
       <nav>
         <a href="/"><img className="logo" src="http://placekitten.com/40/40" alt="Placeholder img of kitten" /></a>
-        <Button text="Back" onAction={goBack} />
+        <CustomButton text="Back" onAction={goBack} />
         <ul>
           <li><Link to="/">Home</Link></li>
           <li><Link to="/search-ingredient">Search</Link></li>
