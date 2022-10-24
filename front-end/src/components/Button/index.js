@@ -5,7 +5,7 @@ type Props = $ReadOnly<{|
   text: string
 |}>;
 
-function Button(props: Props): React.Node {
+function CustomButton(props: Props): React.Node {
   const { onAction, text } = props;
   return (
     <button
@@ -17,4 +17,4 @@ function Button(props: Props): React.Node {
   );
 }
 
-export default Button;
+export default CustomButton;
