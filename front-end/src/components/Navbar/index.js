@@ -19,10 +19,10 @@ function Navbar(): React.Node {
       <nav>
         <div className="navbar-container">
           <div className="logo-container">
-            <a href="/" className="logo-link"><img className="logo" src="http://placekitten.com/40/40" alt="Placeholder img of kitten" /></a>
+            <a href="/"><img className="logo" src="http://placekitten.com/40/40" alt="Placeholder img of kitten" /></a>
           </div>
           <div className="back-btn-container">
-            <CustomButton className="back-btn" text="Back" onAction={goBack} />
+            <CustomButton text="Back" onAction={goBack} />
           </div>
         </div>
         <ul>
