@@ -17,8 +17,14 @@ function Navbar(): React.Node {
   return (
     <>
       <nav>
-        <a href="/"><img className="logo" src="http://placekitten.com/40/40" alt="Placeholder img of kitten" /></a>
-        <CustomButton text="Back" onAction={goBack} />
+        <div className="navbar-container">
+          <div className="logo-container">
+            <a href="/" className="logo-link"><img className="logo" src="http://placekitten.com/40/40" alt="Placeholder img of kitten" /></a>
+          </div>
+          <div className="back-btn-container">
+            <CustomButton className="back-btn" text="Back" onAction={goBack} />
+          </div>
+        </div>
         <ul>
           <li><Link to="/">Home</Link></li>
           <li><Link to="/search-ingredient">Search</Link></li>
