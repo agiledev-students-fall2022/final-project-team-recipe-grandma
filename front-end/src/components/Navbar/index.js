@@ -23,6 +23,9 @@ function Navbar(): React.Node {
         <Route path="/" element={<Home />} />
         <Route path="/a-recipe-in-detail" element={<RecipeInDetail />} />
       </Routes>
+      <Routes>
+        <Route path="/a-recipe-in-detail/:recipe" element={<RecipeInDetail />} />
+      </Routes>
     </>
   );
 }
