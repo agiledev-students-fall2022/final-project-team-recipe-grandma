@@ -26,10 +26,6 @@ function Navbar(): React.Node {
             <CustomButton className="back-btn" text="Back" onAction={goBack} />
           </div>
         </div>
-        <ul>
-          <li><Link to="/">Home</Link></li>
-          <li><Link to="/search-ingredient">Search</Link></li>
-        </ul>
       </nav>
       <Routes>
         <Route path="/" element={<Home />} />
