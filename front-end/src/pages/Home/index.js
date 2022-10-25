@@ -1,14 +1,11 @@
 // import { useState, useEffect } from 'react';
 // import axios from 'axios';
 import * as React from 'react';
-import {
-  useNavigate, Route, Routes,
-} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 // fetched all data from the API below into a file: '../../temp_recipedata.json'
 import data from '../../temp_recipedata.json';
 import Recipe from '../../components/Recipe';
-import CustomButton from '../../components/Button';
-import SearchIngredients from '../SearchIngredients';
+import CustomButton from '../../components/CustomButton';
 
 import '../../components/Recipe/aRecipeButtonStyle.css';
 import './Home.css';
@@ -36,19 +33,11 @@ function Home(): React.Node {
     <>
       <CustomButton className="search-btn" text="Search for ingredients" onAction={goToSearchPage} />
       {/* <h1>Recommended Recipes</h1> */}
-      <section className="recipes">
-        {data.map((item) => (
-          <article className="aRecipeButton">
-            <button type="button" onClick={() => navigate(`/${item.index}`)}>
-              <Recipe key={item.name} details={item} />
-            </button>
-          </article>
+      <section className="recipes row">
+        {data.map((item, ind) => (
+          <Recipe key={ind} details={item} onClick={() => navigate(`recipe/${ind}`)} />
         ))}
       </section>
-
-      <Routes>
-        <Route path="/search-ingredient" element={<SearchIngredients />} />
-      </Routes>
     </>
   );
 }
