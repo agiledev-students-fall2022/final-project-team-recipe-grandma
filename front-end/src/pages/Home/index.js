@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 // fetched all data from the API below into a file: '../../temp_recipedata.json'
 import data from '../../temp_recipedata.json';
 import Recipe from '../../components/Recipe';
-import CustomButton from '../../components/Button';
+import CustomButton from '../../components/CustomButton';
 
 import '../../components/Recipe/aRecipeButtonStyle.css';
 import './Home.css';
@@ -33,13 +33,9 @@ function Home(): React.Node {
     <>
       <CustomButton className="search-btn" text="Search for ingredients" onAction={goToSearchPage} />
       {/* <h1>Recommended Recipes</h1> */}
-      <section className="recipes">
+      <section className="recipes row">
         {data.map((item, ind) => (
-          <article key={ind} className="aRecipeButton">
-            <button type="button" onClick={() => navigate(`/${item.index}`)}>
-              <Recipe key={item.name} details={item} />
-            </button>
-          </article>
+          <Recipe key={ind} details={item} onClick={() => navigate(`recipe/${ind}`)} />
         ))}
       </section>
     </>
