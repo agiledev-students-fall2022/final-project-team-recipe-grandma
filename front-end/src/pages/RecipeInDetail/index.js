@@ -15,8 +15,8 @@ function RecipeInDetailPage(): React.Node {
       <img src={data[recipeindex].imageURL} className="centerImage" alt="RecipeImage" />
       <h4>Ingredients</h4>
       {
-      data[recipeindex].ingredients.map((ing) => (
-        <p>
+      data[recipeindex].ingredients.map((ing, i) => (
+        <p key={i}>
           {ing.name}
           &nbsp;
           -
