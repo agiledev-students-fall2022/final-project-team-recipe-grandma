@@ -18,7 +18,7 @@ function SingleReview(props: Props): React.Node {
   return (
     <article className="review">
       <h3 className="username">{review.username}</h3>
-      {[...Array(review.stars)].map(() => (<h6 className="stars">⭐</h6>))}
+      {[...Array(review.stars)].map((item, i) => (<h6 key={i} className="stars">⭐</h6>))}
       <h4 className="body">{review.body}</h4>
       <h5 className="time">{review.createdAt}</h5>
     </article>
