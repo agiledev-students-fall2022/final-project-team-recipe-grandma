@@ -26,7 +26,7 @@ function Home(): React.Node {
 
   return (
     <>
-      <h1>Recommended Recipes</h1>
+      {/* <h1>Recommended Recipes</h1> */}
       <section className="recipes">
         {data.map((item) => (
           <article className="aRecipeButton">
