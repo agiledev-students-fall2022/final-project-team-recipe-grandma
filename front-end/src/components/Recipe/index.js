@@ -20,7 +20,7 @@ type Props = $ReadOnly<{|
 function Recipe(props: Props): React.Node {
   const { details } = props;
   return (
-    <article className="recipe">
+    <div className="recipe container col-12">
       <h3>{details.name}</h3>
       {/* <h4>Ingredients</h4> */}
       {
@@ -37,7 +37,7 @@ function Recipe(props: Props): React.Node {
       {/* <h4>Steps</h4>
       <h5>{details.steps}</h5>
       <img src={details.imageURL} alt="RecipeImage" /> */}
-    </article>
+    </div>
   );
 }
 
