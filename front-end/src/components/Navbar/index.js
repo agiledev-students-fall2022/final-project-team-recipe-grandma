@@ -3,10 +3,11 @@ import {
   Route, Routes, Link, useNavigate,
 } from 'react-router-dom';
 
+import CustomButton from '../Button';
 import Home from '../../pages/Home';
 import RecipeInDetail from '../../pages/RecipeInDetail';
 import ReviewPage from '../../pages/ReviewPage/ReviewPage';
-import CustomButton from '../Button';
+import SearchIngredients from '../../pages/SearchIngredients';
 import './Navbar.css';
 
 function Navbar(): React.Node {
@@ -30,6 +31,7 @@ function Navbar(): React.Node {
         <Route path="/" element={<Home />} />
         <Route path="/:recipeindex" element={<RecipeInDetail />} />
         <Route path="/:recipeindex/review" element={<ReviewPage />} />
+        <Route path="/search-ingredient" element={<SearchIngredients />} />
       </Routes>
     </>
   );
