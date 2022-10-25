@@ -14,6 +14,9 @@ function Navbar(): React.Node {
   const navigate = useNavigate();
   const goBack = () => {
     navigate(-1);
+  const toReview = () => {
+    navigate(`/review`);
+  }
   };
   return (
     <>
