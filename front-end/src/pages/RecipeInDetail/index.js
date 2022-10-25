@@ -1,9 +1,8 @@
 import * as React from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import data from '../../temp_recipedata.json';
 import './RecipeInDetail.css';
-import './ReviewButton.css';
-import { useNavigate } from 'react-router-dom';
+// import './ReviewButton.css';
 
 function OnePageRecipeInDetail(): React.Node {
   // const navigate = useNavigate();
@@ -30,7 +29,7 @@ function OnePageRecipeInDetail(): React.Node {
       <h5>{data[recipeindex].steps}</h5>
 
       <article className="ReviewButton">
-        <button type="button" onClick={() => navigate('/review')}>
+        <button type="button" onClick={() => navigate(`/${recipeindex}/review`)}>
           Review
         </button>
       </article>
