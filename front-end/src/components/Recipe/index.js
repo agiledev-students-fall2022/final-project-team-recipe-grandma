@@ -9,6 +9,7 @@ type Ingredient = $ReadOnly<{|
 
 type Props = $ReadOnly<{|
   details: {
+    index: number,
     name: string,
     ingredients: Array<Ingredient>,
     steps: Array<string>,
