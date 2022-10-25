@@ -24,8 +24,8 @@ function Recipe(props: Props): React.Node {
       <h3>{details.name}</h3>
       {/* <h4>Ingredients</h4> */}
       {
-      details.ingredients.map((ing) => (
-        <p>
+      details.ingredients.map((ing, ind) => (
+        <p key={ind}>
           {ing.name}
           &nbsp;
           -
