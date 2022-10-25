@@ -4,7 +4,6 @@ import {
 } from 'react-router-dom';
 
 import Home from '../../pages/Home';
-import SearchIngredients from '../../pages/SearchIngredients';
 import RecipeInDetail from '../../pages/RecipeInDetail';
 import ReviewPage from '../../pages/ReviewPage/ReviewPage';
 import CustomButton from '../Button';
@@ -29,12 +28,7 @@ function Navbar(): React.Node {
       </nav>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/search-ingredient" element={<SearchIngredients />} />
-      </Routes>
-      <Routes>
         <Route path="/:recipeindex" element={<RecipeInDetail />} />
-      </Routes>
-      <Routes>
         <Route path="/:recipeindex/review" element={<ReviewPage />} />
       </Routes>
     </>
