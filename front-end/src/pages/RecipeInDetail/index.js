@@ -4,7 +4,7 @@ import data from '../../temp_recipedata.json';
 import './RecipeInDetail.css';
 // import './ReviewButton.css';
 
-function OnePageRecipeInDetail(): React.Node {
+function RecipeInDetailPage(): React.Node {
   // const navigate = useNavigate();
   const { recipeindex } = useParams();
   const navigate = useNavigate();
@@ -37,4 +37,4 @@ function OnePageRecipeInDetail(): React.Node {
   );
 }
 
-export default OnePageRecipeInDetail;
+export default RecipeInDetailPage;
