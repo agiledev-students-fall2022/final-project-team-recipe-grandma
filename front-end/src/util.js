@@ -10,6 +10,7 @@ async function fetchRecipeData(callback: CallbackType) {
     // Back-up from Mock if API is down
     result = await axios('https://raw.githubusercontent.com/raywenderlich/recipes/master/Recipes.json');
   }
+  console.log(result);
   if (result && Array.isArray(result.data)) {
     callback(result.data);
   }

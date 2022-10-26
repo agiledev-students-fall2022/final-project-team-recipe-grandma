@@ -21,6 +21,7 @@ function Home(): React.Node {
     <>
       {/* <h1>Recommended Recipes</h1> */}
       <section className="recipes container-fluid row justify-content-center">
+        <h1 className="mb-5"><strong>Select Your Recipes</strong></h1>
         {data.length > 0 ? data.map((item, ind) => (
           <Recipe key={ind} details={item} onAction={() => navigate(`recipe/${ind}`)} />
         )) : StringConfig.API_FAILURE_WARNING}
