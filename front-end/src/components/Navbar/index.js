@@ -11,17 +11,32 @@ import './Navbar.css';
 function Navbar(): React.Node {
   return (
     <>
-      <nav>
-        <div className="navbar-container">
-          <div className="logo-container">
-            <Link to="/"><img className="logo" src="http://placekitten.com/40/40" alt="Placeholder img of kitten" /></Link>
-          </div>
+      <nav className="navbar navbar-expand-lg navbar-light">
+        <div className="container-fluid">
+          <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
+            <span className="navbar-toggler-icon" />
+          </button>
+          <Link className="navbar-brand mx-auto" to="/"><img src="http://placekitten.com/40/40" alt="" className="logo" /></Link>
+        </div>
+        <div className="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+            <li className="nav-item">
+              <Link className="nav-link" to="/search-ingredient">Search</Link>
+            </li>
+          </ul>
         </div>
       </nav>
+      {/* <nav className="">
+        <div className="navbar-container">
+          <div className="logo-container">
+            <Link className="nav-link" to="/"><img className="logo" src="http://placekitten.com/40/40" alt="Placeholder img of kitten" /></Link>
+          </div>
+        </div>
+      </nav> */}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/recipe/:recipeindex" element={<RecipeInDetail />} />
-        <Route path="/:recipeindex/review" element={<ReviewPage />} />
+        <Route path="/recipe/:recipeindex/review/" element={<ReviewPage />} />
         <Route path="/search-ingredient" element={<SearchIngredients />} />
       </Routes>
     </>
