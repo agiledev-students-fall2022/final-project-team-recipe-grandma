@@ -32,7 +32,7 @@ function RecipeInDetailPage(): React.Node {
   ) : null;
 
   return (
-    <article className="a_recipe_in_detail">
+    <article className="a_recipe_in_detail mb-5">
       {/* Back button currently not viewable due to CSS. Also should be in navbar */}
       <div className="back-btn-container">
         <CustomButton className="back-btn" text="Back" onAction={goBack} />
