@@ -37,9 +37,12 @@ function SearchBar(prop: Props): React.Node {
     switch (key) {
       case 'ArrowDown':
         nextIndexCount = (focusedIndex + 1) % filteredValues.length;
+        setSearchBarValue(filteredValues[nextIndexCount].name);
+
         break;
       case 'ArrowUp':
         nextIndexCount = (focusedIndex - 1) % filteredValues.length;
+        setSearchBarValue(filteredValues[nextIndexCount].name);
         break;
       case 'Enter':
         setSearchBarValue(filteredValues[focusedIndex].name);
@@ -65,12 +68,6 @@ function SearchBar(prop: Props): React.Node {
     ));
     setFilteredValues(newFilteredValues);
   };
-
-  // const handleKeyPress = (ev) => {
-  //   if (ev.key === 'Enter') {
-  //     onAction(searchBarValue);
-  //   }
-  // };
 
   const setupOptions = (info) => {
     setData(info);
