@@ -1,10 +1,11 @@
 import React from 'react';
+import Upload from 
 
 function UserUpload(): React.Node {
-  console.log('lol');
   return (
-    <h1>hellowhhhhhhhhhhhhhhh</h1>
-
+    <div className="UserUpload">
+      <Upload />
+    </div>
   );
 }
 
