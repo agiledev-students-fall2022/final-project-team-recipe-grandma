@@ -1,11 +1,11 @@
 /* styles for eaach recipe article */
 .recipe {
-    margin: 20px;
-    padding: 20px;
-    box-sizing: border-box;
+    margin-bottom: 20px;
+    padding: 0;
+    /* box-sizing: border-box;
     border: 3px solid rgb(5, 5, 5);
+    border-radius: 1em; */
     /* box-shadow: 5px 5px 5px; */
-    pointer-events: none;
     cursor: pointer;
   }
   

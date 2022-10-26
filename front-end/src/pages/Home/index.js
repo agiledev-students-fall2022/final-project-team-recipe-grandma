@@ -1,42 +1,29 @@
-// import { useState, useEffect } from 'react';
-// import axios from 'axios';
+import { useState, useEffect } from 'react';
 import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
 // fetched all data from the API below into a file: '../../temp_recipedata.json'
-import data from '../../temp_recipedata.json';
 import Recipe from '../../components/Recipe';
-import CustomButton from '../../components/CustomButton';
-
+import StringConfig from '../../StringConfig';
 import '../../components/Recipe/aRecipeButtonStyle.css';
 import './Home.css';
+import * as Util from '../../util';
 
 function Home(): React.Node {
-  // const [data, setData] = useState([]);
+  const [data, setData] = useState([]);
 
-  // useEffect(() => {
-  //   async function fetchData() {
-  //     const result = await axios(
-  //       'https://raw.githubusercontent.com/raywenderlich/recipes/master/Recipes.json',
-  //     );
-  //     setData(result.data);
-  //   }
-  //   fetchData();
-  // }, []);
+  useEffect(() => {
+    Util.fetchRecipeData(setData);
+  }, []);
 
   const navigate = useNavigate();
 
-  const goToSearchPage = () => {
-    navigate('/search-ingredient');
-  };
-
   return (
     <>
-      <CustomButton className="search-btn" text="Search for ingredients" onAction={goToSearchPage} />
       {/* <h1>Recommended Recipes</h1> */}
-      <section className="recipes row">
-        {data.map((item, ind) => (
-          <Recipe key={ind} details={item} onClick={() => navigate(`recipe/${ind}`)} />
-        ))}
+      <section className="recipes container-fluid row justify-content-center">
+        {data.length > 0 ? data.map((item, ind) => (
+          <Recipe key={ind} details={item} onAction={() => navigate(`recipe/${ind}`)} />
+        )) : StringConfig.API_FAILURE_WARNING}
       </section>
     </>
   );
