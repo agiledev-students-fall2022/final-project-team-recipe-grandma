@@ -68,7 +68,7 @@ function RecipeDetails(props: Props): React.Node {
       </div>
 
       <RGButton
-        onAction={() => navigate(`/review/${recipeIndex}`)}
+        onAction={() => navigate(`/recipe/${recipeIndex}/review`)}
         text="Review"
       />
     </div>
