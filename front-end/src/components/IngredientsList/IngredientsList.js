@@ -13,7 +13,7 @@ function IngredientsList(prop: Props): React.Node {
 
   return (
     <div>
-      <h4>Added Ingredients List</h4>
+      <h3>Added Ingredients List</h3>
       <ul className="list-group">
         {ingredients.map((item, i) => (
           <IngredientListItem key={i} text={item} onAction={() => onAction(i)} />
