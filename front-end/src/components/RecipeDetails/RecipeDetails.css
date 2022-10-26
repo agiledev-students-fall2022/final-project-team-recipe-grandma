@@ -1,0 +1,8 @@
+.recipe-detail-image {
+  width: 100%;
+}
+
+.recipe-content h5, .recipe-content h4 {
+  text-decoration: none;
+  font-weight: bold;
+}
