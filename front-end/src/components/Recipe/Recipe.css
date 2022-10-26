@@ -7,11 +7,13 @@
     border-radius: 1em; */
     /* box-shadow: 5px 5px 5px; */
     cursor: pointer;
+    transition: 0.5s ease-in-out;
+    box-shadow: 3px 5px 10px rgba(0,0,0,0.2);
   }
   
   .recipe:hover {
-    background-color: black;
-    color: #909090;
+    background-color: gold;
+    color: white;
   }
   
   h4 {
