@@ -6,7 +6,9 @@ import Home from '../../pages/Home';
 import RecipeInDetail from '../../pages/RecipeInDetail';
 import ReviewPage from '../../pages/ReviewPage/ReviewPage';
 import SearchIngredients from '../../pages/SearchIngredients';
+import UserUpload from '../../pages/UserUpload';
 import LogInPage from '../../pages/LogInPage/LogInPage';
+
 import './Navbar.css';
 import Register from '../Register/Register';
 
@@ -46,6 +48,7 @@ function Navbar(): React.Node {
         <Route path="/recipe/:recipeindex" element={<RecipeInDetail />} />
         <Route path="/recipe/:recipeindex/review/" element={<ReviewPage />} />
         <Route path="/search-ingredient" element={<SearchIngredients />} />
+        <Route path="/user-upload" element={<UserUpload />} />
         <Route path="/login" element={<LogInPage />} />
         <Route path="/register" element={<Register />} />
       </Routes>
