@@ -1,5 +1,5 @@
 /* styles for eaach recipe article */
-.a_recipe_in_detail {
+.a_recipe_in_detail div.recipe-content{
     margin: 20px;
     padding: 20px;
     box-sizing: border-box;
@@ -24,4 +24,11 @@ h5 {
     margin-left: auto;
     margin-right: auto;
     width: 30%;  
+}
+
+.back-btn-container{
+    display: block;
+    margin-top: -85px;
+    margin-bottom: 50px;
+    width: fit-content;
 }
