@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+const ingredientData = require('./ingredients_backup.json');
+
 type CallbackType = (p1: Array) => void;
 
 async function fetchRecipeData(callback: CallbackType) {
@@ -16,7 +18,23 @@ async function fetchRecipeData(callback: CallbackType) {
   }
 }
 
-export { fetchRecipeData };
+async function fetchIngredientData(callback: CallbackType) {
+  const result = await axios(
+    'https://recipegrandma.free.beeceptor.com/ingredients',
+  ).catch((err) => console.log(err.message));
+  console.log('Ingredient result', result);
+  if (result && Array.isArray(result.data)) {
+    callback(result.data);
+  } else {
+    console.log(ingredientData.data);
+    callback(ingredientData.data);
+  }
+}
+
+export {
+  fetchRecipeData,
+  fetchIngredientData,
+};
 export default {
   fetchRecipeData,
 };
