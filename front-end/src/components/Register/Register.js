@@ -1,14 +1,15 @@
 import * as React from 'react';
 import { useState } from 'react';
 import RGButton from '../RGButton';
-import './LogIn.css';
+import './Register.css';
 
-function LogIn(): React.Node {
+function Register(): React.Node {
   const [usernameText, setUsernameText] = useState('');
   // For a more secure approach, you could hash here & on the backend
   const [passwordText, setPasswordText] = useState('');
+  const [confirmedPasswordText, setConfirmedPasswordText] = useState('');
 
-  console.log(usernameText, passwordText);
+  console.log(usernameText, passwordText, confirmedPasswordText);
 
   return (
     <div className="LogInFormContainer">
@@ -29,16 +30,22 @@ function LogIn(): React.Node {
             onChange={(ev) => setPasswordText(ev.target.value)}
           />
         </div>
-        <div className="button">
-          <RGButton
-            text="Submit"
-            onAction={() => false}
-            width="auto"
+        <h2 className="confirmedPassword">Password</h2>
+        <div className="confirmedPasswordInput">
+          <input
+            type="password"
+            placeholder="Enter password again"
+            onChange={(ev) => setConfirmedPasswordText(ev.target.value)}
           />
         </div>
+        <RGButton
+          text="Submit"
+          onAction={() => false}
+          width="auto"
+        />
       </form>
     </div>
   );
 }
 
-export default LogIn;
+export default Register;
