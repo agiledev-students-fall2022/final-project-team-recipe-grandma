@@ -124,7 +124,13 @@ function SearchBar(prop: Props): React.Node {
           </div>
         ) : null}
       </div>
-      <button type="button" className="search-button" onClick={() => onAction(searchBarValue)}>add</button>
+      {/* <button
+        type="button"
+        className="search-button"
+        onClick={() => onAction(searchBarValue)}
+      >
+        add
+      </button> */}
     </div>
   );
 }
