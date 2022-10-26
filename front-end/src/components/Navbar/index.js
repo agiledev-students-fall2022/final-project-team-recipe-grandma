@@ -7,6 +7,8 @@ import RecipeInDetail from '../../pages/RecipeInDetail';
 import ReviewPage from '../../pages/ReviewPage/ReviewPage';
 import SearchIngredients from '../../pages/SearchIngredients';
 import UserUpload from '../../pages/UserUpload';
+import LogInPage from '../../pages/LogInPage/LogInPage';
+
 import './Navbar.css';
 
 function Navbar(): React.Node {
