@@ -1,7 +1,6 @@
 import axios from 'axios';
 
 const ingredientData = require('./ingredients_backup.json');
-const reviewData = require('./backup_reviews.json');
 
 type CallbackType = (p1: Array) => void;
 
@@ -31,14 +30,15 @@ async function fetchIngredientData(callback: CallbackType) {
 }
 
 async function fetchReviewData(callback: CallbackType) {
-  const result = await axios(
+  let result = await axios(
     'https://recipegrandma.free.beeceptor.com/recipe/0/review',
   ).catch((err) => console.log(err.message));
   if (result && Array.isArray(result.data)) {
     console.log('Got review data', result.data);
     callback(result.data);
   } else {
-    callback(reviewData.data);
+    result = await axios('https://raw.githubusercontent.com/geontackee/sample_reviews/main/Reviews.json');
+    callback(result.data);
   }
 }
 
