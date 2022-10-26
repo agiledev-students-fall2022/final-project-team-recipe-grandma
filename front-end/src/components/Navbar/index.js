@@ -36,7 +36,7 @@ function Navbar(): React.Node {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/recipe/:recipeindex" element={<RecipeInDetail />} />
-        <Route path="/:recipeindex/review" element={<ReviewPage />} />
+        <Route path="/review/:recipeindex" element={<ReviewPage />} />
         <Route path="/search-ingredient" element={<SearchIngredients />} />
       </Routes>
     </>
