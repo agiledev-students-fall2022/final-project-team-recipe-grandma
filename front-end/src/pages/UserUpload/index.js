@@ -1,10 +1,14 @@
 import React from 'react';
-import Upload from 
+import './UserUpload.css';
 
 function UserUpload(): React.Node {
   return (
     <div className="UserUpload">
-      <Upload />
+      <img
+        className="profile-pic"
+        src="https://picsum.photos/seed/picsum/200/300"
+        alt=""
+      />
     </div>
   );
 }
