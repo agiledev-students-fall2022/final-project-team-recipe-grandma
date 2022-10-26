@@ -1,10 +1,8 @@
 .navbar-container{
-    display: flex;
     align-items: center;
+    overflow-x: auto;
     background-color: lightgray;
-    padding-top: 40px;
-    padding-bottom: 40px;
-    margin-bottom: 30px;
+    width: 100%;
 }
 
 .logo-container{
@@ -12,6 +10,7 @@
     position: absolute;
     width: 100%;
     justify-content: center;
+    z-index: -1;
 }
 
 .logo{
@@ -21,8 +20,10 @@
 }
 
 .back-btn-container{
-    position: relative;
+    position: fixed;
     padding-left: 30px;
+    top: 0;
+    left: 15px;
 }
 
 .back-btn{
@@ -32,4 +33,13 @@
     background-color: black;
     color: white;
     border-style: solid;
+}
+
+.navbar {
+    min-height: 50px;
+    margin-bottom: 10px;
+}
+
+.nav-item {
+    
 }

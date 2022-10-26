@@ -10,3 +10,8 @@
     border-style: white;
     cursor: pointer;
 }
+
+.recipes {
+    padding: 10px;
+    margin: auto;
+}
