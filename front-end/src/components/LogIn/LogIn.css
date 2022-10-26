@@ -1,0 +1,28 @@
+.LogInFormContainer{
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+}
+
+.LogInForm{
+    width: 420px;
+    box-shadow: rgb(0 0 0 / 16%) 1px 1px 10px;
+    padding-top: 30px;
+    padding-bottom: 20px;
+    border-radius: 8px;
+    background-color: white;
+    text-align: center;
+}
+
+.usernameInput{
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.passwordInput{
+    padding-top: 20px;
+    padding-bottom: 20px;
+}

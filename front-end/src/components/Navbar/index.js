@@ -24,6 +24,7 @@ function Navbar(): React.Node {
             <li className="nav-item">
               <Link className="nav-link" to="/search-ingredient">Search</Link>
               <Link className="nav-link" to="/user-upload">Uploads</Link>
+              <Link className="nav-link" to="/login">Log In</Link>
             </li>
           </ul>
         </div>
@@ -41,6 +42,7 @@ function Navbar(): React.Node {
         <Route path="/recipe/:recipeindex/review/" element={<ReviewPage />} />
         <Route path="/search-ingredient" element={<SearchIngredients />} />
         <Route path="/user-upload" element={<UserUpload />} />
+        <Route path="/login" element={<LogInPage />} />
       </Routes>
     </>
   );
