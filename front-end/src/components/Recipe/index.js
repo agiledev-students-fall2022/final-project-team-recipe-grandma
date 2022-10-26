@@ -14,30 +14,39 @@ type Props = $ReadOnly<{|
     ingredients: Array<Ingredient>,
     steps: Array<string>,
     imageURL: string
-  }
+  },
+  onAction: () => void
 |}>;
 
 function Recipe(props: Props): React.Node {
-  const { details } = props;
+  const {
+    details,
+    onAction,
+  } = props;
   return (
-    <div className="recipe container col-12">
-      <h3>{details.name}</h3>
-      {/* <h4>Ingredients</h4> */}
-      {
-      details.ingredients.map((ing, ind) => (
-        <p key={ind}>
-          {ing.name}
-          &nbsp;
-          -
-          &nbsp;
-          {ing.quantity}
+    <button
+      onClick={onAction}
+      type="button"
+      className="recipe container mx-auto col-md-5 col-12 d-flex card"
+    >
+      <img src={details.imageURL} alt="Recipe" className="card-img-top" />
+      <div className="card-body">
+        <h3 className="card-title">{details.name}</h3>
+        <p className="card-text">
+          {
+            details.ingredients.map((ing, ind) => (
+              <p key={ind}>
+                {ing.name}
+                &nbsp;
+                -
+                &nbsp;
+                {ing.quantity}
+              </p>
+            ))
+          }
         </p>
-      ))
-      }
-      {/* <h4>Steps</h4>
-      <h5>{details.steps}</h5>
-      <img src={details.imageURL} alt="RecipeImage" /> */}
-    </div>
+      </div>
+    </button>
   );
 }
 
