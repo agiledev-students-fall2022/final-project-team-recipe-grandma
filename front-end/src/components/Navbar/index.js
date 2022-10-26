@@ -8,6 +8,7 @@ import ReviewPage from '../../pages/ReviewPage/ReviewPage';
 import SearchIngredients from '../../pages/SearchIngredients';
 import LogInPage from '../../pages/LogInPage/LogInPage';
 import './Navbar.css';
+import Register from '../Register/Register';
 
 function Navbar(): React.Node {
   return (
@@ -23,7 +24,12 @@ function Navbar(): React.Node {
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
               <Link className="nav-link" to="/search-ingredient">Search</Link>
-              <Link className="nav-link" to="/login">Log In</Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/login">Login</Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/register">Register</Link>
             </li>
           </ul>
         </div>
@@ -41,6 +47,7 @@ function Navbar(): React.Node {
         <Route path="/recipe/:recipeindex/review/" element={<ReviewPage />} />
         <Route path="/search-ingredient" element={<SearchIngredients />} />
         <Route path="/login" element={<LogInPage />} />
+        <Route path="/register" element={<Register />} />
       </Routes>
     </>
   );
