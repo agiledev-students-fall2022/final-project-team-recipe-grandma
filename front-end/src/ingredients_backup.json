@@ -1,0 +1,308 @@
+{ 
+"data": [
+  {
+                  "name": " beef roast",
+                  "type": "Meat"
+              },
+              {
+                  "name": "brown gravy mix",
+                  "type": "Baking"
+              },
+              {
+                  "name": "dried Italian salad dressing mix",
+                  "type": "Condiments"
+              },
+              {
+                  "name": "dry ranch dressing mix",
+                  "type": "Condiments"
+              },
+              {
+                  "name": "water",
+                  "type": "Drinks"
+              },
+  {
+                  "name": " asparagus",
+                  "type": "Produce"
+              },
+              {
+                  "name": "olive oil",
+                  "type": "Condiments"
+              },
+              {
+                  "name": "kosher salt",
+                  "type": "Baking"
+              },
+  {
+                  "name": "beef broth",
+                  "type": "Misc"
+              },
+              {
+                  "name": "dried green lentils",
+                  "type": "Misc"
+              },
+              {
+                  "name": "basmati rice",
+                  "type": "Misc"
+              },
+              {
+                  "name": "curry powder",
+                  "type": "Condiments"
+              },
+              {
+                  "name": "salt",
+                  "type": "Condiments"
+              },
+  {
+                  "name": "yeast",
+                  "type": "Baking"
+              },
+              {
+                  "name": "flour",
+                  "type": "Baking"
+              },
+              {
+                  "name": "vegetable oil",
+                  "type": "Baking"
+              },
+              {
+                  "name": "sugar",
+                  "type": "Baking"
+              },
+              {
+                  "name": "salt",
+                  "type": "Baking"
+              },
+              {
+                  "name": "hot water",
+                  "type": "Misc"
+              },
+              {
+                  "name": "pizza sauce",
+                  "type": "Misc"
+              },
+              {
+                  "name": "mozzarella cheese",
+                  "type": "Dairy"
+              },
+              {
+                  "quantity": "2",
+                  "name": "acorn squash",
+                  "type": "Produce"
+              },
+              {
+                  "quantity": "1",
+                  "name": "boiling water",
+                  "type": "Drinks"
+              },
+              {
+                  "quantity": "2",
+                  "name": "apples chopped into 1.4 inch pieces",
+                  "type": "Produce"
+              },
+              {
+                  "quantity": "1/2 cup",
+                  "name": "dried cranberries",
+                  "type": "Produce"
+              },
+              {
+                  "quantity": "1 teaspoon",
+                  "name": "cinnamon",
+                  "type": "Baking"
+              },
+              {
+                  "quantity": "2 tablespoons",
+                  "name": "melted butter",
+                  "type": "Dairy"
+              },
+  {
+                  "quantity": "200g",
+                  "name": "plain flour",
+                  "type": "Baking"
+              },
+              {
+                  "quantity": "3",
+                  "name": "eggs",
+                  "type": "Dairy"
+              },
+              {
+                  "quantity": "300ml",
+                  "name": "milk",
+                  "type": "Dairy"
+              },
+              {
+                  "quantity": "3 tbsp",
+                  "name": "vegetable oil",
+                  "type": "Condiments"
+              },
+  {
+                  "quantity": "1 cup",
+                  "name": "raisins",
+                  "type": "Produce"
+              },
+              {
+                  "quantity": "1",
+                  "name": "cup water",
+                  "type": "Drinks"
+              },
+              {
+                  "quantity": "3/4 cup",
+                  "name": "shortening",
+                  "type": "Baking"
+              },
+              {
+                  "quantity": "1 1/2 cups",
+                  "name": "sugar",
+                  "type": "Baking"
+              },
+              {
+                  "quantity": "2 1/2 cups",
+                  "name": "flour",
+                  "type": "Baking"
+              },
+              {
+                  "quantity": "1 tsp.",
+                  "name": "soda",
+                  "type": "Baking"
+              },
+              {
+                  "quantity": "1 tsp.",
+                  "name": "salt",
+                  "type": "Baking"
+              },
+              {
+                  "quantity": "1 tsp.",
+                  "name": "cinnamon",
+                  "type": "Baking"
+              },
+              {
+                  "quantity": "1/2 tsp.",
+                  "name": "baking powder",
+                  "type": "Baking"
+              },
+              {
+                  "quantity": "1/2 tsp.",
+                  "name": "cloves",
+                  "type": "Baking"
+              },
+              {
+                  "quantity": "2 cups",
+                  "name": "oats",
+                  "type": "Baking"
+              },
+              {
+                  "quantity": "1/2 cup",
+                  "name": "chopped nuts",
+                  "type": "Baking"
+              },
+  {
+                  "quantity": "2-1/2 cups",
+                  "name": "rolled oats, (not instant)",
+                  "type": "Baking"
+              },
+              {
+                  "quantity": "1-1/4 cups",
+                  "name": "all-purpose flour",
+                  "type": "Baking"
+              },
+              {
+                  "quantity": "1 tbsp",
+                  "name": "grated orange rind",
+                  "type": "Produce"
+              },
+              {
+                  "quantity": "1/4 tsp",
+                  "name": "salt",
+                  "type": "Baking"
+              },
+              {
+                  "quantity": "1 cup",
+                  "name": "cold butter, cubed",
+                  "type": "Baking"
+              },
+              {
+                  "quantity": "3/4 cup",
+                  "name": "packed brown sugar",
+                  "type": "Baking"
+              },
+              {
+                  "quantity": "3 cups",
+                  "name": "fresh blueberries",
+                  "type": "Produce"
+              },
+              {
+                  "quantity": "1/2 cup",
+                  "name": "granulated sugar",
+                  "type": "Baking"
+              },
+              {
+                  "quantity": "1/3 cup",
+                  "name": "orange juice",
+                  "type": "Produce"
+              },
+              {
+                  "quantity": "4 tsp",
+                  "name": "cornstarch",
+                  "type": "Baking"
+              },
+  {
+                  "quantity": "3",
+                  "name": "skinless, boneless chicken breasts, halved lengthwise",
+                  "type": "Meat"
+              },
+              {
+                  "quantity": "1/2 cup",
+                  "name": "mayonnaise",
+                  "type": "Baking"
+              },
+              {
+                  "quantity": "1 tbsp",
+                  "name": "lemon zest",
+                  "type": "Produce"
+              },
+              {
+                  "quantity": "1 tbsp ",
+                  "name": "lemon juice",
+                  "type": "Produce"
+              },
+              {
+                  "quantity": "1 1/2 tsp",
+                  "name": "curry powder",
+                  "type": "Baking"
+              },
+              {
+                  "quantity": "1/4 tsp",
+                  "name": "salt",
+                  "type": "Baking"
+              },
+              {
+                  "quantity": "2",
+                  "name": "ripe mangoes, diced",
+                  "type": "Produce"
+              },
+              {
+                  "quantity": "1/4 cup",
+                  "name": "dried cranberries",
+                  "type": "Produce"
+              },
+              {
+                  "quantity": "2",
+                  "name": "green onions, thinly sliced",
+                  "type": "Produce"
+              },
+              {
+                  "quantity": "1",
+                  "name": "celery stalk, finely chopped",
+                  "type": "Produce"
+              },
+              {
+                  "quantity": "6 leaves",
+                  "name": "Boston lettuce",
+                  "type": "Produce"
+              },
+              {
+                  "quantity": "6",
+                  "name": "English muffins, toasted",
+                  "type": "Misc"
+              }
+  ]
+}
