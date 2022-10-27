@@ -1,6 +1,6 @@
 import React from 'react';
 import './UserUpload.css';
-import UserUpload from '../../pages/UserUpload';
+import UserUpload from '../../components/RecipeUpload';
 
 function UserUploadPage(): React.Node {
   return (
