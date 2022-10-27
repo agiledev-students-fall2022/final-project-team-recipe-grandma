@@ -13,8 +13,8 @@ function RecipeUpload(props: Props): React.Node {
   return (
     <article className="review container">
       <h2>{review.name}</h2>
-      <h3>{review.date}</h3>
       <img src={review.image} alt="" />
+      <h4>{review.date}</h4>
     </article>
   );
 }
