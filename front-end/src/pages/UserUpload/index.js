@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import * as React from 'react';
-import { useNavigate } from 'react-router-dom';
 import './UserUpload.css';
 import RecipeUpload from '../../components/RecipeUpload';
 import * as Util from '../../util';
@@ -8,11 +7,10 @@ import StringConfig from '../../StringConfig';
 
 function UserUpload(): React.Node {
   const [data, setData] = useState([]);
-  const navigate = useNavigate();
   useEffect(() => {
     Util.fetchMyRecipes(setData);
   }, []);
-
+  console.log(data);
   return (
     <div className="UserUpload">
       <img
@@ -21,8 +19,8 @@ function UserUpload(): React.Node {
         alt=""
       />
       <h1>My recipes</h1>
-      {data.length > 0 ? data.map((item, ind) => (
-        <RecipeUpload key={ind} details={item} onAction={() => navigate(`recipe/${ind}`)} />
+      {data.data.length > 0 ? data.data.map((item, i) => (
+        <RecipeUpload key={i} review={item} />
       )) : StringConfig.API_FAILURE_WARNING}
     </div>
   );
