@@ -28,6 +28,9 @@ function Navbar(): React.Node {
               <Link className="nav-link" to="/search-ingredient">Search</Link>
             </li>
             <li className="nav-item">
+              <Link className="nav-link" to="/user-upload">Upload</Link>
+            </li>
+            <li className="nav-item">
               <Link className="nav-link" to="/login">Login</Link>
             </li>
             <li className="nav-item">
