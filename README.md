@@ -35,9 +35,11 @@ This project came to be due to a recognized need amongst the group to be able to
 
 ## Project roles
 
-| Week | Scrum Master | Product Owner | Developers |
+| Sprint | Scrum Master | Product Owner | Developers |
 | ---- | ------------ | ------------- | ---------- |
-| Week 0 |Geon Tack|Yeonie|Jennifer, Mohammed, Oyungerel, Nghia|
+| Sprint 0 |Geon Tack|Yeonie|Jennifer, Mohammed, Oyungerel, Nghia|
+| Sprint 1 |Mohammed|Jennifer|Geon Tack, Yeonie, Oyungerel, Nighia|
+| Sprint 2 |Oyungerel|Nighia|Mohammed, Jennifer, Geon Tack, Yeonie|
 
 Each team will decide, using whatever decision-making process they prefer, on which two members will fill the initial roles of **Scrum Master** and **Product Owner**.
 
