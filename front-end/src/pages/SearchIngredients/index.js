@@ -64,7 +64,6 @@ function SearchIngredients(): React.Node {
         onAction={() => loadRecommendations()}
         width="auto"
       />
-      {data.length}
       <h5>Recommended Recipes</h5>
       {reccs.map((rec, ind) => (
         <Recipe key={ind} details={rec} onAction={() => navigate(`/recipe/${rec.originalIndex}`)} />
