@@ -1,8 +1,8 @@
 import React from 'react';
 import './UserUpload.css';
-import UserUpload from '../../components/RecipeUpload';
+import RecipeUpload from '../../components/RecipeUpload';
 
-function UserUploadPage(): React.Node {
+function UserUpload(): React.Node {
   return (
     <div className="UserUpload">
       <img
@@ -11,9 +11,9 @@ function UserUploadPage(): React.Node {
         alt=""
       />
       <h1>My recipes</h1>
-      <UserUpload />
+      <RecipeUpload />
     </div>
   );
 }
 
-export default UserUploadPage;
+export default UserUpload;
