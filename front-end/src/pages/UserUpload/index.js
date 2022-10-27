@@ -9,6 +9,7 @@ function UserUpload(): React.Node {
         src="https://picsum.photos/seed/picsum/200/300"
         alt=""
       />
+      <h1>My recipes</h1>
     </div>
   );
 }
