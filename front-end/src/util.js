@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 const ingredientData = require('./ingredients_backup.json');
+const profileRecipeDataFallback = require('./myRecipeTemp.json');
 
 type CallbackType = (p1: Array) => void;
 
@@ -43,15 +44,14 @@ async function fetchReviewData(callback: CallbackType) {
 }
 
 async function fetchMyRecipes(callback: CallbackType) {
-  let result = await axios(
+  const result = await axios(
     'https://myrecipes.free.beeceptor.com/myrecipe',
   ).catch((err) => console.log(err.message));
   if (result && Array.isArray(result.data)) {
     console.log('Got review data', result.data);
     callback(result.data);
   } else {
-    result = await axios('https://raw.githubusercontent.com/agiledev-students-fall2022/final-project-team-recipe-grandma/master/front-end/src/myRecipeTemp.json');
-    callback(result.data);
+    callback(profileRecipeDataFallback.data);
   }
 }
 
