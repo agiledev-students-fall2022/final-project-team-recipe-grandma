@@ -8,7 +8,7 @@ type Props = $ReadOnly<{|
   }
 |}>;
 
-function SingleReview(props: Props): React.Node {
+function UserUpload(props: Props): React.Node {
   const { review } = props;
   return (
     <article className="review container">
