@@ -6,7 +6,7 @@ function UserUpload(): React.Node {
     <div className="UserUpload">
       <img
         className="profile-pic"
-        src="https://picsum.photos/seed/picsum/200/300"
+        src="https://picsum.photos/seed/picsum/200/200"
         alt=""
       />
       <h1>My recipes</h1>
