@@ -9,6 +9,9 @@ class UserController {
   // @route /rgapi/user/test/:param
   // @access Public
   static async TestControllerFunction(req, res) {
+    if(req.body.text) {
+      return res.status(400).json({ message: 'Bad request test!' });
+    }
     res.status(200).json({ message: 'Hello, World! User here! '});
   }
 }
