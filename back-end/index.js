@@ -6,6 +6,8 @@ const express = require('express');
 const port = process.env.API_PORT;
 
 const app = express();
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
 // ROUTES
 const UserRoutes = require('./routes/UserRoutes');
