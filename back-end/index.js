@@ -7,8 +7,8 @@ const port = process.env.API_PORT;
 
 const app = express();
 
-app.get('/rgapi/test', (req, res) => {
-  res.status(200).json({ message: 'Test works! '});
-});
+// ROUTES
+const UserRoutes = require('./routes/UserRoutes');
 
+app.use('/rgapi/user', UserRoutes);
 app.listen(port, () => console.log(`Server started on PORT: ${port}`));
