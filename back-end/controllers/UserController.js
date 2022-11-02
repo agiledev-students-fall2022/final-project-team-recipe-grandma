@@ -1,10 +1,16 @@
-// const jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const User = require('../models/User');
 
 // In the future, may have a wrapper for each controller func
 // Also will have a function in controller that defines routes
 class UserController {
+  static #generateToken(id) {
+    return jwt.sign({ id }, process.env.JWT_SECRET, {
+      expiresIn: '30d',
+    });
+  }
+
   // @desc Test
   // @route /rgapi/user/test/:param
   // @access Public
@@ -45,9 +51,32 @@ class UserController {
         _id: user.id,
         name: user.name,
         email: user.email,
+        token: UserController.#generateToken(user.id),
       });
     }
     return res.status(400);
+  }
+
+  static async LoginUser(req, res) {
+    const { email, password } = req.body;
+
+    const user = await User.findOne({ email });
+
+    if (user && (await bcrypt.compare(password, user.password))) {
+      return res.json({
+        _id: user.id,
+        name: user.name,
+        email: user.email,
+        token: UserController.#generateToken(user.id),
+      });
+    }
+    return res.status(400);
+  }
+
+  static async GetProfile(req, res) {
+    return res.status(200).json({
+      message: 'Profile test!',
+    });
   }
 }
 
