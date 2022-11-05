@@ -7,7 +7,7 @@ const express = require('express');
 const connectDB = require('./config/db');
 
 // CONSTANTS
-const port = process.env.API_PORT;
+const port = process.env.API_PORT || 5000;
 
 connectDB();
 
