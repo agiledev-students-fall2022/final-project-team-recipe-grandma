@@ -10,7 +10,7 @@ class RecipeController {
     return res.status(200).json({ message: 'Hello, World! User here!' });
   }
 
-  static async GetRecipe(req, res) {
+  static async CreateRecipe(req, res) {
     const recipe = new Recipe({
       name: req.body.name,
       id: req.body.id,
