@@ -17,7 +17,13 @@ app.use(express.urlencoded({ extended: false }));
 
 // ROUTES
 const UserRoutes = require('./routes/UserRoutes');
-// const RecipeRoutes = require('./routes/RecipeRoutes');
+const RecipeRoutes = require('./routes/RecipeRoutes');
 
 app.use('/rgapi/user', UserRoutes);
+app.use('/recipe', RecipeRoutes);
+
+// app.get('/', (req, res) => {
+//   res.send('Hello world!');
+// });
+
 app.listen(port, () => console.log(`Server started on PORT: ${port}`));
