@@ -1,9 +1,9 @@
 const express = require('express');
-const LikeController = require('../controllers/LikeController');
+const IngredientsController = require('../controllers/IngredientController');
 
 const router = express.Router();
 
-router.get('/test', LikeController.TestLikeFunction);
-// router.post('/like', LikeController.Liked);
+router.get('/test', IngredientsController.TestIngredientFunction);
+router.post('/ingredient', IngredientsController.CreateIngredient);
 
 module.exports = router;
