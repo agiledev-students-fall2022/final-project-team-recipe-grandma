@@ -2,50 +2,31 @@
 // const RecipeRouter = express.Router();
 // const axios = require('axios');
 const data = require('../mockRecipeData.json');
-const Recipe = require('../models/Recipe');
+// const Recipe = require('../models/Recipe');
 
 class RecipeController {
-  // test recipe types
   static async TestRecipeFunction(req, res) {
+    if (req.body.text) {
+      return res.status(400).json({ message: 'Bad request' });
+    }
+    return res.status(200).json({ message: 'Hello, World! Recipes here!' });
+  }
+
+  // get list of all the recipes
+  static async CreateRecipe(req, res) {
     if (req.body.text) {
       return res.status(400).json({ message: 'Bad request' });
     }
     return res.status(200).send(data);
   }
 
-  // get recipe for RecipeInDetail page
-  static async CreateRecipe(req, res) {
-    const {
-      index, name, ingredients, steps, imageURL,
-    } = req.body;
-    if (!index || !name || !ingredients || !steps || !imageURL) {
-      return res.status(400);
-    }
-    const recipe = await Recipe.create({
-      index,
-      name,
-      ingredients,
-      steps,
-      imageURL,
-    });
-    if (recipe) {
-      return res.status(201).json({
-        index: recipe.index,
-        name: recipe.name,
-        ingredients: recipe.ingredients,
-        steps: recipe.steps,
-        imageURL: recipe.imageURL,
-      });
-    }
-    return res.status(400);
-  }
-
   // single recipe in a page
   // /rgapi/recipe/:index
   static async SingleRecipe(req, res) {
+    const aRecipeIndex = res.status(200).send(req.params.index);
+    const item = data[aRecipeIndex]; // cannot access the a recipe with aRecipeIndex
     try {
-      const SingleRecipe = await Recipe.findById(req.params.index);
-      res.json(SingleRecipe);
+      res.status(200).send(item);
     } catch (err) {
       res.json({ message: err.message });
     }
@@ -54,7 +35,8 @@ class RecipeController {
   // static async RecommendedRecipe(req, res) {
   // }
 }
-
+// ===============================================================================
+// FOR MONGODB (NEW / BIGGER DATABASE WE WILL BE USING LATER)
 // class RecipeController {
 //   static async TestRecipeFunction(req, res) {
 //     if (req.body.text) {
