@@ -4,6 +4,6 @@ const LikeController = require('../controllers/LikeController');
 const router = express.Router();
 
 router.get('/test', LikeController.TestLikeFunction);
-router.post('/ingredient', LikeController.Like);
+// router.post('/like', LikeController.);
 
 module.exports = router;
