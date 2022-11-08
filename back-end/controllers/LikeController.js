@@ -9,6 +9,14 @@ class LikeController {
     }
     return res.status(200).json({ message: 'Hello, World! Like here!' });
   }
+
+  static async Like(req, res) {
+    try {
+      console.log('liked');
+    } catch (err) {
+      res.json({ message: err.message });
+    }
+  }
 }
 
 module.exports = LikeController;
