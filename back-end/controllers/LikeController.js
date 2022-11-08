@@ -1,6 +1,6 @@
 // const express = require('express');
 // const RecipeRouter = express.Router();
-const Recipe = require('../models/Recipe');
+//const Recipe = require('../models/Recipe');
 
 class LikeController {
   static async TestLikeFunction(req, res) {
