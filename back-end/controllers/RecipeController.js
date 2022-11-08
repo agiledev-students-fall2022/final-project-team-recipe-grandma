@@ -10,15 +10,34 @@ class RecipeController {
     if (req.body.text) {
       return res.status(400).json({ message: 'Bad request' });
     }
-    return res.status(200).json({ message: 'Hello, World! Recipes here!' });
+    return res.status(200).send(data);
   }
 
   // get recipe for RecipeInDetail page
   static async CreateRecipe(req, res) {
-    if (req.body.text) {
-      return res.status(400).json({ message: 'Bad request test!' });
+    const {
+      index, name, ingredients, steps, imageURL,
+    } = req.body;
+    if (!index || !name || !ingredients || !steps || !imageURL) {
+      return res.status(400);
     }
-    return res.status(200).send(data);
+    const recipe = await Recipe.create({
+      index,
+      name,
+      ingredients,
+      steps,
+      imageURL,
+    });
+    if (recipe) {
+      return res.status(201).json({
+        index: recipe.index,
+        name: recipe.name,
+        ingredients: recipe.ingredients,
+        steps: recipe.steps,
+        imageURL: recipe.imageURL,
+      });
+    }
+    return res.status(400);
   }
 
   // single recipe in a page
