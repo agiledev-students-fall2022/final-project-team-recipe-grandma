@@ -20,6 +20,13 @@ const UserRoutes = require('./routes/UserRoutes');
 const RecipeRoutes = require('./routes/RecipeRoutes');
 const LikeRoutes = require('./routes/LikeRoutes');
 
+// adding like here
+app.get('/', (req, res) => {
+  res.send(UserRoutes);
+});
+
+// ending like here
+
 app.use('/rgapi/user', UserRoutes);
 app.use('/rgapi/recipe', RecipeRoutes);
 app.use('/rgapi/like', LikeRoutes);
