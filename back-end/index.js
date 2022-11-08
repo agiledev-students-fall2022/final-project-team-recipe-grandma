@@ -17,7 +17,17 @@ app.use(express.urlencoded({ extended: false }));
 
 // ROUTES
 const UserRoutes = require('./routes/UserRoutes');
-// const RecipeRoutes = require('./routes/RecipeRoutes');
+const RecipeRoutes = require('./routes/RecipeRoutes');
+// const LikeRoutes = require('./routes/LikeRoutes');
+
+// adding like here
+app.get('/', (req, res) => {
+  res.send('hello');
+});
+
+// ending like here
 
 app.use('/rgapi/user', UserRoutes);
+app.use('/rgapi/recipe', RecipeRoutes);
+// app.use('/rgapi/like', LikeRoutes);
 app.listen(port, () => console.log(`Server started on PORT: ${port}`));
