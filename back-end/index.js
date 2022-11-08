@@ -12,6 +12,8 @@ const port = process.env.API_PORT || 5000;
 connectDB();
 
 const app = express();
+
+// Middlewares
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
