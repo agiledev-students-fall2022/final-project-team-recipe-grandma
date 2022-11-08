@@ -12,6 +12,7 @@
     },
     "ignorePatterns": ["./node_modules/*"],
     "rules": {
-        "no-console": "off"
+        "no-console": "off",
+        "linebreak-style": 0
     }
 }
