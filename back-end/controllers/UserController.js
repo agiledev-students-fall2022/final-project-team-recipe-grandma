@@ -27,49 +27,59 @@ class UserController {
   static async RegisterUser(req, res) {
     // TODO @mohammedajao - Add error clarification for frontend
     const { name, email, password } = req.body;
-
     if (!name || !email || !password) {
-      return res.status(400);
-    }
-
-    const doesUserExist = await User.findOne({ email });
-    if (doesUserExist) {
       return res.status(400);
     }
 
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
-    const user = await User.create({
-      name,
-      email,
-      password: hashedPassword,
-    });
-
-    if (user) {
-      return res.status(201).json({
-        _id: user.id,
-        name: user.name,
-        email: user.email,
-        token: UserController.#generateToken(user.id),
-      });
+    try {
+      User
+        .findOne({ email })
+        .then((userExistence) => {
+          if (userExistence) throw new Error('User exists.');
+        }).then(() => {
+          User.create({
+            name,
+            email,
+            password: hashedPassword,
+          }).then((user) => res.status(201).json({
+            _id: user.id,
+            name: user.name,
+            email: user.email,
+            token: UserController.#generateToken(user.id),
+          })).catch(() => {
+            throw new Error('Failed to create user');
+          });
+        }).catch((err) => res.status(400).json({ message: err.message }));
+    } catch (err) {
+      console.log(err);
+      return res.status(400).json({ message: err.message });
     }
-    return res.status(400);
+    return res.status(400).json({ message: 'Registration failed arbitrarily.' });
   }
 
   static async LoginUser(req, res) {
     const { email, password } = req.body;
 
-    const user = await User.findOne({ email });
-
-    if (user && (await bcrypt.compare(password, user.password))) {
-      return res.json({
-        _id: user.id,
-        name: user.name,
-        email: user.email,
-        token: UserController.#generateToken(user.id),
+    User.findOne({ email })
+      .then((user) => {
+        if (user) {
+          bcrypt.compare(password, user.password).then((bool) => {
+            if (bool) {
+              return res.json({
+                _id: user.id,
+                name: user.name,
+                email: user.email,
+                token: UserController.#generateToken(user.id),
+              });
+            }
+            return res.status(400).json({ message: 'Password is incorrect' });
+          });
+        }
+        return res.status(400).json({ message: 'User not found' });
       });
-    }
     return res.status(400);
   }
 

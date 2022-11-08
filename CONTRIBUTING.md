@@ -4,9 +4,10 @@
 1. Fork the project with your own branch.
 2. Run `npm install` in the back-end and front-end directories.
 3. Run `npm install -g flow-typed` and `flow-typed install` in the front-end directory to build the lib files
-4. Set up a mongodb account and follow the back-end instructions to set up your database.
-5. Run `npm run start` on both the back-end and front-end in separate terminal processes.
-6. Happy developing!
+4. Set up a mongodb account and choose Connect via Application or find the Node connection URL.
+5. Make your own `.env` file using the fields from `.env-example`. 
+6. Run `npm run start` on both the back-end and front-end in separate terminal processes.
+7. Happy developing!
 
 ## Git workflow
 - Assign an issue to each task before starting to code
@@ -20,7 +21,7 @@
 - Always contribute towards an issue
 - Ensure before requesting a change, there are no flow or lint errors. Run `npm run flow` to confirm this.
 - All imports should be formatted in sections by components & imports, direct paths, unimported types & unimported enums, and finals/constants. Each section should be in lexical order.
-- Run all tests and make sure they are passing before requesting a review of your changes.
+- Run all tests and make sure they are passing before requesting a review of your changes. Run `npm run test`.
 - Have your code reviewed by a peer before merging
 - Have specific comments regarding the changes you add
 - Commit frequently, push working major progressions
