@@ -1,7 +1,7 @@
 // const express = require('express');
 // const RecipeRouter = express.Router();
-const axios = require('axios');
-
+// const axios = require('axios');
+const data = require('../mockRecipeData.json');
 const Recipe = require('../models/Recipe');
 
 class RecipeController {
@@ -10,11 +10,11 @@ class RecipeController {
     if (req.body.text) {
       return res.status(400).json({ message: 'Bad request test!' });
     }
-
     // fetch data from mock database - github
-    const result = await axios(
-      'https://raw.githubusercontent.com/kodecocodes/recipes/master/Recipes.json',
-    ).catch((err) => console.log(err.message));
+    // const result = await axios(
+    //   'https://raw.githubusercontent.com/kodecocodes/recipes/master/Recipes.json',
+    // ).catch((err) => console.log(err.message));
+    const result = data;
     if (result && Array.isArray(result.data)) {
       return result.data;
     }
