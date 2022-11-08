@@ -50,9 +50,7 @@ class RecipeController {
   // single recipe in a page
   // /rgapi/recipe/:index
   static async SingleRecipe(req, res) {
-    // const aRecipeIndex = res.status(200).send(req.params.index);
-    // const i = parseInt(aRecipeIndex, 10);
-    const item = data[0]; // cannot access the a recipe with aRecipeIndex
+    const item = data[req.params.index];
     try {
       res.status(200).send(item);
     } catch (err) {
