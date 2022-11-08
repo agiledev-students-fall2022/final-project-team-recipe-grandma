@@ -10,31 +10,39 @@ class ReviewCommentController {
   }
 
   static async CreateReviewComment(req, res) {
-    const reviewComment = new ReviewComment({
-      id: req.body.id,
-      body: req.body.body,
-      stars: req.body.stars,
-      username: req.body.username,
-      userId: req.body.userId,
-      parentId: req.body.parentId,
-      createdAt: req.body.createdAt,
+    const {
+      id, body, stars, username, userId, parentId, createdAt,
+    } = req.body;
+    const reviewComment = await ReviewComment.create({
+      id,
+      body,
+      stars,
+      username,
+      userId,
+      parentId,
+      createdAt,
     });
-    reviewComment.save()
-      .exec()
-      .then((((data) => {
-        res.json(data);
-      })))
-      .catch((((err) => {
-        res.json({ message: err });
-      })));
+
+    if (reviewComment) {
+      return res.status(201).json({
+        id: reviewComment.id,
+        body: reviewComment.body,
+        stars: reviewComment.stars,
+        username: reviewComment.username,
+        userId: reviewComment.userId,
+        parentId: reviewComment.parentId,
+        createdAt: reviewComment.createdAt,
+      });
+    }
+    return res.status(400);
   }
 
   static async GetReviewComment(req, res) {
     const result = await axios.get('https://raw.githubusercontent.com/geontackee/sample_reviews/main/Reviews.json').catch((err) => console.log(err.message));
     if (result && Array.isArray(result.data)) {
-      return result.data;
+      return res.status(201).json(result.data);
     }
-    return res.status(200);
+    return res.status(400);
   }
 }
 
