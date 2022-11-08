@@ -22,7 +22,7 @@ const LikeRoutes = require('./routes/LikeRoutes');
 
 // adding like here
 app.get('/', (req, res) => {
-  res.send(UserRoutes);
+  res.send('hello');
 });
 
 // ending like here
