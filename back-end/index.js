@@ -24,7 +24,6 @@ const LikeRoutes = require('./routes/LikeRoutes');
 
 // adding like here
 app.get('/', (req, res) => {
-  console.log(UserRoutes);
   res.send('iefjeio');
 });
 
