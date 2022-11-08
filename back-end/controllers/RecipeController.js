@@ -2,7 +2,7 @@
 // const RecipeRouter = express.Router();
 // const axios = require('axios');
 const data = require('../mockRecipeData.json');
-// const Recipe = require('../models/Recipe');
+const Recipe = require('../models/Recipe');
 
 class RecipeController {
   static async TestRecipeFunction(req, res) {
@@ -20,11 +20,39 @@ class RecipeController {
     return res.status(200).send(data);
   }
 
+  // create a recipe
+  static async NewRecipe(req, res) {
+    const {
+      index, name, ingredients, steps, imageURL,
+    } = req.body;
+    if (!index || !name || !ingredients || !steps || !imageURL) {
+      return res.status(400);
+    }
+    const recipe = await Recipe.create({
+      index,
+      name,
+      ingredients,
+      steps,
+      imageURL,
+    });
+    if (recipe) {
+      return res.status(201).json({
+        index: recipe.index,
+        name: recipe.name,
+        ingredients: recipe.ingredients,
+        steps: recipe.steps,
+        imageURL: recipe.imageURL,
+      });
+    }
+    return res.status(400);
+  }
+
   // single recipe in a page
   // /rgapi/recipe/:index
   static async SingleRecipe(req, res) {
-    const aRecipeIndex = res.status(200).send(req.params.index);
-    const item = data[aRecipeIndex]; // cannot access the a recipe with aRecipeIndex
+    // const aRecipeIndex = res.status(200).send(req.params.index);
+    // const i = parseInt(aRecipeIndex, 10);
+    const item = data[0]; // cannot access the a recipe with aRecipeIndex
     try {
       res.status(200).send(item);
     } catch (err) {
