@@ -11,13 +11,15 @@ class IngredientController {
   }
 
   static async CreateIngredient(req, res) {
-    const ingredient = new Ingredient({
-      ingredient: req.body.Ingredient,
-    });
-    if (!ingredient || !(typeof ingredient === 'string')) {
+    const { ingredient, type } = req.body;
+    if (!ingredient || !(typeof ingredient === 'string') || !type || !(typeof type === 'string')) {
       return res.status(400);
     }
-    return ingredient.save()
+    const ingredients = new Ingredient({
+      ingredient: req.body.ingredient,
+      type: req.body.type,
+    });
+    return ingredients.save()
       .exec()
       .then((((data) => {
         res.json(data);
