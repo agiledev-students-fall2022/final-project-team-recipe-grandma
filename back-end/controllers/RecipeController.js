@@ -14,11 +14,13 @@ class RecipeController {
     // const result = await axios(
     //   'https://raw.githubusercontent.com/kodecocodes/recipes/master/Recipes.json',
     // ).catch((err) => console.log(err.message));
-    const result = data;
-    if (result && Array.isArray(result.data)) {
-      return result.data;
-    }
-    return res.status(200).json({ message: 'Hello, World! Recipes here!' });
+    // const result = data;
+    // console.log(result);
+    // if (result && Array.isArray(result)) {
+    //   return result;
+    // }
+    // return res.status(200).json({ message: 'Hello, World! Recipes here!' });
+    return res.status(200).send(data);
   }
 
   // create recipe
