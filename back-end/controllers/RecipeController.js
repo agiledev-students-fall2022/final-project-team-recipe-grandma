@@ -7,7 +7,7 @@ class RecipeController {
     if (req.body.text) {
       return res.status(400).json({ message: 'Bad request test!' });
     }
-    return res.status(200).json({ message: 'Hello, World! User here!' });
+    return res.status(200).json({ message: 'Hello, World! Recipes here!' });
   }
 
   static async CreateRecipe(req, res) {
