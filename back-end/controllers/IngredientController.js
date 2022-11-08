@@ -7,14 +7,17 @@ class IngredientController {
     if (req.body.text) {
       return res.status(400).json({ message: 'Bad request test!' });
     }
-    return res.status(200).json({ message: 'Hello, World! User here!' });
+    return res.status(200).json({ message: 'Hello, World! Ingredient here!' });
   }
 
   static async CreateIngredient(req, res) {
     const ingredient = new Ingredient({
       ingredient: req.body.Ingredient,
     });
-    ingredient.save()
+    if (!ingredient || !(typeof ingredient === 'string')) {
+      return res.status(400);
+    }
+    return ingredient.save()
       .exec()
       .then((((data) => {
         res.json(data);
