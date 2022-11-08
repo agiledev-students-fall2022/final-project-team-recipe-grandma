@@ -25,19 +25,26 @@ class RecipeController {
 
   // create recipe
   static async CreateRecipe(req, res) {
-    const recipe = new Recipe({
-      index: req.body.index,
-      name: req.body.name,
-      ingredients: req.body.ingredients,
-      steps: req.body.directions,
-      imageURL: req.body.imageURL,
-    });
-    try {
-      const NewRecipe = await recipe.save();
-      res.status(201).send(NewRecipe);
-    } catch (err) {
-      res.status(400).json({ message: err });
+    const {
+      index, name, ingredients, steps, imageURL,
+    } = req.body;
+    if (!name || !index || !ingredients || !steps || !imageURL) {
+      return res.status(400).json({ message: 'there is a missing data' });
     }
+    // const recipe = new Recipe({
+    //   index: req.body.index,
+    //   name: req.body.name,
+    //   ingredients: req.body.ingredients,
+    //   steps: req.body.directions,
+    //   imageURL: req.body.imageURL,
+    // });
+    // try {
+    //   const NewRecipe = await recipe.save();
+    //   return res.status(200).send(NewRecipe);
+    // } catch (err) {
+    //   return res.status(400).json({ message: 'there is an error' });
+    // }
+    return res.status(200).send(data);
   }
 
   // single recipe in a page
