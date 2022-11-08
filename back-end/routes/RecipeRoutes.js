@@ -6,7 +6,7 @@ const router = express.Router();
 // test
 router.get('/test', RecipeController.TestRecipeFunction);
 // get recipe
-router.post('/:index', RecipeController.CreateRecipe);
+router.post('/getrecipe', RecipeController.CreateRecipe);
 // single recipe
 router.post('/:index', RecipeController.SingleRecipe);
 
