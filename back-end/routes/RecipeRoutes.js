@@ -9,7 +9,8 @@ router.get('/test', RecipeController.TestRecipeFunction);
 router.get('/recipelist', RecipeController.CreateRecipe);
 // single recipe
 router.get('/:index', RecipeController.SingleRecipe);
-
+// create new recipe
+router.post('/create', RecipeController.NewRecipe);
 // recommended recipe: recipe recommended based on user's likes
 // router.post('recipe', RecipeController.RecommendedRecipe);
 
