@@ -5,6 +5,6 @@ const router = express.Router();
 
 router.get('/review', ReviewCommentController.GetReviewComment);
 router.get('/reviewTest', ReviewCommentController.TestReviewComment);
-router.post('/recipe/:recipeindex/review/:id', ReviewCommentController.CreateReviewComment);
+router.post('/review/create', ReviewCommentController.CreateReviewComment);
 
 module.exports = router;
