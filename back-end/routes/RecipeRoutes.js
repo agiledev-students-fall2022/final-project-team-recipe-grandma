@@ -6,9 +6,9 @@ const router = express.Router();
 // test
 router.get('/test', RecipeController.TestRecipeFunction);
 // get recipe
-router.post('/recipe', RecipeController.CreateRecipe);
+router.post('/:index', RecipeController.CreateRecipe);
 // single recipe
-router.post('recipe/:index', RecipeController.SingleRecipe);
+router.post('/:index', RecipeController.SingleRecipe);
 
 // recommended recipe: recipe recommended based on user's likes
 // router.post('recipe', RecipeController.RecommendedRecipe);
