@@ -2,6 +2,13 @@ const axios = require('axios');
 const ReviewComment = require('../models/ReviewComment');
 
 class ReviewCommentController {
+  static async TestReviewComment(req, res) {
+    if (req.body.text) {
+      return res.status(400).json({ message: 'Bad request' });
+    }
+    return res.status(200).json({ message: 'Hello, World! Reviews here!' });
+  }
+
   static async CreateReviewComment(req, res) {
     const reviewComment = new ReviewComment({
       id: req.body.id,
@@ -23,45 +30,11 @@ class ReviewCommentController {
   }
 
   static async GetReviewComment(req, res) {
-    await axios.get('https://raw.githubusercontent.com/geontackee/sample_reviews/main/Reviews.json')
-      .then((((data) => {
-        res.json(data);
-      })))
-      .catch((((err) => {
-        res.json({ message: err });
-      })));
-  }
-
-  static async UpdateReviewComment(req, res) {
-    const {
-      id, body, stars, username, userId, parentId, createdAt,
-    } = req.body;
-
-    const doesCommentExist = await ReviewComment.findOne({ id });
-
-    if (doesCommentExist) {
-      ReviewComment.body = body;
-      ReviewComment.stars = stars;
-      ReviewComment.createdAt = createdAt;
-      ReviewComment.username = username;
-      ReviewComment.id = id;
-      ReviewComment.userId = userId;
-      ReviewComment.parentId = parentId;
-      ReviewComment.createdAt = createdAt;
+    const result = await axios.get('https://raw.githubusercontent.com/geontackee/sample_reviews/main/Reviews.json').catch((err) => console.log(err.message));
+    if (result && Array.isArray(result.data)) {
+      return result.data;
     }
-
-    return res.status(400);
-  }
-
-  static async DeleteReviewComment(req, res) {
-    const id = req.body;
-
-    const comment = await ReviewComment.findone({ id });
-
-    if (comment) {
-      await comment.findByIdAndDelete(id);
-    }
-    return res.status(400);
+    return res.status(200);
   }
 }
 
