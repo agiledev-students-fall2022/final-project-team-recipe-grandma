@@ -18,14 +18,40 @@ class RecipeController {
       ingredients: req.body.ingredients,
       directions: req.body.directions,
     });
-    recipe.save()
-      .exec()
-      .then((((data) => {
-        res.json(data);
-      })))
-      .catch((((err) => {
-        res.json({ message: err });
-      })));
+    try {
+      const NewRecipe = await recipe.save();
+      res.status(201).send(NewRecipe);
+    } catch (err) {
+      res.status(400).json({ message: err });
+    }
   }
+
+  static async DeleteRecipe(req, res) {
+    try {
+      const RemoveRecipe = await Recipe.remove(req.params.id);
+      res.json(RemoveRecipe);
+    } catch (err) {
+      res.json({ message: err.message });
+    }
+  }
+
+  static async SingleRecipe(req, res) {
+    try {
+      const SingleRecipe = await Recipe.findById(req.params.id);
+      res.json(SingleRecipe);
+    } catch (err) {
+      res.json({ message: err.message });
+    }
+  }
+
+  // static async EditLike(req, res) {
+  // }
+
+  // static async EditComment(req, res) {
+  // }
+
+  // static async RecommendedRecipe(req, res) {
+  // }
 }
+
 module.exports = RecipeController;
