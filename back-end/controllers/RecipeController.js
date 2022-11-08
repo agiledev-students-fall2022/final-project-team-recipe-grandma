@@ -8,36 +8,17 @@ class RecipeController {
   // test recipe types
   static async TestRecipeFunction(req, res) {
     if (req.body.text) {
-      return res.status(400).json({ message: 'Bad request test!' });
+      return res.status(400).json({ message: 'Bad request' });
     }
-    // fetch data from mock database - github
-    // const result = await axios(
-    //   'https://raw.githubusercontent.com/kodecocodes/recipes/master/Recipes.json',
-    // ).catch((err) => console.log(err.message));
-    // const result = data;
-    // console.log(result);
-    // if (result && Array.isArray(result)) {
-    //   return result;
-    // }
-    // return res.status(200).json({ message: 'Hello, World! Recipes here!' });
-    return res.status(200).send(data);
+    return res.status(200).json({ message: 'Hello, World! Recipes here!' });
   }
 
-  // create recipe
+  // get recipe for RecipeInDetail page
   static async CreateRecipe(req, res) {
-    const recipe = new Recipe({
-      index: req.body.index,
-      name: req.body.name,
-      ingredients: req.body.ingredients,
-      steps: req.body.directions,
-      imageURL: req.body.imageURL,
-    });
-    try {
-      const NewRecipe = await recipe.save();
-      res.status(201).send(NewRecipe);
-    } catch (err) {
-      res.status(400).json({ message: err });
+    if (req.body.text) {
+      return res.status(400).json({ message: 'Bad request test!' });
     }
+    return res.status(200).send(data);
   }
 
   // single recipe in a page
