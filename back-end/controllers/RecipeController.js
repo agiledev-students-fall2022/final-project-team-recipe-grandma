@@ -2,6 +2,7 @@
 // const RecipeRouter = express.Router();
 // const axios = require('axios');
 const data = require('../mockRecipeData.json');
+const LikedRecipes = require('../mockLikedRecipeData.json');
 const Recipe = require('../models/Recipe');
 
 class RecipeController {
@@ -58,8 +59,16 @@ class RecipeController {
     }
   }
 
-  // static async RecommendedRecipe(req, res) {
-  // }
+  // recommended recipe based on user's likes
+  // NEED TO DEVELOP ALGORITHM
+  static async RecommendedRecipe(req, res) {
+    const item = LikedRecipes[1];
+    try {
+      res.status(200).send(item);
+    } catch (err) {
+      res.json({ message: err.message });
+    }
+  }
 }
 // ===============================================================================
 // FOR MONGODB (NEW / BIGGER DATABASE WE WILL BE USING LATER)
