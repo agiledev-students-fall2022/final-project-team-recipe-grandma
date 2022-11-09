@@ -44,8 +44,9 @@ async function fetchReviewData(callback: CallbackType, props: Props) {
 async function fetchMyRecipes(callback: CallbackType) {
   // need to change this after backend is done
   const result = await axios(
-    `${BASE_API_URL}/rgapi/recipe/my-recipes`,
+    `${BASE_API_URL}/rgapi/user/myrecipe`,
   ).catch((err) => console.log(err.message));
+  console.log('MY RECIPES', result);
   if (result && Array.isArray(result.data)) {
     console.log('Got review data', result.data);
     callback(result.data);
