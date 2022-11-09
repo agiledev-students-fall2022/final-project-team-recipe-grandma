@@ -12,7 +12,6 @@ router.post('/create', RecipeController.NewRecipe);
 // recipe recommended based on user's likes
 router.get('/recommendation', RecipeController.RecommendedRecipe);
 router.get('/all', RecipeController.GetRecipes);
-// router.get('/my-recipes', RecipeController.GetUserRecipes);
 
 // single recipe
 router.get('/:index', RecipeController.SingleRecipe);
