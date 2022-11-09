@@ -21,6 +21,7 @@ app.use(express.urlencoded({ extended: false }));
 const UserRoutes = require('./routes/UserRoutes');
 const RecipeRoutes = require('./routes/RecipeRoutes');
 const ReviewCommentRoutes = require('./routes/ReviewCommentRoutes');
+const MyRecipeRoutes = require('./routes/MyRecipeRoutes');
 // const LikeRoutes = require('./routes/LikeRoutes');
 
 // adding like here
@@ -33,5 +34,6 @@ app.get('/', (req, res) => {
 app.use('/rgapi/user', UserRoutes);
 app.use('/rgapi/recipe', RecipeRoutes);
 app.use('/rgapi/review', ReviewCommentRoutes);
+app.use('/rgapi/myrecipe', MyRecipeRoutes);
 // app.use('/rgapi/like', LikeRoutes);
 app.listen(port, () => console.log(`Server started on PORT: ${port}`));
