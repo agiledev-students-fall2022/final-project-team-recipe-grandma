@@ -19,7 +19,7 @@ const PostSchema = mongoose.Schema({
     required: true,
   },
   imageURL: {
-    type: Array,
+    type: String,
     required: true,
   },
   // like: {
