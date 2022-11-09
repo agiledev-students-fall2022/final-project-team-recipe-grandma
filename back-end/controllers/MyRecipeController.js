@@ -14,16 +14,18 @@ class MyRecipeController {
   //     recipeId, name, imageURL,
   //   } = req.body;
   //   const myRecipe = await MyRecipe.create({
-  //     recipeId,
+  //     index,
   //     name,
-  //     imageURL,
+  //     date,
+  //     image,
   //   });
 
   //   if (myRecipe) {
   //     return res.status(201).json({
-  //       recipeId: myRecipe.recipeId,
+  //       index: myRecipe.index,
   //       name: myRecipe.name,
-  //       imageURL: myRecipe.imageURL,
+  //       date: myRecipe.date,
+  //       image: myRecipe.image,
   //     });
   //   }
   //   return res.status(400);
@@ -33,7 +35,7 @@ class MyRecipeController {
   // recipe from profile would also have to delete it from the database of all recipes
   // static async DeleteMyRecipe(req, res) {
   //   try {
-  //     const RemoveMyRecipe = await MyRecipe.remove(req.params.recipeId);
+  //     const RemoveMyRecipe = await MyRecipe.remove(req.params.index);
   //     res.json(RemoveMyRecipe);
   //   } catch (err) {
   //     res.json({ message: err.message });
