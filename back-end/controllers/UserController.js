@@ -63,24 +63,27 @@ class UserController {
   static async LoginUser(req, res) {
     const { email, password } = req.body;
 
-    User.findOne({ email })
+    return User.findOne({ email })
       .then((user) => {
         if (user) {
           bcrypt.compare(password, user.password).then((bool) => {
             if (bool) {
-              return res.json({
+              res.status(200).json({
                 _id: user.id,
                 name: user.name,
                 email: user.email,
                 token: UserController.#generateToken(user.id),
               });
+            } else {
+              throw new Error('Password is incorrect');
             }
-            return res.status(400).json({ message: 'Password is incorrect' });
           });
+        } else {
+          throw new Error('User not found');
         }
-        return res.status(400).json({ message: 'User not found' });
+      }).catch(err => {
+        res.status(400).json({ message: err.message });
       });
-    return res.status(400);
   }
 
   static async GetProfile(req, res) {
