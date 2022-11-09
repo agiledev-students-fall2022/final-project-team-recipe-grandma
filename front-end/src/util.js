@@ -3,9 +3,11 @@ import axios from 'axios';
 type CallbackType = (p1: Array) => void;
 type Props = Int;
 
+const BASE_API_URL = `${process.env.REACT_APP_API_BASE}:${process.env.REACT_APP_API_PORT || 3000}`;
+
 async function fetchRecipeData(callback: CallbackType) {
   const result = await axios(
-    'http://localhost:8000/rgapi/recipe/all',
+    `${BASE_API_URL}/rgapi/recipe/all`,
   ).catch((err) => console.log(err.message));
   if (result && Array.isArray(result.data)) {
     callback(result.data);
@@ -14,7 +16,7 @@ async function fetchRecipeData(callback: CallbackType) {
 
 async function fetchIngredientData(callback: CallbackType) {
   const result = await axios(
-    'http://localhost:8000/rgapi/ingredients/all',
+    `${BASE_API_URL}/rgapi/ingredients/all`,
   ).catch((err) => console.log(err.message));
   console.log('Ingredient api result', result);
   if (result && Array.isArray(result.data)) {
@@ -24,7 +26,7 @@ async function fetchIngredientData(callback: CallbackType) {
 
 async function fetchReviewData(callback: CallbackType, props: Props) {
   console.log(props);
-  const url = 'http://localhost:8000/rgapi/review/review/';
+  const url = `${BASE_API_URL}/rgapi/review/review/`;
   const fullUrl = url.concat('', props);
   let result = await axios.get(
     fullUrl,
@@ -42,7 +44,7 @@ async function fetchReviewData(callback: CallbackType, props: Props) {
 async function fetchMyRecipes(callback: CallbackType) {
   // need to change this after backend is done
   const result = await axios(
-    'http://localhost:8000/rgapi/user/myrecipe',
+    `${BASE_API_URL}/rgapi/recipe/my-recipes`,
   ).catch((err) => console.log(err.message));
   if (result && Array.isArray(result.data)) {
     console.log('Got review data', result.data);
