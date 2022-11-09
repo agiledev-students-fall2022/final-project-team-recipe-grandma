@@ -21,7 +21,7 @@ const corsOptions = {
   credentials: true, // Enables cookies. AJAX requests require withCredentials
 };
 
-const mongooseConnection = connectDB();
+connectDB();
 
 const app = express();
 
