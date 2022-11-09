@@ -40,7 +40,15 @@ class ReviewCommentController {
   static async GetReviewComment(req, res) {
     const result = await axios.get('https://raw.githubusercontent.com/geontackee/sample_reviews/main/Reviews.json').catch((err) => console.log(err.message));
     if (result && Array.isArray(result.data)) {
-      return res.status(201).json(result.data);
+      return res.status(201).json(result.data[req.params.index]);
+    }
+    return res.status(400);
+  }
+
+  static async GetSingleReviewComment(req, res) {
+    const result = await axios.get('https://raw.githubusercontent.com/geontackee/sample_reviews/main/Reviews.json').catch((err) => console.log(err.message));
+    if (result && Array.isArray(result.data)) {
+      return res.status(201).json(result.data[req.params.index1].reviews[req.params.index2]);
     }
     return res.status(400);
   }
