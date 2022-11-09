@@ -80,16 +80,16 @@ class RecipeController {
   static async GetUserRecipes(req, res) {
     return res.status(200).json([
       {
-        "name": "Cheesy Chicken Bake",
-        "date": "2022-10-27",
-        "image": "https://picsum.photos/200/200"
+        'name': 'Cheesy Chicken Bake',
+        'date': '2022-10-27',
+        'image': 'https://picsum.photos/200/200'
       },
       {
-        "name": "Clam Chowder",
-        "date": "2022-10-26",
-        "image": "https://picsum.photos/200/200"
-      }
-    ])
+        'name': 'Clam Chowder',
+        'date': '2022-10-26',
+        'image': 'https://picsum.photos/200/200'
+      },
+    ]);
   }
 }
 // ===============================================================================
