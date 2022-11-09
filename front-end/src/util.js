@@ -2,19 +2,22 @@ import axios from 'axios';
 
 const ingredientData = require('./ingredients_backup.json');
 const profileRecipeDataFallback = require('./myRecipeTemp.json');
+const recipeData = require('./temp_recipedata.json');
 
 type CallbackType = (p1: Array) => void;
 type Props = Int;
 
 async function fetchRecipeData(callback: CallbackType) {
-  let result = await axios(
-    'https://recipegrandma.free.beeceptor.com/recommended-recipes',
+  const url = 'http://localhost:8000/rgapi/recipe/recipelist';
+  let result = await axios.get(
+    url,
   ).catch((err) => console.log(err.message));
-  if (!result) {
-    // Back-up from Mock if API is down
-    result = await axios('https://raw.githubusercontent.com/raywenderlich/recipes/master/Recipes.json');
-  }
+  console.log(result.data);
   if (result && Array.isArray(result.data)) {
+    console.log('Got recipe data', result.data);
+    callback(result.data);
+  } else {
+    result = recipeData;
     callback(result.data);
   }
 }
