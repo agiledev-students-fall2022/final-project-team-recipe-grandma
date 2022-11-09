@@ -1,6 +1,7 @@
 // const express = require('express');
 // const RecipeRouter = express.Router();
 const Ingredient = require('../models/Ingredient');
+const ingredientMockData = require('../ingredients_backup.json');
 
 class IngredientController {
   static async TestIngredientFunction(req, res) {
@@ -27,6 +28,10 @@ class IngredientController {
       .catch((((err) => {
         res.json({ message: err });
       })));
+  }
+
+  static async GetIngredients(req, res) {
+    return res.status(200).json(ingredientMockData);
   }
 }
 module.exports = IngredientController;
