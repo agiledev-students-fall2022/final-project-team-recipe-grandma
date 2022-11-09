@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import RecipeDetails from '../../components/RecipeDetails';
 import CustomButton from '../../components/CustomButton';
-import * as Util from '../../util';
+import { fetchRecipeData } from '../../util';
 import './RecipeInDetail.css';
 // import './ReviewButton.css';
 
@@ -16,7 +16,7 @@ function RecipeInDetailPage(): React.Node {
   };
 
   useEffect(() => {
-    Util.fetchRecipeData(setData);
+    fetchRecipeData(setData);
   }, []);
 
   const item = data.length > 0 ? data[recipeindex] : null;
