@@ -6,6 +6,6 @@ const MyRecipeController = require('../controllers/MyRecipeController');
 const router = express.Router();
 
 router.get('/myrecipeTest', MyRecipeController.TestMyRecipeFunction);
-router.get('/myrecipe', MyRecipeController.GetMyRecipe);
+router.get('/myrecipes', MyRecipeController.GetMyRecipe);
 
 module.exports = router;
