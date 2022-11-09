@@ -76,21 +76,6 @@ class RecipeController {
       res.json({ message: err.message });
     }
   }
-
-  static async GetUserRecipes(req, res) {
-    return res.status(200).json([
-      {
-        name: 'Cheesy Chicken Bake',
-        date: '2022-10-27',
-        image: 'https://picsum.photos/200/200',
-      },
-      {
-        name: 'Clam Chowder',
-        date: '2022-10-26',
-        image: 'https://picsum.photos/200/200',
-      },
-    ]);
-  }
 }
 // ===============================================================================
 // FOR MONGODB (NEW / BIGGER DATABASE WE WILL BE USING LATER)
