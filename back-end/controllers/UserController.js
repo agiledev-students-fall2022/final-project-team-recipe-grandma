@@ -81,7 +81,7 @@ class UserController {
         } else {
           throw new Error('User not found');
         }
-      }).catch(err => {
+      }).catch((err) => {
         res.status(400).json({ message: err.message });
       });
   }
