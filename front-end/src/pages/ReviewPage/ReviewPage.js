@@ -7,14 +7,18 @@ import './ReviewPage.css';
 import { fetchReviewData, fetchRecipeData } from '../../util';
 /* Need to implement json file to correspond to each recipe */
 
+// type Props = $ReadOnly<{|
+//   recipeIndex: int
+// |}>;
+
 function ReviewPage(): React.Node {
   const { recipeindex } = useParams();
   const [data, setData] = useState([]);
   const [reviewData, setReviewData] = useState([]);
-
+  console.log(recipeindex);
   useEffect(() => {
     fetchRecipeData(setData);
-    fetchReviewData(setReviewData);
+    fetchReviewData(setReviewData, recipeindex);
   }, []);
 
   return (
@@ -25,8 +29,8 @@ function ReviewPage(): React.Node {
         <h3 className="col-12 text-center"><strong className="mx-auto">Reviews</strong></h3>
         <br />
         <div className="column text-align-center col-md-4 col-12">
-          {reviewData.map((review, ind) => (
-            <SingleReview key={ind} review={review} />
+          {reviewData.map((review) => (
+            <SingleReview key={review.id} review={review} />
           ))}
           <ReviewForm />
         </div>
