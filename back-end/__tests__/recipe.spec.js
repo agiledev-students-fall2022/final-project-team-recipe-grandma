@@ -1,14 +1,14 @@
 process.env.NODE_ENV = 'test';
 const chai = require('chai');
 const { expect } = require('chai');
-const { describe, it, should } = require('mocha');
+const { describe, it, after } = require('mocha');
 const chaiHttp = require('chai-http');
 const mongoose = require('mongoose');
 const server = require('../index');
 
 // Configure chai
 chai.use(chaiHttp);
-chai.should();
+// chai.should();
 
 // const RecipeController = require('../controllers/RecipeController');
 
@@ -71,11 +71,11 @@ describe('POST /rgapi/recipe/create', () => {
       .post('/rgapi/recipe/create')
       .type('form')
       .send({
-        "index": "1",
-        "name": "scrambled egg",
-        "ingredients": "egg",
-        "steps": "just make it",
-        "imageURL": "abc.com"
+        index: '1',
+        name: 'scrambled egg',
+        ingredients: 'egg',
+        steps: 'just make it',
+        imageURL: 'abc.com',
       })
       .end((err, res) => {
         expect(res).to.have.status(200);
