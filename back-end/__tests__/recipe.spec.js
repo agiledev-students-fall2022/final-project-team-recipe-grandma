@@ -25,7 +25,14 @@ describe('GET /rgapi/recipe/', () => {
       .get('/rgapi/recipe/recipelist')
       .end((err, res) => {
         res.should.have.status(200);
-        res.body.should.be.a('object');
+        const allRecipes = res.body;
+        allRecipes.forEach((item) => {
+          expect(item.index).not.to.be.a('null');
+          expect(item.name).to.be.a('string');
+          expect(item.ingredients).not.to.be.a('null');
+          expect(item.steps).not.to.be.a('null');
+          expect(item.imgURL).not.to.be.a('null');
+        });
         done();
       });
   });
