@@ -43,9 +43,9 @@ class MyRecipeController {
   // when database is integrated, we would have to fetch from the database the recipes
   // that user liked and recipes that user created instead of the current url
   static async GetMyRecipe(req, res) {
-    const myRecipeData = await axios.get('https://myrecipes.free.beeceptor.com/myrecipe').catch((err) => console.log(err.message));
+    const myRecipeData = await axios('https://raw.githubusercontent.com/OyungerelA/sampleRecipes/main/myrecipe.json').catch((err) => console.log(err.message));
     if (myRecipeData && Array.isArray(myRecipeData.data)) {
-      return res.status(201).json(myRecipeData.data);
+      return res.status(200).json(myRecipeData.data);
     }
     return res.status(400);
   }
