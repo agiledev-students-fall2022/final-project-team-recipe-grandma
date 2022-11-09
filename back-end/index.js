@@ -38,21 +38,13 @@ const RecipeRoutes = require('./routes/RecipeRoutes');
 const ReviewCommentRoutes = require('./routes/ReviewCommentRoutes');
 const MyRecipeRoutes = require('./routes/MyRecipeRoutes');
 const IngredientRoutes = require('./routes/IngredientRoutes');
-// const LikeRoutes = require('./routes/LikeRoutes');
-
-// adding like here
-app.get('/', (req, res) => {
-  console.log('Requested home');
-  return res.send('hello');
-});
-
-// ending like here
+const LikeRoutes = require('./routes/LikeRoutes');
 
 app.use('/rgapi/user', UserRoutes);
 app.use('/rgapi/recipe', RecipeRoutes);
 app.use('/rgapi/review', ReviewCommentRoutes);
 app.use('/rgapi/myrecipe', MyRecipeRoutes);
 app.use('/rgapi/ingredients', IngredientRoutes);
-// app.use('/rgapi/like', LikeRoutes);
+app.use('/rgapi/like', LikeRoutes);
 const server = app.listen(port, () => console.log(`Server started on PORT: ${port}`));
 module.exports = server;
