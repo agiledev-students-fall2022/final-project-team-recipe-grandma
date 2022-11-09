@@ -48,9 +48,16 @@ class RecipeController {
     return res.status(400);
   }
 
+  // Currently mocked. Fetches all recipes
+  static async GetRecipes(req, res) {
+    console.log('Fetching recipes called');
+    return res.status(200).json(data);
+  }
+
   // single recipe in a page
   // /rgapi/recipe/:index
   static async SingleRecipe(req, res) {
+    console.log('Fetching single recipe');
     const item = data[req.params.index];
     try {
       res.status(200).send(item);
@@ -68,6 +75,21 @@ class RecipeController {
     } catch (err) {
       res.json({ message: err.message });
     }
+  }
+
+  static async GetUserRecipes(req, res) {
+    return res.status(200).json([
+      {
+        "name": "Cheesy Chicken Bake",
+        "date": "2022-10-27",
+        "image": "https://picsum.photos/200/200"
+      },
+      {
+        "name": "Clam Chowder",
+        "date": "2022-10-26",
+        "image": "https://picsum.photos/200/200"
+      }
+    ])
   }
 }
 // ===============================================================================
