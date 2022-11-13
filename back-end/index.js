@@ -38,7 +38,7 @@ const RecipeRoutes = require('./routes/RecipeRoutes');
 const ReviewCommentRoutes = require('./routes/ReviewCommentRoutes');
 const MyRecipeRoutes = require('./routes/MyRecipeRoutes');
 const IngredientRoutes = require('./routes/IngredientRoutes');
-const LikeRoutes = require('./routes/LikeRoutes');
+const LikeRoutes = require('./routes/likeRoutes');
 
 app.use('/rgapi/user', UserRoutes);
 app.use('/rgapi/recipe', RecipeRoutes);
