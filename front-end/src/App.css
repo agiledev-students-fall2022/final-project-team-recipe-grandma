@@ -2,8 +2,12 @@ html {
   background-color: #D3D3D3;
 }
 
+body {
+  height: 100%;
+}
+
 #root {
-  max-height: 100vh;
+  /* max-height: 100vh; */
   overflow-y: scroll;
 }
 

@@ -2,8 +2,37 @@ import axios from 'axios';
 
 type CallbackType = (p1: Array) => void;
 type Props = Int;
+type UserContext = $ReadOnly<{|
+  _id: string,
+  name: string,
+  email: string,
+  token: string
+|}>;
+
+type LoginContext = $ReadOnly<{|
+  username: string,
+  password: string,
+  callback?: (token: UserContext) => void
+|}>;
 
 const BASE_API_URL = `${process.env.REACT_APP_API_BASE}:${process.env.REACT_APP_API_PORT || 3000}`;
+
+async function LoginUser(context: LoginContext): UserContext {
+  const {
+    username,
+    password,
+    callback,
+  } = context;
+  const result = await axios.post(
+    `${BASE_API_URL}/rgapi/user/login`,
+    {
+      email: username,
+      password,
+    },
+  );
+  callback?.(result.data);
+  return result.data;
+}
 
 async function fetchRecipeData(callback: CallbackType) {
   const result = await axios(
@@ -58,10 +87,12 @@ export {
   fetchIngredientData,
   fetchReviewData,
   fetchMyRecipes,
+  LoginUser,
 };
 export default {
   fetchRecipeData,
   fetchIngredientData,
   fetchReviewData,
   fetchMyRecipes,
+  LoginUser,
 };
