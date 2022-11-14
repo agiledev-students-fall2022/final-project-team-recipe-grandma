@@ -17,7 +17,7 @@
 
 .rg-primary-nav {
     list-style: none;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: center;
     padding: 0;
     width: 100%;
@@ -159,6 +159,10 @@
     }
 
     .rg-primary-nav .rg-nav-item.active {
+        color: #ea9739;
+    }
+
+    .rg-primary-nav .rg-nav-item:hover .rg-icon {
         color: #ea9739;
     }
 

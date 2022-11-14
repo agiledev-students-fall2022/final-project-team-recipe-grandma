@@ -58,10 +58,10 @@ class UserController {
       console.log(err);
       return res.status(400).json({ message: err.message });
     }
-    return res.status(400).json({ message: 'Registration failed arbitrarily.' });
   }
 
   static async LoginUser(req, res) {
+    console.log('Got requested to login');
     const { email, password } = req.body;
 
     return User.findOne({ email })
