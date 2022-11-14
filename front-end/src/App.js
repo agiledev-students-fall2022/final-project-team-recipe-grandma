@@ -17,6 +17,11 @@ function App(): React.Node {
       icon: 'search',
     },
     {
+      routePath: '/',
+      title: 'Add Recipe',
+      icon: 'add',
+    },
+    {
       routePath: '/profile',
       title: 'Profile',
       icon: 'person',
