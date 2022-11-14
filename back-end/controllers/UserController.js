@@ -56,8 +56,9 @@ class UserController {
         }).catch((err) => res.status(400).json({ message: err.message }));
     } catch (err) {
       console.log(err);
-      return res.status(400).json({ message: err.message });
+      res.status(400).json({ message: err.message });
     }
+    return null;
   }
 
   static async LoginUser(req, res) {
