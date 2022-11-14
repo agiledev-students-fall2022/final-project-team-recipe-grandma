@@ -57,6 +57,7 @@
 .rg-primary-nav .rg-nav-item.active .rg-nav-text {
     opacity: 1;
     transform: translateY(20px);
+    white-space: nowrap;
 }
 
 .rg-primary-nav .rg-nav-item.active .rg-nav-icon .rg-icon {
