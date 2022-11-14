@@ -63,9 +63,11 @@ function Navbar(props: Props): React.Node {
           <Route path="/search-ingredient" element={<SearchIngredients />} />
           <Route path="/profile" element={<UserUpload />} />
         </Route>
+        <Route element={<ProtectedRoutes requireAuthOrLogout={false} />}>
+          <Route path="/login" element={<LogInPage />} />
+          <Route path="/register" element={<Register />} />
+        </Route>
         <Route path="/" element={<Home />} />
-        <Route path="/login" element={<LogInPage />} />
-        <Route path="/register" element={<Register />} />
       </Routes>
     </>
   );
