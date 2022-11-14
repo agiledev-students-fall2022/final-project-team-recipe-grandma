@@ -1,9 +1,23 @@
 import * as React from 'react';
 import { Outlet, Navigate } from 'react-router-dom';
 
-function ProtectedRoutes(): React.Node {
+type Props = {|
+  RequireAuthOrLogout: boolean
+|};
+
+const defaultProps = {
+  requireAuthOrLogout: true,
+};
+
+function ProtectedRoutes(props: Props): React.Node {
+  const { requireAuthOrLogout } = props;
   const auth = { token: false }; // Fix later
-  return auth.token ? <Outlet /> : <Navigate to="/login" />;
+
+  const requireAuth = auth.token ? <Outlet /> : <Navigate to="/login" />;
+  const requireLogout = !auth.token ? <Outlet /> : <Navigate to="/" />;
+  return requireAuthOrLogout ? requireAuth : requireLogout;
 }
+
+ProtectedRoutes.defaultProps = defaultProps;
 
 export default ProtectedRoutes;
