@@ -13,6 +13,7 @@ import NavbarListItem from '../NavbarListItem';
 
 import './Navbar.css';
 import Register from '../Register/Register';
+import ProtectedRoutes from '../ProtectedRoutes';
 
 type RouteDefinition = $ReadOnly<{|
   routePath: string,
@@ -56,11 +57,13 @@ function Navbar(props: Props): React.Node {
         </ul>
       </nav>
       <Routes>
+        <Route element={<ProtectedRoutes />}>
+          <Route path="/recipe/:recipeindex" element={<RecipeInDetail />} />
+          <Route path="/recipe/:recipeindex/review/" element={<ReviewPage />} />
+          <Route path="/search-ingredient" element={<SearchIngredients />} />
+          <Route path="/profile" element={<UserUpload />} />
+        </Route>
         <Route path="/" element={<Home />} />
-        <Route path="/recipe/:recipeindex" element={<RecipeInDetail />} />
-        <Route path="/recipe/:recipeindex/review/" element={<ReviewPage />} />
-        <Route path="/search-ingredient" element={<SearchIngredients />} />
-        <Route path="/profile" element={<UserUpload />} />
         <Route path="/login" element={<LogInPage />} />
         <Route path="/register" element={<Register />} />
       </Routes>
