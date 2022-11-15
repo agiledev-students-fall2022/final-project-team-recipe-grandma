@@ -15,9 +15,17 @@ type LoginContext = $ReadOnly<{|
   callback?: (token: UserContext) => void
 |}>;
 
+type RegistrationContext = $ReadOnly<{|
+  email: string,
+  name: string,
+  password: string,
+  callback?: (token: UserContext) => void
+|}>;
+
 const BASE_API_URL = `${process.env.REACT_APP_API_BASE}:${process.env.REACT_APP_API_PORT || 3000}`;
 
 async function LoginUser(context: LoginContext): UserContext {
+  console.log('Logging in...');
   const {
     username,
     password,
@@ -29,12 +37,16 @@ async function LoginUser(context: LoginContext): UserContext {
       email: username,
       password,
     },
-  );
-  callback?.(result.data);
-  return result.data;
+  ).catch((err) => {
+    callback?.(err.response.data);
+  });
+  if (result) {
+    callback?.(result.data);
+    return result.data;
+  }
 }
 
-export async function RegisterUser(context: LoginContext): UserContext {
+export async function RegisterUser(context: RegistrationContext): UserContext {
   const {
     email,
     name,
@@ -48,9 +60,14 @@ export async function RegisterUser(context: LoginContext): UserContext {
       email,
       password,
     },
-  );
-  callback?.(result.data);
-  return result.data;
+  ).catch((err) => {
+    callback?.(err.response.data);
+  });
+
+  if (result) {
+    callback?.(result.data);
+    return result.data;
+  }
 }
 
 async function fetchRecipeData(callback: CallbackType) {
