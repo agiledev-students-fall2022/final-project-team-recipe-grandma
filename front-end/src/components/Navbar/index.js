@@ -12,7 +12,7 @@ import LogInPage from '../../pages/LogInPage/LogInPage';
 import NavbarListItem from '../NavbarListItem';
 
 import './Navbar.css';
-import Register from '../Register/Register';
+import Register from '../../pages/Register/Register';
 import ProtectedRoutes from '../ProtectedRoutes';
 
 type RouteDefinition = $ReadOnly<{|

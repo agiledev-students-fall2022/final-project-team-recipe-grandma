@@ -29,7 +29,9 @@ class UserController {
     // TODO @mohammedajao - Add error clarification for frontend
     const { name, email, password } = req.body;
     if (!name || !email || !password) {
-      return res.status(400);
+      return res.status(400).json({
+        message: 'Invalid fields',
+      });
     }
 
     const salt = await bcrypt.genSalt(10);
