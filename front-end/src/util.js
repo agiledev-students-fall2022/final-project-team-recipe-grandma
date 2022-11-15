@@ -34,6 +34,25 @@ async function LoginUser(context: LoginContext): UserContext {
   return result.data;
 }
 
+export async function RegisterUser(context: LoginContext): UserContext {
+  const {
+    email,
+    name,
+    password,
+    callback,
+  } = context;
+  const result = await axios.post(
+    `${BASE_API_URL}/rgapi/user/register`,
+    {
+      name,
+      email,
+      password,
+    },
+  );
+  callback?.(result.data);
+  return result.data;
+}
+
 async function fetchRecipeData(callback: CallbackType) {
   const result = await axios(
     `${BASE_API_URL}/rgapi/recipe/all`,

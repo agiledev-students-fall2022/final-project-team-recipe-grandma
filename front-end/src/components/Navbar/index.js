@@ -26,7 +26,7 @@ type Props = $ReadOnly<{|
 |}>;
 
 function Navbar(props: Props): React.Node {
-  const [currentSelection, setSelection] = useState('home');
+  const [currentSelection, setSelection] = useState('Home');
 
   const { AppRoutes } = props;
 
