@@ -1,10 +1,10 @@
 import * as React from 'react';
 import AuthForm from '../../components/AuthForm/AuthForm';
 
-function LogInPage(): React.Node {
+function Register(): React.Node {
   return (
-    <AuthForm authFormType="login" />
+    <AuthForm authFormType="register" />
   );
 }
 
-export default LogInPage;
+export default Register;
