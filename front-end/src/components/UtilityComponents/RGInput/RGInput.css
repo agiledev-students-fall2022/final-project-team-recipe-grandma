@@ -21,7 +21,7 @@
 .rg-input-box span {
   position: absolute;
   left: 0;
-  padding: 10px;
+  padding: 10px 20px;
   pointer-events: none;
   font-size: 1em;
   text-transform: uppercase;
@@ -32,6 +32,13 @@
 .rg-input-box input:focus ~ span
 {
   color: #ffa845;
+  transform: translateX(10px) translateY(-7px);
+  font-size: 0.65em;
+  padding: 0 10px;
+  background-color: white;
+}
+
+.rg-input-box.rgi-labeled span {
   transform: translateX(10px) translateY(-7px);
   font-size: 0.65em;
   padding: 0 10px;

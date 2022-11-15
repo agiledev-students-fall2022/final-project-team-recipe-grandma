@@ -5,7 +5,8 @@ type Props = $ReadOnly<{|
   label?: string,
   onChange?: () => void,
   required?: boolean,
-  type?: string
+  type?: string,
+  value: string
 |}>;
 
 const defaultProps = {
@@ -21,9 +22,11 @@ function RGInput(props: Props): React.Node {
     onChange,
     required,
     type,
+    value,
   } = props;
+  const className = (value !== '') ? 'rg-input-box rgi-box rgi-labeled' : 'rg-input-box rgi-box';
   return (
-    <div className="rg-input-box rgi-box">
+    <div className={className}>
       <input
         onChange={onChange}
         type={type}
