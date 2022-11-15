@@ -36,6 +36,7 @@ function Register(): React.Node {
             onChange={(ev) => setUsernameText(ev.target.value)}
             type="text"
             label="Username"
+            value={usernameText}
           />
         </div>
         <div className="mb-2">
@@ -43,6 +44,7 @@ function Register(): React.Node {
             onChange={(ev) => setEmailText(ev.target.value)}
             type="text"
             label="Enter your e-mail"
+            value={emailText}
           />
         </div>
         <div className="mb-2">
@@ -50,6 +52,7 @@ function Register(): React.Node {
             onChange={(ev) => setPasswordText(ev.target.value)}
             type="password"
             label="Password"
+            value={passwordText}
           />
         </div>
         <div className="mb-2">
@@ -57,6 +60,7 @@ function Register(): React.Node {
             onChange={(ev) => setConfirmedPasswordText(ev.target.value)}
             type="password"
             label="Confirm Password"
+            value={confirmedPasswordText}
           />
         </div>
         <button
