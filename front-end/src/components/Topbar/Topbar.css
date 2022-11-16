@@ -1,0 +1,39 @@
+.rg-topbar {
+  padding: 20px;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  align-items: center;
+  overflow-y: hidden;
+}
+
+.rg-topbar .rg-tb-left, .rg-tb-right {
+  flex: 1;
+}
+
+.rg-topbar .rg-tb-right {
+  text-align: right;
+}
+
+.rg-topbar .rg-tb-title {
+  justify-self: center;
+  font-weight: bolder;
+  text-transform: capitalize;
+  font-size: 1.5em;
+}
+
+.rg-topbar .rg-tb-back-btn {
+  display: flex;
+  transition: 0.2s;
+}
+
+.rg-topbar .rg-tb-back-btn .rg-tb-icon {
+  min-height: 100%;
+  display: flex;
+  align-items: center;
+  vertical-align: 50px;
+}
+
+.rg-topbar .rg-tb-back-btn:active {
+  opacity: 0.5;
+}
