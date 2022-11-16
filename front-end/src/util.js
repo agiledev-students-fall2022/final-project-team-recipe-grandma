@@ -1,8 +1,20 @@
 import axios from 'axios';
 
+/*
+* If your request requires a bearer token, pass the token
+* to the function from the component.
+* The function will grab the data via:
+*     import { useSelector } from 'react-redux';
+*     import { selectCurrentToken } from './features/auth/authSlice';
+* Inside the component:
+*     const token = useSelector(selectCurrentToken);
+* The JWT token is a string.
+* Now add 'Bearer ' prior to the token for the headers.
+*/
+
 type CallbackType = (p1: Array) => void;
 type Props = Int;
-type UserContext = $ReadOnly<{|
+export type UserContext = $ReadOnly<{|
   _id: string,
   name: string,
   email: string,
@@ -22,10 +34,9 @@ type RegistrationContext = $ReadOnly<{|
   callback?: (token: UserContext) => void
 |}>;
 
-const BASE_API_URL = `${process.env.REACT_APP_API_BASE}:${process.env.REACT_APP_API_PORT || 3000}`;
+export const BASE_API_URL = `${process.env.REACT_APP_API_BASE}:${process.env.REACT_APP_API_PORT || 3000}`;
 
-async function LoginUser(context: LoginContext): UserContext {
-  console.log('Logging in...');
+export async function LoginUser(context: LoginContext): UserContext {
   const {
     username,
     password,
@@ -38,7 +49,8 @@ async function LoginUser(context: LoginContext): UserContext {
       password,
     },
   ).catch((err) => {
-    callback?.(err.response.data);
+    const errMsg = err.response?.data || err;
+    callback?.(errMsg);
   });
   if (result) {
     callback?.(result.data);
@@ -61,7 +73,8 @@ export async function RegisterUser(context: RegistrationContext): UserContext {
       password,
     },
   ).catch((err) => {
-    callback?.(err.response.data);
+    const errMsg = err.response?.data || err;
+    callback?.(errMsg);
   });
 
   if (result) {
@@ -70,7 +83,7 @@ export async function RegisterUser(context: RegistrationContext): UserContext {
   }
 }
 
-async function fetchRecipeData(callback: CallbackType) {
+export async function fetchRecipeData(callback: CallbackType) {
   const result = await axios(
     `${BASE_API_URL}/rgapi/recipe/all`,
   ).catch((err) => console.log(err.message));
@@ -79,7 +92,7 @@ async function fetchRecipeData(callback: CallbackType) {
   }
 }
 
-async function fetchIngredientData(callback: CallbackType) {
+export async function fetchIngredientData(callback: CallbackType) {
   const result = await axios(
     `${BASE_API_URL}/rgapi/ingredients/all`,
   ).catch((err) => console.log(err.message));
@@ -89,7 +102,7 @@ async function fetchIngredientData(callback: CallbackType) {
   }
 }
 
-async function fetchReviewData(callback: CallbackType, props: Props) {
+export async function fetchReviewData(callback: CallbackType, props: Props) {
   console.log(props);
   const url = `${BASE_API_URL}/rgapi/review/review/`;
   const fullUrl = url.concat('', props);
@@ -106,7 +119,7 @@ async function fetchReviewData(callback: CallbackType, props: Props) {
   }
 }
 
-async function fetchMyRecipes(callback: CallbackType) {
+export async function fetchMyRecipes(callback: CallbackType) {
   // need to change this after backend is done
   const result = await axios(
     `${BASE_API_URL}/rgapi/user/myrecipe`,
@@ -118,13 +131,6 @@ async function fetchMyRecipes(callback: CallbackType) {
   }
 }
 
-export {
-  fetchRecipeData,
-  fetchIngredientData,
-  fetchReviewData,
-  fetchMyRecipes,
-  LoginUser,
-};
 export default {
   fetchRecipeData,
   fetchIngredientData,

@@ -1,7 +1,21 @@
 .rg-auth-subtext a {
   color: rgb(127, 72, 169);
   text-decoration: none;
+  transition: 0.2s ease-in-out;
 }
+
+.rg-auth-subtext a:hover ~ .rg-a-underline {
+  position: absolute;
+  color: rgb(127, 72, 169);
+  left: 0;
+  bottom: 0;
+  width: 100%;
+}
+
+.rg-auth-subtext a:hover ~ span.rg-a-underline {
+  width: 100%
+}
+
 
 .rg-auth-subtext {
   font-size: 14px;
