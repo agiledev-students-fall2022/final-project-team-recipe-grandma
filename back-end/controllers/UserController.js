@@ -81,6 +81,8 @@ class UserController {
             } else {
               throw new Error('Password is incorrect');
             }
+          }).catch((err) => {
+            res.status(400).json({ message: err.message });
           });
         } else {
           throw new Error('User not found');
