@@ -14,6 +14,11 @@ body {
 @media(min-width: 400px) {
   .rg-navbar ~ * {
     margin-left: 100px;
+    max-width: calc(100% - 100px);
+  }
+
+  .root-section {
+    max-width: calc(100% - 100px);
   }
 }
 .App {
