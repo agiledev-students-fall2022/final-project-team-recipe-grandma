@@ -1,6 +1,10 @@
 import * as React from 'react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+//  Permitted to use Redux for AUTH ONLY
+import { useDispatch } from 'react-redux';
+import { signIn } from '../../features/auth/authSlice';
+//  Permitted to use Redux for AUTH ONLY
 import { RegisterUser, LoginUser } from '../../util';
 import RGInput from '../UtilityComponents/RGInput';
 import './AuthForm.css';
@@ -18,6 +22,8 @@ function LogIn(): React.Node {
   // For a more secure approach, you could hash here & on the backend
   const [passwordText, setPasswordText] = useState('');
 
+  const dispatch = useDispatch();
+
   const OnAuthCallback = (data) => {
     if (data.message) {
       setErrorMsg(data.message);
@@ -28,6 +34,12 @@ function LogIn(): React.Node {
     } else {
       setErrorMsg('');
       // We want to use the user data and store the token in session
+      dispatch(signIn({
+        _id: data.id,
+        name: data.name,
+        email: data.email,
+        token: data.token,
+      }));
     }
   };
 
@@ -81,6 +93,7 @@ function LogIn(): React.Node {
           >
             here
           </Link>
+          <span className="rg-a-underline" />
         </p>
       </div>
     </div>
@@ -95,6 +108,7 @@ function Register(): React.Node {
   // For a more secure approach, you could hash here & on the backend
   const [passwordText, setPasswordText] = useState('');
   const [confirmedPasswordText, setConfirmedPasswordText] = useState('');
+  const dispatch = useDispatch();
 
   const OnAuthCallback = (data) => {
     if (data.message) {
@@ -106,12 +120,17 @@ function Register(): React.Node {
     } else {
       setErrorMsg('');
       // We want to use the user data and store the token in session
+      dispatch(signIn({
+        _id: data.id,
+        name: data.name,
+        email: data.email,
+        token: data.token,
+      }));
     }
   };
 
   const handleRegistation = () => {
     if (confirmedPasswordText !== passwordText) return null;
-    console.log('Handling registration');
     RegisterUser({
       email: emailText,
       name: usernameText,
@@ -178,6 +197,7 @@ function Register(): React.Node {
           >
             here
           </Link>
+          <span className="rg-a-underline" />
         </p>
       </div>
     </div>

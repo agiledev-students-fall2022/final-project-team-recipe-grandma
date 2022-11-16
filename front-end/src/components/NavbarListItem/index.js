@@ -21,7 +21,7 @@ function NavbarListItem(props: Props): React.Node {
     currentSelection,
     onAction,
   } = props;
-  const isActive = `rg-nav-item ${currentSelection === text ? 'active' : ''}`;
+  const isActive = `rg-nav-item ${window.location.pathname.indexOf(routePath) > -1 && text === currentSelection ? 'active' : ''}`;
 
   const handleAction = () => {
     onAction?.(text);
