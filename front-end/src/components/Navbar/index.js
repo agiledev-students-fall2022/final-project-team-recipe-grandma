@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
-  Route, Routes,
+  Route, Routes, useLocation,
 } from 'react-router-dom';
 import Home from '../../pages/Home';
 import RecipeInDetail from '../../pages/RecipeInDetail';
@@ -10,10 +10,10 @@ import SearchIngredients from '../../pages/SearchIngredients';
 import UserUpload from '../../pages/UserUpload';
 import LogInPage from '../../pages/LogInPage/LogInPage';
 import NavbarListItem from '../NavbarListItem';
-
-import './Navbar.css';
 import Register from '../../pages/Register/Register';
 import ProtectedRoutes from '../ProtectedRoutes';
+
+import './Navbar.css';
 
 type RouteDefinition = $ReadOnly<{|
   routePath: string,
@@ -27,8 +27,29 @@ type Props = $ReadOnly<{|
 
 function Navbar(props: Props): React.Node {
   const [currentSelection, setSelection] = useState('Home');
-
   const { AppRoutes } = props;
+  const location = useLocation();
+
+  useEffect(() => {
+    console.log('Refreshed');
+    console.log(window.location.href, window.location.pathname === '/');
+    const { pathname } = location;
+
+    AppRoutes.every((route) => {
+      if (pathname === '/') {
+        setSelection('Home');
+        return false;
+      }
+      if (
+        pathname.indexOf(route.routePath) > -1
+        && route.routePath !== '/'
+      ) {
+        setSelection(route.title);
+        return false;
+      }
+      return true;
+    });
+  }, [location]);
 
   const NavItems = AppRoutes.map((appRoute, ind) => {
     if (ind > 5) {
