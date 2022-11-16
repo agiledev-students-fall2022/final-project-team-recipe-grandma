@@ -7,6 +7,7 @@ import StringConfig from '../../StringConfig';
 import '../../components/Recipe/aRecipeButtonStyle.css';
 import './Home.css';
 import * as Util from '../../util';
+import Topbar, { TopbarType } from '../../components/Topbar';
 
 function Home(): React.Node {
   const [data, setData] = useState([]);
@@ -19,6 +20,11 @@ function Home(): React.Node {
 
   return (
     <>
+      <Topbar
+        hasBackButton
+        type={TopbarType.TOPBAR_WITH_BACK_BUTON}
+        title="Choose your recipes"
+      />
       {/* <h1>Recommended Recipes</h1> */}
       <section className="recipes container-fluid row justify-content-center">
         <h1 className="mb-5"><strong>Select Your Recipes</strong></h1>
