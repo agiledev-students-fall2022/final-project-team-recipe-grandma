@@ -19,7 +19,6 @@
   justify-self: center;
   font-weight: bolder;
   text-transform: capitalize;
-  font-size: 1.5em;
 }
 
 .rg-topbar .rg-tb-back-btn {
@@ -36,4 +35,10 @@
 
 .rg-topbar .rg-tb-back-btn:active {
   opacity: 0.5;
+}
+
+@media(min-width: 400px) {
+  .rg-topbar .rg-tb-title {
+    font-size: 1.5em;
+  }
 }
