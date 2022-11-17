@@ -1,22 +1,28 @@
 import * as React from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import RecipeDetails from '../../components/RecipeDetails';
-import CustomButton from '../../components/CustomButton';
+import Topbar, { TopbarType } from '../../components/Topbar';
 import * as Util from '../../util';
 import './RecipeInDetail.css';
 // import './ReviewButton.css';
 
 function RecipeInDetailPage(): React.Node {
   const [data, setData] = useState([]);
+  const [recipeName, setRecipeName] = useState('User Recipe');
   const { recipeindex } = useParams();
-  const navigate = useNavigate();
-  const goBack = () => {
-    navigate(-1);
+
+  console.log(recipeindex);
+
+  const apiCallback = (apiData) => {
+    setData(apiData);
+    if (apiData && apiData[recipeindex]) {
+      setRecipeName(apiData[recipeindex].name);
+    }
   };
 
   useEffect(() => {
-    Util.fetchRecipeData(setData);
+    Util.fetchRecipeData(apiCallback);
   }, []);
 
   const item = data.length > 0 ? data[recipeindex] : null;
@@ -32,13 +38,16 @@ function RecipeInDetailPage(): React.Node {
   ) : null;
 
   return (
-    <article className="a_recipe_in_detail mb-5">
-      {/* Back button currently not viewable due to CSS. Also should be in navbar */}
-      <div className="back-btn-container">
-        <CustomButton className="back-btn" text="Back" onAction={goBack} />
-      </div>
-      {recipeContent}
-    </article>
+    <section className="rga-section">
+      <Topbar
+        hasBackButton
+        type={TopbarType.TOPBAR_WITH_BACK_BUTON}
+        title={recipeName}
+      />
+      <section className="rga-section a_recipe_in_detail mb-5">
+        {recipeContent}
+      </section>
+    </section>
   );
 }
 
