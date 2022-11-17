@@ -1,0 +1,36 @@
+
+.rg-base-sb {
+  width: 100%;
+  border: 1px solid #d3d3d3;
+  background-color: white;
+  padding-left: 10px;
+  display: flex;
+  flex-direction: row;
+  border-radius: 5px;
+}
+
+.rg-base-sb input {
+  border-radius: 5px;
+  width: 100%;
+  border: none;
+  padding: 10px;
+  background-color: inherit;
+  justify-self: flex-end;
+  color: rgba(0,0,0,0.5);
+  font-weight: bold;
+  border: 0;
+  outline: 0;
+}
+
+.rg-base-sb input::placeholder {
+  color: rgba(0,0,0,0.3);
+}
+
+.rg-base-sb span {
+  justify-self: flex-start;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  color: rgba(0,0,0,0.5);
+}
