@@ -12,6 +12,10 @@
   z-index: 9999;
 }
 
+.rg-topbar.rg-tb-transparent {
+  background-color: transparent;
+}
+
 .rg-topbar .rg-tb-left, .rg-tb-right {
   flex: 1;
 }
@@ -28,6 +32,10 @@
   overflow: hidden;
   text-overflow: ellipsis;
   padding: 0 10px;
+}
+
+.rg-topbar.default .rg-tb-title {
+  font-size: 1.5em;
 }
 
 .rg-topbar .rg-tb-back-btn {

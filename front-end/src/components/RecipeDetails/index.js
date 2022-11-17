@@ -106,6 +106,7 @@ function RecipeDetails(props: Props): React.Node {
         onClose={() => setModalClosed(true)}
       >
         <RecipeReviews
+          overflowEndState="scroll"
           recipeRating={rating}
           recipeId={recipeIndex}
         />
