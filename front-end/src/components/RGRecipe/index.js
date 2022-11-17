@@ -59,7 +59,10 @@ function RGRecipe(props: Props): React.Node {
     <div className="rg-recipe">
       <div className="rg-recipe-content">
         <button onClick={() => navigate(recipeUrl)} type="button">
-          <img className="rg-recipe-cover" src={imageUrl} alt="recipe cover" />
+          <div className="rg-img-container">
+            <img className="rg-recipe-cover" src={imageUrl} alt="recipe cover" />
+            <div className="rg-blanket" />
+          </div>
           <div className="mini-details">
             Rating:
             <span>
