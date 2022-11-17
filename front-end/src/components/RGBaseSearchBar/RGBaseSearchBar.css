@@ -1,8 +1,8 @@
 
 .rg-base-sb {
   width: 100%;
-  border: 1px solid #d3d3d3;
-  background-color: white;
+  border: 1px solid #f8f9fa;
+  background-color: #fffcfc;
   padding-left: 10px;
   display: flex;
   flex-direction: row;

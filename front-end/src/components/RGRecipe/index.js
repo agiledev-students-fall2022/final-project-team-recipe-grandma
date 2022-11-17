@@ -38,8 +38,19 @@ function RGRecipe(props: Props): React.Node {
   if (remainder > 0) {
     starValues.push(remainder);
   }
+  while (starValues.length < 5) {
+    starValues.push(0);
+  }
 
   const stars = starValues.map((val, ind) => {
+    if (val === 0) {
+      return (
+        <span key={ind} className="material-icons-outlined">
+          star_outline
+        </span>
+      );
+    }
+
     if (val < 1) {
       return (
         <span key={ind} className="material-icons-outlined">
