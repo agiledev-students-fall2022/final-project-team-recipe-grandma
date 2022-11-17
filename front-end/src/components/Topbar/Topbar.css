@@ -24,6 +24,10 @@
   justify-self: center;
   font-weight: bolder;
   text-transform: capitalize;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 0 10px;
 }
 
 .rg-topbar .rg-tb-back-btn {
