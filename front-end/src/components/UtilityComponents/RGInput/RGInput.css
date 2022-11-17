@@ -29,6 +29,26 @@
   color: #d3d3d3;
 }
 
+.rg-input-box.rgi-error input {
+  border: solid 1px #ff2f2f;
+}
+
+.rg-input-box.rgi-error span {
+  color: #ff2f2f;
+  transform: translateX(10px) translateY(-7px);
+  font-size: 0.65em;
+  padding: 0 10px;
+  background-color: white;
+}
+
+.rg-input-box.rgi-error input:focus ~ span {
+  color: #ff2f2f;
+  transform: translateX(10px) translateY(-7px);
+  font-size: 0.65em;
+  padding: 0 10px;
+  background-color: white;
+}
+
 .rg-input-box input:focus ~ span
 {
   color: #ffa845;
@@ -48,6 +68,10 @@
 .rg-input-box input:focus {
   outline: none;
   border: solid 1px #ffa845;
+}
+
+.rg-input-box.rgi-error input:focus {
+  border: solid 1px #ff2f2f;
 }
 
 .rg-input {

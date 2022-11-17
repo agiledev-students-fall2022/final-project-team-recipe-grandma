@@ -5,6 +5,11 @@
   width: 100%;
   align-items: center;
   overflow-y: hidden;
+  position: fixed;
+  top: 0;
+  height: 80px;
+  background-color: white;
+  z-index: 9999;
 }
 
 .rg-topbar .rg-tb-left, .rg-tb-right {
