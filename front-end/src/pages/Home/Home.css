@@ -13,8 +13,12 @@
 }
 
 .recipes-section {
-    background-color: #e0e2e3;
+    /* background-color: #e0e2e3; */
     padding: 10px;
+}
+
+.rg-recipes-search {
+    max-width: 500px;
 }
 
 .recipes {
