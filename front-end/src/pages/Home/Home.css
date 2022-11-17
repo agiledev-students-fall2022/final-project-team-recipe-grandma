@@ -12,7 +12,13 @@
     max-width: 100%;
 }
 
+.recipes-section {
+    background-color: #e0e2e3;
+    padding: 10px;
+}
+
 .recipes {
     padding: 10px;
-    margin: auto;
+    margin: 0 auto;
+    max-width: 500px;
 }
