@@ -41,7 +41,7 @@ class UserController {
       User
         .findOne({ email })
         .then((userExistence) => {
-          if (userExistence) throw new Error('User exists.');
+          if (userExistence) throw new Error('User exists');
         }).then(() => {
           User.create({
             name,

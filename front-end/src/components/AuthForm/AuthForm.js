@@ -13,6 +13,15 @@ type Props = $ReadOnly<{|
   authFormType: string
 |}>;
 
+const AUTH_ERROR_ENUMS = Object.freeze({
+  PASSWORD_IS_INCORRECT: 'password_is_incorrect',
+  USER_NOT_FOUND: 'user_not_found',
+  USER_ALREADY_EXISTS: 'user_exists',
+  INVALID_FIELDS: 'invalid_fields',
+  USER_CREATION_FAILED: 'failed_to_create_user',
+  PASSWORDS_DO_NOT_MATCH: 'passwords_do_not_match',
+});
+
 // Should have a Loader to show the API is being called for Login/Register
 
 function LogIn(): React.Node {
@@ -23,6 +32,9 @@ function LogIn(): React.Node {
   const [passwordText, setPasswordText] = useState('');
 
   const dispatch = useDispatch();
+  const errorMsgToEnum = errorMsg.toLowerCase().replaceAll(' ', '_');
+  const passwordError = AUTH_ERROR_ENUMS.PASSWORD_IS_INCORRECT === errorMsgToEnum;
+  const emailError = AUTH_ERROR_ENUMS.USER_NOT_FOUND === errorMsgToEnum;
 
   const OnAuthCallback = (data) => {
     if (data.message) {
@@ -65,6 +77,7 @@ function LogIn(): React.Node {
         {errorNotifyComponent}
         <div className="mb-2">
           <RGInput
+            error={emailError}
             onChange={(ev) => setEmailText(ev.target.value)}
             type="text"
             label="Enter your e-mail"
@@ -73,6 +86,7 @@ function LogIn(): React.Node {
         </div>
         <div className="mb-2">
           <RGInput
+            error={passwordError}
             onChange={(ev) => setPasswordText(ev.target.value)}
             type="password"
             label="Password"
@@ -110,6 +124,13 @@ function Register(): React.Node {
   const [confirmedPasswordText, setConfirmedPasswordText] = useState('');
   const dispatch = useDispatch();
 
+  const errorMsgToEnum = errorMsg.toLowerCase().replaceAll(' ', '_');
+  const passwordError = AUTH_ERROR_ENUMS.PASSWORDS_DO_NOT_MATCH === errorMsgToEnum;
+  const emailError = AUTH_ERROR_ENUMS.USER_ALREADY_EXISTS === errorMsgToEnum;
+  const invalidFieldsOrFailureError = (AUTH_ERROR_ENUMS.INVALID_FIELDS === errorMsgToEnum
+    || AUTH_ERROR_ENUMS.USER_CREATION_FAILED === errorMsgToEnum
+  );
+
   const OnAuthCallback = (data) => {
     if (data.message) {
       setErrorMsg(data.message);
@@ -130,7 +151,9 @@ function Register(): React.Node {
   };
 
   const handleRegistation = () => {
-    if (confirmedPasswordText !== passwordText) return null;
+    if (confirmedPasswordText !== passwordText) {
+      setErrorMsg(AUTH_ERROR_ENUMS.PASSWORDS_DO_NOT_MATCH);
+    }
     RegisterUser({
       email: emailText,
       name: usernameText,
@@ -153,6 +176,7 @@ function Register(): React.Node {
         {errorNotifyComponent}
         <div className="mb-2">
           <RGInput
+            error={invalidFieldsOrFailureError}
             onChange={(ev) => setUsernameText(ev.target.value)}
             type="text"
             label="Username"
@@ -161,6 +185,7 @@ function Register(): React.Node {
         </div>
         <div className="mb-2">
           <RGInput
+            error={emailError || invalidFieldsOrFailureError}
             onChange={(ev) => setEmailText(ev.target.value)}
             type="text"
             label="Enter your e-mail"
@@ -169,6 +194,7 @@ function Register(): React.Node {
         </div>
         <div className="mb-2">
           <RGInput
+            error={passwordError || invalidFieldsOrFailureError}
             onChange={(ev) => setPasswordText(ev.target.value)}
             type="password"
             label="Password"
@@ -177,6 +203,7 @@ function Register(): React.Node {
         </div>
         <div className="mb-2">
           <RGInput
+            error={passwordError || invalidFieldsOrFailureError}
             onChange={(ev) => setConfirmedPasswordText(ev.target.value)}
             type="password"
             label="Confirm Password"

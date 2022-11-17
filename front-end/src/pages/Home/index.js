@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react';
 import * as React from 'react';
-import { useNavigate } from 'react-router-dom';
 // fetched all data from the API below into a file: '../../temp_recipedata.json'
-import Recipe from '../../components/Recipe';
+// import Recipe from '../../components/Recipe';
 import StringConfig from '../../StringConfig';
 import '../../components/Recipe/aRecipeButtonStyle.css';
 import './Home.css';
 import * as Util from '../../util';
 import Topbar, { TopbarType } from '../../components/Topbar';
+import RGRecipe from '../../components/RGRecipe';
 
 function Home(): React.Node {
   const [data, setData] = useState([]);
@@ -16,7 +16,7 @@ function Home(): React.Node {
     Util.fetchRecipeData(setData);
   }, []);
 
-  const navigate = useNavigate();
+  console.log(data);
 
   return (
     <>
@@ -26,10 +26,20 @@ function Home(): React.Node {
         title="Choose your recipes"
       />
       {/* <h1>Recommended Recipes</h1> */}
-      <section className="recipes container-fluid row justify-content-center">
-        {data.length > 0 ? data.map((item, ind) => (
-          <Recipe key={ind} details={item} onAction={() => navigate(`recipe/${ind}`)} />
-        )) : StringConfig.API_FAILURE_WARNING}
+      <section className="rga-section recipes-section row justify-content-center">
+        <div className="recipes">
+          {data.length > 0 ? data.map((item, ind) => (
+            // <Recipe key={ind} details={item} onAction={() => navigate(`recipe/${ind}`)} />
+            <RGRecipe
+              key={ind}
+              author="Chadwick Boseman"
+              authorID="1"
+              imageUrl={item.imageURL}
+              recipeUrl={`recipe/${ind}`}
+              title={item.name}
+            />
+          )) : StringConfig.API_FAILURE_WARNING}
+        </div>
       </section>
     </>
   );

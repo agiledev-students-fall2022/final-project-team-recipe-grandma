@@ -31,9 +31,9 @@ function Navbar(props: Props): React.Node {
   const location = useLocation();
 
   useEffect(() => {
-    console.log('Refreshed');
     console.log(window.location.href, window.location.pathname === '/');
     const { pathname } = location;
+    setSelection('');
 
     AppRoutes.every((route) => {
       if (pathname === '/') {
