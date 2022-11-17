@@ -7,13 +7,13 @@ import Home from '../../pages/Home';
 import RecipeInDetail from '../../pages/RecipeInDetail';
 import ReviewPage from '../../pages/ReviewPage/ReviewPage';
 import SearchIngredients from '../../pages/SearchIngredients';
-import UserUpload from '../../pages/UserUpload';
 import LogInPage from '../../pages/LogInPage/LogInPage';
 import NavbarListItem from '../NavbarListItem';
 import Register from '../../pages/Register/Register';
 import ProtectedRoutes from '../ProtectedRoutes';
 
 import './Navbar.css';
+import Profile from '../../pages/Profile';
 
 type RouteDefinition = $ReadOnly<{|
   routePath: string,
@@ -82,7 +82,7 @@ function Navbar(props: Props): React.Node {
           <Route path="/recipe/:recipeindex" element={<RecipeInDetail />} />
           <Route path="/recipe/:recipeindex/review/" element={<ReviewPage />} />
           <Route path="/search-ingredient" element={<SearchIngredients />} />
-          <Route path="/profile" element={<UserUpload />} />
+          <Route path="/profile" element={<Profile />} />
         </Route>
         <Route element={<ProtectedRoutes requireAuthOrLogout={false} />}>
           <Route path="/login" element={<LogInPage />} />

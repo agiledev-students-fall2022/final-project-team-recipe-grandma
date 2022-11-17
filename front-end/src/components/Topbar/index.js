@@ -12,18 +12,21 @@ type Props = $ReadOnly<{|
   leftElement?: React.Node,
   title?: string,
   type?: string,
-  hasBackButton?: boolean
+  hasBackButton?: boolean,
+  transparent?: boolean
 |}>;
 
 type TopbarWithBackButtonProps = $ReadOnly<{|
   onBackClick?: () => void,
   title?: string,
   menuElements?: Array<React.Node>,
-  hasBackButton?: boolean
+  hasBackButton?: boolean,
+  transparent: boolean
 |}>;
 
 type TopbarDefaultProps = $ReadOnly<{|
-  title: string
+  title: string,
+  transparent: boolean
 |}>;
 
 const defaultProps = {
@@ -32,6 +35,7 @@ const defaultProps = {
   title: null,
   type: TopbarType.TOPBAR_DEFAULT,
   hasBackButton: true,
+  transparent: false,
 };
 
 const TopbarWithBackButtonDefaultProps = {
@@ -46,6 +50,7 @@ function TopbarWithBackButton({
   title,
   menuElements,
   hasBackButton,
+  transparent,
 }: TopbarWithBackButtonProps): React.Node {
   const backButton = !hasBackButton ? null : (
     <button
@@ -60,8 +65,10 @@ function TopbarWithBackButton({
       </span>
     </button>
   );
+
+  const transparentClassName = transparent ? 'rg-topbar rg-tb-transparent' : 'rg-topbar';
   return (
-    <div className="rg-topbar">
+    <div className={transparentClassName}>
       <div className="rg-tb-left">
         {backButton}
       </div>
@@ -80,12 +87,14 @@ TopbarWithBackButton.defaultProps = TopbarWithBackButtonDefaultProps;
 
 function TopbarDefault({
   title,
+  transparent,
 }: TopbarDefaultProps): React.Node {
+  const transparentClassName = transparent ? 'rg-topbar default rg-tb-transparent' : 'rg-topbar default';
   return (
-    <div className="rg-topbar">
+    <div className={transparentClassName}>
       {title ? (
         <div className="rg-tb-title">
-          title
+          {title}
         </div>
       ) : null}
     </div>
@@ -99,6 +108,7 @@ function Topbar(props: Props): React.Node {
     leftElement,
     title,
     type,
+    transparent,
   } = props;
   const navigate = useNavigate();
   const handleBackButton = () => navigate(-1);
@@ -111,6 +121,7 @@ function Topbar(props: Props): React.Node {
         menuElements={elements}
         leftElement={leftElement}
         title={title}
+        transparent={transparent}
       />
     );
   }
@@ -118,6 +129,7 @@ function Topbar(props: Props): React.Node {
   return (
     <TopbarDefault
       title={title}
+      transparent={transparent}
     />
   );
 }

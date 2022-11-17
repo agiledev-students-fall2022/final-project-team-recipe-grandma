@@ -5,8 +5,8 @@ import './RGSwipableModal.css';
 type Props = $ReadOnly<{|
   children?: React.Node,
   hideOnClose?: boolean,
-  onClose?: () => void,
-  onOpen?: () => void,
+  onClose?: (isClosed?: boolean) => void,
+  onOpen?: (isOpen?: boolean) => void,
   openModal: boolean,
   overflowEndState?: string
 |}>;
@@ -50,6 +50,7 @@ function RGSwipableModal({
   };
 
   const onDownSwipe = () => {
+    document.body.style.overflowY = overflowEndState;
     onClose?.(true);
     onOpen?.(false);
   };
@@ -60,7 +61,6 @@ function RGSwipableModal({
     const isUpSwipe = dist > MIN_SWIPE_DIST;
     const isDownSwipe = dist < -MIN_SWIPE_DIST;
     if (isDownSwipe || isUpSwipe) console.log('swipe', isDownSwipe ? 'down' : 'up');
-    document.body.style.overflowY = overflowEndState;
     return isDownSwipe ? onDownSwipe() : onUpSwipe();
   };
 
@@ -70,7 +70,7 @@ function RGSwipableModal({
 
   return (
     <div className={classNameOnClose}>
-      <button type="button" onClick={() => onClose?.(true)}>
+      <button type="button" onClick={() => onDownSwipe()}>
         <div className="background" />
       </button>
       <div className="modal-container">
@@ -84,7 +84,7 @@ function RGSwipableModal({
         </div>
         <button
           className="closable-btn"
-          onClick={() => onClose?.()}
+          onClick={() => onDownSwipe()}
           type="button"
         >
           <span className="rg-icon material-icons-outlined">
