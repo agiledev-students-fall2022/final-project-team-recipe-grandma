@@ -3,7 +3,6 @@ import * as React from 'react';
 // fetched all data from the API below into a file: '../../temp_recipedata.json'
 // import Recipe from '../../components/Recipe';
 import StringConfig from '../../StringConfig';
-import '../../components/Recipe/aRecipeButtonStyle.css';
 import './Home.css';
 import * as Util from '../../util';
 import Topbar, { TopbarType } from '../../components/Topbar';
@@ -58,7 +57,7 @@ function Home(): React.Node {
               author="Chadwick Boseman"
               authorID="1"
               imageUrl={item.imageURL}
-              recipeUrl={`recipe/${item.index}`}
+              recipeUrl={`/recipe/${item.index}`}
               title={item.name}
             />
           )) : StringConfig.API_FAILURE_WARNING}

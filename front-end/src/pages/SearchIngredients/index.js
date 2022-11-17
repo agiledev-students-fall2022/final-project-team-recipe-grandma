@@ -6,7 +6,7 @@ import CustomButton from '../../components/CustomButton';
 import SearchBar from '../../components/SearchBar';
 import IngredientsList from '../../components/IngredientsList/IngredientsList';
 import RGButton from '../../components/RGButton';
-import Recipe from '../../components/Recipe';
+import RGRecipe from '../../components/RGRecipe';
 import './SearchIngredients.css';
 import { fetchRecipeData } from '../../util';
 
@@ -66,7 +66,11 @@ function SearchIngredients(): React.Node {
       />
       <h5>Recommended Recipes</h5>
       {reccs.map((rec, ind) => (
-        <Recipe key={ind} details={rec} onAction={() => navigate(`/recipe/${rec.originalIndex}`)} />
+        <RGRecipe
+          key={ind}
+          details={rec}
+          onAction={() => navigate(`/recipe/${rec.originalIndex}`)}
+        />
       ))}
     </div>
   );
