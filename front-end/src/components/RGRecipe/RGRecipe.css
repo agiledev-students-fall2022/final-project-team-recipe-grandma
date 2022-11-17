@@ -8,7 +8,35 @@
 }
 
 .rg-recipe:hover {
+  box-shadow: 3px 3px 10px rgba(0,0,0,0.2);
+}
+
+/* .rg-recipe:hover {
   background-color: #efefef;
+} */
+
+.rg-recipe-content .rg-img-container {
+  overflow: hidden;
+  position: relative;
+  border-radius: 5px;
+  padding: inherit;
+}
+
+.rg-recipe-content .rg-blanket {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: inherit;
+  padding: inherit;
+  background-color: black;
+  opacity: 0;
+  transition: 0.5s;
+}
+
+.rg-recipe-content:hover .rg-blanket {
+  opacity: 0.2;
 }
 
 .rg-recipe .rg-recipe-content img {

@@ -8,6 +8,7 @@ import './Home.css';
 import * as Util from '../../util';
 import Topbar, { TopbarType } from '../../components/Topbar';
 import RGRecipe from '../../components/RGRecipe';
+import RGBaseSearchBar from '../../components/RGBaseSearchBar';
 
 function Home(): React.Node {
   const [data, setData] = useState([]);
@@ -26,7 +27,12 @@ function Home(): React.Node {
         title="Choose your recipes"
       />
       {/* <h1>Recommended Recipes</h1> */}
-      <section className="rga-section recipes-section row justify-content-center">
+      <section className="rga-section recipes-section justify-content-center">
+        <div className="container d-flex justify-content-center rg-recipes-search">
+          <RGBaseSearchBar
+            placeholder="Search for recipes"
+          />
+        </div>
         <div className="recipes">
           {data.length > 0 ? data.map((item, ind) => (
             // <Recipe key={ind} details={item} onAction={() => navigate(`recipe/${ind}`)} />
