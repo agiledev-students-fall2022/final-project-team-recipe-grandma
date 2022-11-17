@@ -1,0 +1,46 @@
+.rg-review {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  position: relative;
+  overflow: scroll;
+}
+
+.rg-review .submission-form {
+  width: 100%;
+  padding: 10px;
+}
+
+.rg-review h1 {
+  font-size: 1.3em;
+  font-weight: bold;
+}
+
+.rg-review .submission-form h6 {
+  font-weight: bold;
+}
+
+.rg-review .star-ratings, .rg-review .stars-cont .recipe-stars-cont {
+  color: #ffa845;
+}
+
+.rg-review .submission-form textarea {
+  width: 100%;
+  border: solid 1px #d3d3d3;
+  border-radius: 5px;
+  resize: none;
+  padding: 10px;
+}
+
+.rg-review .submission-form textarea::placeholder {
+  color: rgba(0,0,0,0.2);
+  font-weight: bold;
+}
+
+.rg-review .stars-cont {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

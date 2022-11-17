@@ -4,14 +4,16 @@ import './RGBaseSearchBar.css';
 
 type Props = $ReadOnly<{|
   darken?: boolean,
-  onAction?: () => void,
+  hasBorder?: boolean,
+  onAction?: (search: string) => void,
   placeholder?: string
 |}>;
 
 const defaultProps = {
+  hasBorder: false,
   onAction: () => null,
   placeholder: 'Search here',
-  darken: true,
+  darken: false,
 };
 
 function RGBaseSearchBar(props: Props): React.Node {
@@ -19,13 +21,14 @@ function RGBaseSearchBar(props: Props): React.Node {
 
   const {
     darken,
+    hasBorder,
     onAction,
     placeholder,
   } = props;
 
   const onChange = (ev) => {
     setSearchBarValue(ev.target.value);
-    onAction?.();
+    onAction?.(ev.target.value);
   };
 
   const onKeyDown = (ev) => {
@@ -35,10 +38,11 @@ function RGBaseSearchBar(props: Props): React.Node {
     }
   };
 
-  const backgroundColor = darken ? '#e0e2e3' : 'white';
+  const backgroundColor = darken ? '#e0e2e3' : '#f8f9fa';
+  const border = hasBorder ? '1px solid #d3d3d3' : '1px solid #f8f9fa';
 
   return (
-    <span className="rg-base-sb" style={{ backgroundColor }}>
+    <span className="rg-base-sb" style={{ backgroundColor, border }}>
       <span className="material-icons-outlined">
         search
       </span>
