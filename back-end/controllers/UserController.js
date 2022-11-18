@@ -29,7 +29,9 @@ class UserController {
     // TODO @mohammedajao - Add error clarification for frontend
     const { name, email, password } = req.body;
     if (!name || !email || !password) {
-      return res.status(400);
+      return res.status(400).json({
+        message: 'Invalid fields',
+      });
     }
 
     const salt = await bcrypt.genSalt(10);
@@ -39,7 +41,7 @@ class UserController {
       User
         .findOne({ email })
         .then((userExistence) => {
-          if (userExistence) throw new Error('User exists.');
+          if (userExistence) throw new Error('User exists');
         }).then(() => {
           User.create({
             name,
@@ -56,12 +58,13 @@ class UserController {
         }).catch((err) => res.status(400).json({ message: err.message }));
     } catch (err) {
       console.log(err);
-      return res.status(400).json({ message: err.message });
+      res.status(400).json({ message: err.message });
     }
-    return res.status(400).json({ message: 'Registration failed arbitrarily.' });
+    return null;
   }
 
   static async LoginUser(req, res) {
+    console.log('Got requested to login');
     const { email, password } = req.body;
 
     return User.findOne({ email })
@@ -78,6 +81,8 @@ class UserController {
             } else {
               throw new Error('Password is incorrect');
             }
+          }).catch((err) => {
+            res.status(400).json({ message: err.message });
           });
         } else {
           throw new Error('User not found');

@@ -1,59 +1,94 @@
 import * as React from 'react';
+import { useEffect, useState } from 'react';
 import {
-  Route, Routes, Link,
+  Route, Routes, useLocation,
 } from 'react-router-dom';
 import Home from '../../pages/Home';
 import RecipeInDetail from '../../pages/RecipeInDetail';
-import ReviewPage from '../../pages/ReviewPage/ReviewPage';
-import SearchIngredients from '../../pages/SearchIngredients';
-import UserUpload from '../../pages/UserUpload';
 import LogInPage from '../../pages/LogInPage/LogInPage';
+import NavbarListItem from '../NavbarListItem';
+import Register from '../../pages/Register/Register';
+import ProtectedRoutes from '../ProtectedRoutes';
+import UserUpload from '../../pages/UserUpload';
 
 import './Navbar.css';
-import Register from '../Register/Register';
+import Profile from '../../pages/Profile';
+import KitchenSearch from '../../pages/KitchenSearch';
 
-function Navbar(): React.Node {
+type RouteDefinition = $ReadOnly<{|
+  routePath: string,
+  title: string,
+  icon: string
+|}>;
+
+type Props = $ReadOnly<{|
+  AppRoutes: Array<RouteDefinition>
+|}>;
+
+function Navbar(props: Props): React.Node {
+  const [currentSelection, setSelection] = useState('Home');
+  const { AppRoutes } = props;
+  const location = useLocation();
+
+  useEffect(() => {
+    console.log(window.location.href, window.location.pathname === '/');
+    const { pathname } = location;
+    setSelection('');
+
+    AppRoutes.every((route) => {
+      if (pathname === '/') {
+        setSelection('Home');
+        return false;
+      }
+      if (
+        pathname.indexOf(route.routePath) > -1
+        && route.routePath !== '/'
+      ) {
+        setSelection(route.title);
+        return false;
+      }
+      return true;
+    });
+  }, [location]);
+
+  const NavItems = AppRoutes.map((appRoute, ind) => {
+    if (ind > 5) {
+      console.warn('Max nav-item limit reached.');
+      return null;
+    }
+
+    return (
+      <NavbarListItem
+        key={ind}
+        routePath={appRoute.routePath}
+        text={appRoute.title}
+        icon={appRoute.icon}
+        currentSelection={currentSelection}
+        onAction={setSelection}
+      />
+    );
+  });
+
   return (
     <>
-      <nav className="navbar navbar-expand-lg navbar-light">
-        <div className="container-fluid">
-          <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
-            <span className="navbar-toggler-icon" />
-          </button>
-          <Link className="navbar-brand mx-auto" to="/"><img src="http://placekitten.com/40/40" alt="" className="logo" /></Link>
-        </div>
-        <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-            <li className="nav-item">
-              <Link className="nav-link" to="/search-ingredient">Search</Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/profile">Profile</Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/login">Login</Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/register">Register</Link>
-            </li>
-          </ul>
-        </div>
+      <nav className="rg-navbar">
+        <ul className="rg-primary-nav rg-flex">
+          {NavItems}
+          {/* <div className="rg-nav-indicator" /> */}
+        </ul>
       </nav>
-      {/* <nav className="">
-        <div className="navbar-container">
-          <div className="logo-container">
-            <Link className="nav-link" to="/"><img className="logo" src="http://placekitten.com/40/40" alt="Placeholder img of kitten" /></Link>
-          </div>
-        </div>
-      </nav> */}
       <Routes>
+        <Route element={<ProtectedRoutes />}>
+          <Route path="/recipe/:recipeindex" element={<RecipeInDetail />} />
+          <Route path="/search-ingredient" element={<KitchenSearch />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/create-recipe" element={<UserUpload />} />
+        </Route>
+        <Route element={<ProtectedRoutes requireAuthOrLogout={false} />}>
+          <Route path="/login" element={<LogInPage />} />
+          <Route path="/register" element={<Register />} />
+        </Route>
         <Route path="/" element={<Home />} />
-        <Route path="/recipe/:recipeindex" element={<RecipeInDetail />} />
-        <Route path="/recipe/:recipeindex/review/" element={<ReviewPage />} />
-        <Route path="/search-ingredient" element={<SearchIngredients />} />
-        <Route path="/profile" element={<UserUpload />} />
-        <Route path="/login" element={<LogInPage />} />
-        <Route path="/register" element={<Register />} />
       </Routes>
     </>
   );
