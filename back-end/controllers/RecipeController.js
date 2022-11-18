@@ -50,6 +50,17 @@ class RecipeController {
     return null;
   }
 
+  static async DeleteRecipe(req, res) {
+    Recipe.deleteOne({ index: req.params.index }, (err, rec) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.json(rec);
+      }
+      console.log('A recipe deleted!');
+    });
+  }
+
   // get all recipes
   static async GetRecipes(req, res) {
     const recipe = Recipe.find({}, (err, rec) => {
