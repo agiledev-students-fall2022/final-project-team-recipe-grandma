@@ -31,7 +31,7 @@ function RGRecipe(props: Props): React.Node {
 
   const navigate = useNavigate();
 
-  console.log('Author ID is', authorID); // Remove later
+  if (!authorID) return null; // Remove later
 
   const remainder = rating % Math.floor(rating);
   const starValues = Array.from({ length: Math.floor(rating) }, () => 1);
