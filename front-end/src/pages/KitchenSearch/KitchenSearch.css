@@ -1,0 +1,109 @@
+.rg-kitchen {
+  padding: 10px;
+}
+
+.rg-kitchen .rg-container {
+  max-width: 400px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto;
+}
+
+.rg-kitchen .rg-container header {
+  justify-content: flex-start;
+  width: 100%;
+  display: none;
+}
+
+.rg-kitchen .rg-container .kitchen-search {
+  overflow: hidden;
+  transition: 0.2s ease-in-out;
+  position: relative;
+  width: 100%;
+}
+
+.rg-kitchen .ingredients-display {
+  background-color: rgba(194, 212, 224, 0.4);
+  border-radius: 5px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  transition: 0.2s ease-in-out;
+  position: relative;
+}
+
+.rg-kitchen .ingredients-display.hidden {
+  max-height: 0;
+  /* padding: 0; */
+  position: absolute;
+}
+
+.rg-kitchen .ingredients-display > button {
+  color: rgba(0,0,0,0.2);
+  font-weight: bold;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  width: 100%;
+}
+
+.rg-kitchen .ingredients-display > button:hover {
+  color: black;
+}
+
+.rg-kitchen .user-kitchen {
+  width: 100%;
+  border: 1px solid #d3d3d3;
+  border-radius: 5px;
+  padding: 0 10px;
+}
+
+.rg-kitchen .user-kitchen > .kitchen-item {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 10px;
+}
+
+.rg-kitchen .user-kitchen > .kitchen-item + .kitchen-item {
+  border-top: 1px solid #d3d3d3;
+}
+
+.rg-kitchen .user-kitchen > .kitchen-item span {
+  justify-self: flex-start;
+  width: 100%;
+}
+
+.rg-kitchen .user-kitchen > .kitchen-item .buttons {
+  justify-self: flex-end;
+  width: 100%;
+  text-align: right;
+}
+
+.rg-kitchen .user-kitchen > .kitchen-item .buttons .minus {
+  color: red;
+}
+
+.rg-kitchen .user-kitchen > .kitchen-item .buttons button:hover {
+  opacity: 0.5;
+}
+
+.rg-kitchen .ms-title {
+  color: rgba(0,0,0,0.2);
+  font-weight: bold;
+  font-size: 0.8em;
+  width: 100%;
+  text-align: left;
+  margin: 10px auto;
+  text-transform: capitalize;
+}
+
+@media(min-width: 400px) {
+  .rg-kitchen .rg-container header {
+    display: flex;
+  }
+}

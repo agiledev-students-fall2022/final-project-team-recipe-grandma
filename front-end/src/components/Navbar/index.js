@@ -5,15 +5,15 @@ import {
 } from 'react-router-dom';
 import Home from '../../pages/Home';
 import RecipeInDetail from '../../pages/RecipeInDetail';
-import ReviewPage from '../../pages/ReviewPage/ReviewPage';
-import SearchIngredients from '../../pages/SearchIngredients';
 import LogInPage from '../../pages/LogInPage/LogInPage';
 import NavbarListItem from '../NavbarListItem';
 import Register from '../../pages/Register/Register';
 import ProtectedRoutes from '../ProtectedRoutes';
+import UserUpload from '../../pages/UserUpload';
 
 import './Navbar.css';
 import Profile from '../../pages/Profile';
+import KitchenSearch from '../../pages/KitchenSearch';
 
 type RouteDefinition = $ReadOnly<{|
   routePath: string,
@@ -80,9 +80,9 @@ function Navbar(props: Props): React.Node {
       <Routes>
         <Route element={<ProtectedRoutes />}>
           <Route path="/recipe/:recipeindex" element={<RecipeInDetail />} />
-          <Route path="/recipe/:recipeindex/review/" element={<ReviewPage />} />
-          <Route path="/search-ingredient" element={<SearchIngredients />} />
+          <Route path="/search-ingredient" element={<KitchenSearch />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/create-recipe" element={<UserUpload />} />
         </Route>
         <Route element={<ProtectedRoutes requireAuthOrLogout={false} />}>
           <Route path="/login" element={<LogInPage />} />
