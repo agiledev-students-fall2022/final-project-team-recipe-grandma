@@ -96,22 +96,5 @@ class RecipeController {
     }
   }
 }
-// ===============================================================================
-
-//   static async CreateRecipe(req, res) {
-//     const recipe = new Recipe({
-//       index: req.body.index,
-//       name: req.body.name,
-//       ingredients: req.body.ingredients,
-//       steps: req.body.directions,
-//       imageURL: req.body.imageURL,
-//     });
-//     try {
-//       const NewRecipe = await recipe.save();
-//       res.status(201).send(NewRecipe);
-//     } catch (err) {
-//       res.status(400).json({ message: err });
-//     }
-//   }
 
 module.exports = RecipeController;
