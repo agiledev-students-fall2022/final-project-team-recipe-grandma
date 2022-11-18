@@ -17,7 +17,7 @@ function App(): React.Node {
       icon: 'search',
     },
     {
-      routePath: '/',
+      routePath: '/create-recipe',
       title: 'Add Recipe',
       icon: 'add',
     },

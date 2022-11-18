@@ -6,12 +6,18 @@ type Props = $ReadOnly<{|
   darken?: boolean,
   hasBorder?: boolean,
   onAction?: (search: string) => void,
+  onKeyDown?: (ev: SyntheticEvent<HTMLButtonElement>) => void,
+  onFocus?: (ev: SyntheticEvent<HTMLButtonElement>) => void,
+  onBlur?: (ev: SyntheticEvent<HTMLButtonElement>) => void,
   placeholder?: string
 |}>;
 
 const defaultProps = {
   hasBorder: false,
   onAction: () => null,
+  onKeyDown: () => null,
+  onFocus: () => null,
+  onBlur: () => null,
   placeholder: 'Search here',
   darken: false,
 };
@@ -23,6 +29,9 @@ function RGBaseSearchBar(props: Props): React.Node {
     darken,
     hasBorder,
     onAction,
+    onBlur,
+    onFocus,
+    onKeyDown,
     placeholder,
   } = props;
 
@@ -31,11 +40,12 @@ function RGBaseSearchBar(props: Props): React.Node {
     onAction?.(ev.target.value);
   };
 
-  const onKeyDown = (ev) => {
+  const handleKeyDown = (ev) => {
     const { key } = ev;
     if (key === 'Enter') {
       onAction?.();
     }
+    onKeyDown?.(ev);
   };
 
   const backgroundColor = darken ? '#e0e2e3' : '#f8f9fa';
@@ -47,7 +57,9 @@ function RGBaseSearchBar(props: Props): React.Node {
         search
       </span>
       <input
-        onKeyDown={onKeyDown}
+        onFocus={onFocus}
+        onBlur={onBlur}
+        onKeyDown={handleKeyDown}
         onChange={onChange}
         placeholder={placeholder}
         type="text"

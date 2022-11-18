@@ -13,6 +13,7 @@ type Ingredient = $ReadOnly<{|
 type Props = $ReadOnly<{|
   imageURL: string,
   ingredients: Array<Ingredient>,
+  kitchen?: Array<string>,
   steps: Array<string>,
   name: string,
   recipeIndex: int,
@@ -20,6 +21,7 @@ type Props = $ReadOnly<{|
 |}>;
 
 const defaultProps = {
+  kitchen: [],
   rating: 4,
 };
 
@@ -27,6 +29,7 @@ function RecipeDetails(props: Props): React.Node {
   const {
     imageURL,
     ingredients,
+    kitchen,
     recipeIndex,
     name,
     steps,
@@ -36,25 +39,18 @@ function RecipeDetails(props: Props): React.Node {
 
   const ratingPercentage = rating * 20;
 
-  const ingredientElements = ingredients.map((ing, i) => (
-    <li key={i} className="rg-sr-ing ing-in-kitch">
-      {ing.name}
-      &nbsp;
-      |
-      &nbsp;
-      {ing.quantity}
-    </li>
-  ));
-
-  const ingredientElementsExampleNotInKitch = ingredients.map((ing, i) => (
-    <li key={i} className="rg-sr-ing">
-      {ing.name.split('').reverse().join('')}
-      &nbsp;
-      |
-      &nbsp;
-      {ing.quantity}
-    </li>
-  ));
+  const ingredientElements = ingredients.map((ing, i) => {
+    const className = kitchen && kitchen.length > 0 && !kitchen.includes(ing.name) ? 'rg-sr-ing' : 'rg-sr-ing ing-in-kitch';
+    return (
+      <li key={i} className={className}>
+        {ing.name}
+        &nbsp;
+        |
+        &nbsp;
+        {ing.quantity}
+      </li>
+    );
+  });
 
   const instructionElements = steps.map((step, i) => (
     <div key={i} className="rg-sr-step">
@@ -88,7 +84,6 @@ function RecipeDetails(props: Props): React.Node {
         <h4>Ingredients</h4>
         <ul className="rg-sr-ing-list">
           {ingredientElements}
-          {ingredientElementsExampleNotInKitch}
         </ul>
       </section>
       <section className="rg-sr-sec rg-sr-directions">
