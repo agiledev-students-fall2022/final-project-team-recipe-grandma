@@ -1,0 +1,65 @@
+.rg-topbar {
+  padding: 20px;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  align-items: center;
+  overflow-y: hidden;
+  position: fixed;
+  top: 0;
+  height: 80px;
+  background-color: white;
+  z-index: 9999;
+}
+
+.rg-topbar.rg-tb-transparent {
+  background-color: transparent;
+}
+
+.rg-topbar .rg-tb-left, .rg-tb-right {
+  flex: 1;
+}
+
+.rg-topbar .rg-tb-right {
+  text-align: right;
+}
+
+.rg-topbar .rg-tb-title {
+  justify-self: center;
+  font-weight: bolder;
+  text-transform: capitalize;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 0 10px;
+}
+
+.rg-topbar.default .rg-tb-title {
+  font-size: 1.5em;
+}
+
+.rg-topbar .rg-tb-back-btn {
+  display: flex;
+  transition: 0.2s;
+}
+
+.rg-topbar .rg-tb-back-btn .rg-tb-icon {
+  min-height: 100%;
+  display: flex;
+  align-items: center;
+  vertical-align: 50px;
+}
+
+.rg-topbar .rg-tb-back-btn:active {
+  opacity: 0.5;
+}
+
+@media(min-width: 400px) {
+  .rg-topbar .rg-tb-title {
+    font-size: 1.5em;
+  }
+
+  .rg-topbar {
+    display: none;
+  }
+}
