@@ -58,4 +58,8 @@
   .rg-topbar .rg-tb-title {
     font-size: 1.5em;
   }
+
+  .rg-topbar {
+    display: none;
+  }
 }
