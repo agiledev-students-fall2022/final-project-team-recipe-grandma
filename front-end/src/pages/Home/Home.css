@@ -9,9 +9,20 @@
     color: white;
     border-style: white;
     cursor: pointer;
+    max-width: 100%;
+}
+
+.recipes-section {
+    /* background-color: #e0e2e3; */
+    padding: 10px;
+}
+
+.rg-recipes-search {
+    max-width: 500px;
 }
 
 .recipes {
     padding: 10px;
-    margin: auto;
+    margin: 0 auto;
+    max-width: 500px;
 }
