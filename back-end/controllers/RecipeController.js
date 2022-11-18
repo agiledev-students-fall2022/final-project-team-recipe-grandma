@@ -21,23 +21,33 @@ class RecipeController {
     if (!index || !name || !ingredients || !steps || !imageURL) {
       return res.status(400);
     }
-    const recipe = await Recipe.create({
-      index,
-      name,
-      ingredients,
-      steps,
-      imageURL,
-    });
-    if (recipe) {
-      return res.status(201).json({
-        index: recipe.index,
-        name: recipe.name,
-        ingredients: recipe.ingredients,
-        steps: recipe.steps,
-        imageURL: recipe.imageURL,
-      });
+    try {
+      Recipe
+        .findOne({ index })
+        .then((recipeExistence) => {
+          if (recipeExistence) throw new Error('The Recipe exists');
+        }).then(() => {
+          Recipe.create({
+            index,
+            name,
+            ingredients,
+            steps,
+            imageURL,
+          }).then((recipe) => res.status(201).json({
+            index: recipe.index,
+            name: recipe.name,
+            ingredients: recipe.ingredients,
+            steps: recipe.steps,
+            imageURL: recipe.imageURL,
+          })).catch(() => {
+            throw new Error('Failed to create recipe');
+          });
+        }).catch((err) => res.status(400).json({ message: err.message }));
+    } catch (err) {
+      console.log(err);
+      res.status(400).json({ message: err.message });
     }
-    return res.status(400);
+    return null;
   }
 
   // get all recipes
@@ -53,7 +63,6 @@ class RecipeController {
   }
 
   // single recipe in a page
-  // /rgapi/recipe/:index
   static async SingleRecipe(req, res) {
     const recipe = Recipe.find({ index: req.params.index }, (err, rec) => {
       if (err) {
@@ -66,7 +75,7 @@ class RecipeController {
   }
 
   // recommended recipe based on user's likes
-  // NEED TO DEVELOP ALGORITHM
+  // NEED TO DEVELOP ALGORITHM !!!
   static async RecommendedRecipe(req, res) {
     const item = LikedRecipes[1];
     try {
