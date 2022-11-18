@@ -6,6 +6,7 @@ type Props = $ReadOnly<{|
   label?: string,
   onChange?: () => void,
   required?: boolean,
+  placeholder?: string,
   type?: string,
   value: string
 |}>;
@@ -16,6 +17,7 @@ const defaultProps = {
   required: false,
   error: false,
   type: 'text',
+  placeholder: null,
 };
 
 function RGInput(props: Props): React.Node {
@@ -26,15 +28,18 @@ function RGInput(props: Props): React.Node {
     required,
     type,
     value,
+    placeholder,
   } = props;
   const baseClassName = (value !== '') ? 'rg-input-box rgi-box rgi-labeled' : 'rg-input-box rgi-box';
-  const className = error ? `${baseClassName} rgi-error` : baseClassName;
+  const placeholderClassName = placeholder && placeholder !== '' ? `${baseClassName} raised` : baseClassName;
+  const className = error ? `${placeholderClassName} rgi-error` : placeholderClassName;
   return (
     <div className={className}>
       <input
         onChange={onChange}
         type={type}
         required={required}
+        placeholder={placeholder}
       />
       <span>{label}</span>
     </div>

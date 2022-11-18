@@ -6,12 +6,42 @@ import RGInput from '../../components/UtilityComponents/RGInput';
 
 function UserUpload(): React.Node {
   const [titleText, setTitleText] = useState('');
+  const [instructionList, setInstructionList] = useState(['', '']);
   // We need a loading state for the file upload
   const onDragOver = (ev) => {
     ev.preventDefault();
   };
 
   const onDrop = () => null;
+
+  const onStepChange = (ind, ev) => {
+    const text = ev.target.value;
+    const steps = [...instructionList];
+    steps[ind] = text;
+    setInstructionList(steps);
+  };
+
+  console.log(instructionList);
+
+  const instructionInputs = instructionList.map((step, ind) => (
+    <div
+      className="step-input"
+      key={ind}
+    >
+      <h6>
+        {ind + 1}
+        .
+      </h6>
+      <RGInput
+        label={`Step ${ind + 1}`}
+        onChange={(ev) => onStepChange(ind, ev)}
+        placeholder="Enter the next step"
+        type="text"
+        value={step}
+      />
+    </div>
+  ));
+
   return (
     <>
       <Topbar
@@ -54,6 +84,11 @@ function UserUpload(): React.Node {
             label="Recipe Title"
             value={titleText}
           />
+          <section className="ingredients-input" />
+          <section className="instruction-inputs">
+            <h6>Instructions</h6>
+            {instructionInputs}
+          </section>
         </div>
       </section>
     </>

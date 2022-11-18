@@ -1,13 +1,15 @@
 
 .rg-ur-main {
   width: 100%;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: white;
 }
 
 .rg-upload-recipe {
-  max-width: 400px;
+  max-width: 800px;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -102,4 +104,31 @@
   width: 100%;
   background-color: rgb(1, 181, 76);
   border-radius: 10px;
+}
+
+.rg-upload-recipe .instruction-inputs {
+  width: 100%;
+}
+
+.rg-upload-recipe .instruction-inputs .step-input {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  align-items: center;
+}
+
+.rg-upload-recipe section > h6 {
+  font-weight: bold;
+  color: rgba(0,0,0,0.4);
+  margin: 10px 0;
+}
+
+.rg-upload-recipe .instruction-inputs .step-input h6 {
+  margin-right: 10px;
+  font-size: 1.2em;
+  color: #ffa845;
+}
+
+.rg-upload-recipe .instruction-inputs .step-input {
+  margin: 10px 0;
 }
