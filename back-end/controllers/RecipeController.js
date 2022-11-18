@@ -61,6 +61,17 @@ class RecipeController {
     });
   }
 
+  static async UpdateRecipe(req, res) {
+    Recipe.updateOne({ index: req.params.index }, (err, rec) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.json(rec);
+      }
+      console.log('A recipe updated!');
+    });
+  }
+
   // get all recipes
   static async GetRecipes(req, res) {
     const recipe = Recipe.find({}, (err, rec) => {
