@@ -1,0 +1,38 @@
+.rg-single-review {
+  width: 100%;
+  padding: 10px;
+}
+
+.rg-single-review header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.rg-single-review header img {
+  border-radius: 50%;
+  max-height: 50px;
+}
+
+.rg-single-review header > div {
+  margin-left: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.rg-single-review header > div .stars span {
+  color: #ffa845;
+  font-size: 1em;
+}
+
+.rg-single-review header h6 {
+  font-size: 0.8em;
+  font-weight: bold;
+  margin: 0;
+}
+.rg-single-review p {
+  font-weight: bold;
+  color: rgba(0,0,0,0.5);
+  font-size: 0.6em;
+}

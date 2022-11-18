@@ -1,11 +1,9 @@
 import * as React from 'react';
-import LogIn from '../../components/LogIn/LogIn';
+import AuthForm from '../../components/AuthForm/AuthForm';
 
 function LogInPage(): React.Node {
   return (
-    <div className="LogInPage">
-      <LogIn />
-    </div>
+    <AuthForm authFormType="login" />
   );
 }
 
