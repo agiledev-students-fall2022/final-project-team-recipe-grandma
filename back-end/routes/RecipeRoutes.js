@@ -5,12 +5,9 @@ const router = express.Router();
 
 // TO-DO list
 // ========================================
-// YEONIE - DONE: Allow fetch by ID
-// YEONIE - DONE: Allow fetch All or fetch via pagination
 // Allow fetch recipes by user ID (this can should fall under ownership of user routes)
 // Allow fetch recommended recipes algorithmically
-// YEONIE - DONE: Add recipe deletion
-// YEONIE - WORKING: Add recipe update/edit by single property or more in one dynamic route
+// Add recipe update/edit by single property or more in one dynamic route
 
 // FRONT-END work for later
 // ========================================
