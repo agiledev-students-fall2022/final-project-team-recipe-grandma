@@ -26,3 +26,5 @@ router.get('/all', RecipeController.GetRecipes);
 router.get('/:index', RecipeController.SingleRecipe);
 // recipe recommended based on user's likes
 router.get('/recommendation', RecipeController.RecommendedRecipe);
+
+module.exports = router;
