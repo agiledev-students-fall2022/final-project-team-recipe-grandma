@@ -2,6 +2,10 @@ const mongoose = require('mongoose');
 // const { addListener } = require('nodemon');
 
 const PostSchema = mongoose.Schema({
+  userId: {
+    type: String,
+    require: true,
+  },
   index: {
     type: String,
     required: true,
