@@ -5,9 +5,9 @@ const router = express.Router();
 
 // TO-DO list
 // ========================================
-// Allow fetch recipes by user ID (this can should fall under ownership of user routes)
 // Allow fetch recommended recipes algorithmically
 // Add recipe update/edit by single property or more in one dynamic route
+// Recommended recipes by ingredients
 
 // FRONT-END work for later
 // ========================================
@@ -20,8 +20,6 @@ router.get('/test', RecipeController.TestRecipeFunction);
 router.post('/create', RecipeController.NewRecipe);
 // delete a recipe
 router.get('/delete/:index', RecipeController.DeleteRecipe);
-// update a recipe
-router.get('/update/:index', RecipeController.UpdateRecipe);
 // get all recipes
 router.get('/all', RecipeController.GetRecipes);
 // single recipe
