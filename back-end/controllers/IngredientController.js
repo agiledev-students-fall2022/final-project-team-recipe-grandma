@@ -2,6 +2,7 @@
 // const RecipeRouter = express.Router();
 const Ingredient = require('../models/Ingredient');
 const ingredientMockData = require('../ingredients_backup.json');
+const Recipe = require('../models/Recipe');
 
 class IngredientController {
   static async TestIngredientFunction(req, res) {
@@ -12,22 +13,31 @@ class IngredientController {
   }
 
   static async CreateIngredient(req, res) {
-    const { ingredient, type } = req.body;
-    if (!ingredient || !(typeof ingredient === 'string') || !type || !(typeof type === 'string')) {
+    const { ingredient, recipes } = req.body;
+    if (!ingredient || !recipes) {
       return res.status(400);
     }
-    const ingredients = new Ingredient({
-      ingredient: req.body.ingredient,
-      type: req.body.type,
-    });
-    return ingredients.save()
-      .exec()
-      .then((((data) => {
-        res.json(data);
-      })))
-      .catch((((err) => {
-        res.json({ message: err });
-      })));
+    try {
+      Recipe
+        .findOne({ ingredient })
+        .then((ingredientExistence) => {
+          if (ingredientExistence) throw new Error('The ingredient exists');
+        }).then(() => {
+          Ingredient.create({
+            ingredient,
+            recipes,
+          }).then((ingredients) => res.status(201).json({
+            ingredient: ingredients.ingredient,
+            recipes: ingredients.recipes,
+          })).catch(() => {
+            throw new Error('Failed to create ingredient');
+          });
+        }).catch((err) => res.status(400).json({ message: err.message }));
+    } catch (err) {
+      console.log(err);
+      res.status(400).json({ message: err.message });
+    }
+    return null;
   }
 
   static async GetIngredients(req, res) {
