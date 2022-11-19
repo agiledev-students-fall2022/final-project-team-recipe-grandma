@@ -3,8 +3,10 @@ import './RGInput.css';
 
 type Props = $ReadOnly<{|
   error?: boolean,
+  fontSize?: string,
   label?: string,
-  onChange?: () => void,
+  onChange?: (ev?: HTMLInputElement<Event>) => void,
+  padding?: string,
   required?: boolean,
   placeholder?: string,
   type?: string,
@@ -13,6 +15,8 @@ type Props = $ReadOnly<{|
 
 const defaultProps = {
   label: '',
+  fontSize: '1em',
+  padding: '8px 20px',
   onChange: () => null,
   required: false,
   error: false,
@@ -23,8 +27,10 @@ const defaultProps = {
 function RGInput(props: Props): React.Node {
   const {
     error,
+    fontSize,
     label,
     onChange,
+    padding,
     required,
     type,
     value,
@@ -40,6 +46,8 @@ function RGInput(props: Props): React.Node {
         type={type}
         required={required}
         placeholder={placeholder}
+        value={value || ''}
+        style={{ fontSize, padding }}
       />
       <span>{label}</span>
     </div>
