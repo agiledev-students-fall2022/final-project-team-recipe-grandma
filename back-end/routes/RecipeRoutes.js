@@ -28,5 +28,7 @@ router.get('/all', RecipeController.GetRecipes);
 router.get('/:index', RecipeController.SingleRecipe);
 // recipe recommended based on user's likes
 router.get('/recommendation', RecipeController.RecommendedRecipe);
+// get recipe by user id
+router.get('/user/:index', RecipeController.getRecipeByUser);
 
 module.exports = router;
