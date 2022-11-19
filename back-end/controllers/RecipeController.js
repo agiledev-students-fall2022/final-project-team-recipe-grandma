@@ -89,18 +89,25 @@ class RecipeController {
     });
   }
 
-  // recipe recommended by ingredients
-  static async RecommendbyIngredients(req, res) {
-    const addedIngredient = Ingredient.find({}, (err, rec) => {
-      
-      // we look for all recipes containing this ingredient
-      // refer to updated model
-    })
-  }
+  // // recipe recommended by ingredients
+  // static async RecommendbyIngredients(req, res) {
+  //   // 1) get ingredients from user's shopping cart
+  //   const addedIngredient = Ingredient.find({}, (err, rec) => {
+  //     // 2) for each ingredient, check recipes containing the ingredient
+  //     // addedIngredient.recipes
+  //     // 3) check for repeated recipes
+  //     // 4) rank recipes with more repetition higher
+  //     // 5) return the final list in ranks
+  //   })
+  // }
 
   // // recommend recipe by user's likes
   // static async RecommendbyLike(req, res) {
   //   const likedRecipes = Like.find({ userID: req.params.userID }, (err, rec))
+  //   // 1) fetch ingrients of the likedRecipes
+  //   // 2) check for repeated recipes
+  //   // 3) rank recipes with more repetition higher
+  //   // 4) return the final list in ranks
   // }
 
   // recipes by user ID
