@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import RecipeDetails from '../../components/RecipeDetails';
 import Topbar, { TopbarType } from '../../components/Topbar';
@@ -13,6 +13,9 @@ function RecipeInDetailPage(): React.Node {
   const { recipeindex } = useParams();
 
   console.log(recipeindex);
+  const location = useLocation();
+  const kitchenData = location.state?.kitchen || [`${recipeindex}`];
+  const kitchen = JSON.parse(kitchenData);
 
   const apiCallback = (apiData) => {
     setData(apiData);
@@ -34,6 +37,7 @@ function RecipeInDetailPage(): React.Node {
       name={item.name}
       recipeIndex={recipeindex}
       steps={item.steps}
+      kitchen={kitchen}
     />
   ) : null;
 

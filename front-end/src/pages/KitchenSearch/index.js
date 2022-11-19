@@ -8,7 +8,7 @@ import { fetchIngredientData, fetchRecipeData } from '../../util';
 import './KitchenSearch.css';
 
 function KitchenSearch(): React.Node {
-  const [kitchen, setKitchen] = useState([]);
+  const [kitchenInfo, setKitchen] = useState([]);
   const [ingredients, setIngredients] = useState([]);
   const [searchValue, setSearchValue] = useState('');
   const [displayIngDropdown, setDisplayIngDropdown] = useState(false);
@@ -35,7 +35,7 @@ function KitchenSearch(): React.Node {
   };
 
   const addKitchenItem = (item) => {
-    if (!kitchen.includes(item)) setKitchen([...kitchen, item]);
+    if (!kitchenInfo.includes(item)) setKitchen([...kitchenInfo, item]);
   };
 
   const onSearchAction = (text) => {
@@ -43,7 +43,7 @@ function KitchenSearch(): React.Node {
   };
 
   const removeKitchenItem = (item) => {
-    const newKitchen = kitchen.filter((ki) => ki !== item);
+    const newKitchen = kitchenInfo.filter((ki) => ki !== item);
     setKitchen(newKitchen);
   };
 
@@ -61,7 +61,7 @@ function KitchenSearch(): React.Node {
     </button>
   ));
 
-  const kitchenItems = kitchen.map((ki, ind) => (
+  const kitchenItems = kitchenInfo.map((ki, ind) => (
     <div className="kitchen-item">
       <span key={ind}>{ki}</span>
       <div className="buttons">
@@ -78,8 +78,6 @@ function KitchenSearch(): React.Node {
     </div>
   ));
 
-  console.log(recipeData.length > 0);
-
   const generatedRecipes = (
     recipeData.length > 0 ? recipeData.map((item, ind) => (
       <RGRecipe
@@ -89,6 +87,7 @@ function KitchenSearch(): React.Node {
         imageUrl={item.imageURL}
         recipeUrl={`/recipe/${item.index}`}
         title={item.name}
+        kitchenStringified={JSON.stringify(kitchenInfo)}
       />
     )) : StringConfig.API_FAILURE_WARNING
   );
@@ -125,7 +124,7 @@ function KitchenSearch(): React.Node {
             </div>
           </div>
           <h6 className="ms-title">Your Available Ingredients</h6>
-          {kitchen.length > 0 ? (
+          {kitchenInfo.length > 0 ? (
             <div className="user-kitchen">
               {kitchenItems}
             </div>
