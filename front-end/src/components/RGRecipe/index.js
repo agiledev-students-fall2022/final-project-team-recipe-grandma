@@ -7,6 +7,7 @@ type Props = $ReadOnly<{|
   authorID: string,
   avatarUrl?: string,
   imageUrl?: string,
+  kitchenStringified?: string,
   rating?: number,
   recipeUrl: string,
   title: string
@@ -16,6 +17,7 @@ const defaultProps = {
   avatarUrl: 'https://picsum.photos/200',
   imageUrl: 'https://www.washingtonpost.com/resizer/6mbSPgQOvUWRmmNnirvgvLzutio=/arc-anglerfish-washpost-prod-washpost/public/VA56ZXQQMUI63CHIYWG4HW5O4I.jpg',
   rating: 4.5,
+  kitchenStringified: '',
 };
 
 function RGRecipe(props: Props): React.Node {
@@ -23,6 +25,7 @@ function RGRecipe(props: Props): React.Node {
     author,
     authorID,
     avatarUrl,
+    kitchenStringified,
     imageUrl,
     rating,
     recipeUrl,
@@ -69,7 +72,7 @@ function RGRecipe(props: Props): React.Node {
   return (
     <div className="rg-recipe">
       <div className="rg-recipe-content">
-        <button onClick={() => navigate(`../${recipeUrl}`)} type="button">
+        <button onClick={() => navigate(`../${recipeUrl}`, { state: { kitchen: kitchenStringified } })} type="button">
           <div className="rg-img-container">
             <img className="rg-recipe-cover" src={imageUrl} alt="recipe cover" />
             <div className="rg-blanket" />
