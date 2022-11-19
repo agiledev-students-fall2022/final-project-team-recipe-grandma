@@ -111,7 +111,7 @@ class RecipeController {
 
   // Allow fetch recipes by user ID
   static async getRecipeByUser(req, res) {
-    const recipe = Recipe.find({ index: req.params.index }, (err, rec) => {
+    const recipe = Recipe.find({ userId: req.params.userId }, (err, rec) => {
       if (err) {
         console.log(err);
       } else {
