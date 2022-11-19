@@ -52,6 +52,7 @@ class RecipeController {
     return null;
   }
 
+  // delete recipe
   static async DeleteRecipe(req, res) {
     Recipe.deleteOne({ index: req.params.index }, (err, rec) => {
       if (err) {
@@ -60,17 +61,6 @@ class RecipeController {
         res.json(rec);
       }
       console.log('A recipe deleted!');
-    });
-  }
-
-  static async UpdateRecipe(req, res) {
-    Recipe.updateOne({ index: req.params.index }, (err, rec) => {
-      if (err) {
-        console.log(err);
-      } else {
-        res.json(rec);
-      }
-      console.log('A recipe updated!');
     });
   }
 
@@ -109,7 +99,7 @@ class RecipeController {
     }
   }
 
-  // Allow fetch recipes by user ID
+  // recipes by user ID
   static async getRecipeByUser(req, res) {
     const recipe = Recipe.find({ userId: req.params.userId }, (err, rec) => {
       if (err) {
