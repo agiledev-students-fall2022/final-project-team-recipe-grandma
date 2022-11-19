@@ -58,6 +58,13 @@
   background-color: white;
 }
 
+.rg-input-box.raised input ~ span {
+  transform: translateX(10px) translateY(-7px);
+  font-size: 0.65em;
+  padding: 0 10px;
+  background-color: white;
+}
+
 .rg-input-box.rgi-labeled span {
   transform: translateX(10px) translateY(-7px);
   font-size: 0.65em;

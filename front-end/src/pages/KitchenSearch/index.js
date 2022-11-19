@@ -8,7 +8,7 @@ import { fetchIngredientData, fetchRecipeData } from '../../util';
 import './KitchenSearch.css';
 
 function KitchenSearch(): React.Node {
-  const [kitchen, setKitchen] = useState(['test']);
+  const [kitchen, setKitchen] = useState([]);
   const [ingredients, setIngredients] = useState([]);
   const [searchValue, setSearchValue] = useState('');
   const [displayIngDropdown, setDisplayIngDropdown] = useState(false);
@@ -125,9 +125,11 @@ function KitchenSearch(): React.Node {
             </div>
           </div>
           <h6 className="ms-title">Your Available Ingredients</h6>
-          <div className="user-kitchen">
-            {kitchenItems}
-          </div>
+          {kitchen.length > 0 ? (
+            <div className="user-kitchen">
+              {kitchenItems}
+            </div>
+          ) : null}
           <h6 className="ms-title">Recipes</h6>
           <div className="recommended-recipes">
             {generatedRecipes}
