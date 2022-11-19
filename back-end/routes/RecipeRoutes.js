@@ -18,7 +18,7 @@ router.get('/test', RecipeController.TestRecipeFunction);
 // create new recipe
 router.post('/create', RecipeController.NewRecipe);
 // recommend recipe by ingredients
-router.get('/recbyingredients/:userid', RecipeController.RecommendbyIngredients);
+// router.get('/recbyingredients/:userid', RecipeController.RecommendbyIngredients);
 // // recipe recommended based on user's likes
 // router.get('/recbylikes', RecipeController.RecommendbyLike);
 // delete a recipe
