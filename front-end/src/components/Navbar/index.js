@@ -79,7 +79,9 @@ function Navbar(props: Props): React.Node {
       </nav>
       <Routes>
         <Route element={<ProtectedRoutes />}>
-          <Route path="/recipe/:recipeindex" element={<RecipeInDetail />} />
+          <Route path="/recipe/:recipeindex" element={<RecipeInDetail />}>
+            <Route path="/recipe/:recipeindex/:kitchen?" element={<RecipeInDetail />} />
+          </Route>
           <Route path="/search-ingredient" element={<KitchenSearch />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/create-recipe" element={<UserUpload />} />
