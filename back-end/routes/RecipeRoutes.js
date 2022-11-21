@@ -22,11 +22,11 @@ router.post('/create', RecipeController.NewRecipe);
 // // recipe recommended based on user's likes
 // router.get('/recbylikes', RecipeController.RecommendbyLike);
 // delete a recipe
-router.get('/delete/:index', RecipeController.DeleteRecipe);
+router.get('/delete/:id', RecipeController.DeleteRecipe);
 // get all recipes
 router.get('/all', RecipeController.GetRecipes);
 // single recipe
-router.get('/:index', RecipeController.SingleRecipe);
+router.get('/:id', RecipeController.SingleRecipe);
 // get recipe by user id
 router.get('/user/:userid', RecipeController.getRecipeByUser);
 
