@@ -17,20 +17,22 @@ class RecipeController {
   // create a recipe
   static async NewRecipe(req, res) {
     const {
-      userId, name, ingredients, steps, imageURL,
+      userId, username, name, ingredients, steps, imageURL,
     } = req.body;
-    if (!userId || !name || !ingredients || !steps || !imageURL) {
+    if (!userId || !username || !name || !ingredients || !steps || !imageURL) {
       return res.status(400);
     }
     try {
       Recipe.create({
         userId,
+        username,
         name,
         ingredients,
         steps,
         imageURL,
       }).then((recipe) => res.status(201).json({
         userId: recipe.userId,
+        username: recipe.username,
         name: recipe.name,
         ingredients: recipe.ingredients,
         steps: recipe.steps,
