@@ -6,10 +6,6 @@ const PostSchema = mongoose.Schema({
     type: String,
     require: true,
   },
-  index: {
-    type: String,
-    required: true,
-  },
   name: {
     type: String,
     required: true,
