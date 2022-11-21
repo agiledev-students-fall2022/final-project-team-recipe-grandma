@@ -17,35 +17,27 @@ class RecipeController {
   // create a recipe
   static async NewRecipe(req, res) {
     const {
-      userId, index, name, ingredients, steps, imageURL,
+      userId, name, ingredients, steps, imageURL,
     } = req.body;
-    if (!userId || !index || !name || !ingredients || !steps || !imageURL) {
+    if (!userId || !name || !ingredients || !steps || !imageURL) {
       return res.status(400);
     }
     try {
-      Recipe
-        .findOne({ index })
-        .then((recipeExistence) => {
-          if (recipeExistence) throw new Error('The Recipe exists');
-        }).then(() => {
-          Recipe.create({
-            userId,
-            index,
-            name,
-            ingredients,
-            steps,
-            imageURL,
-          }).then((recipe) => res.status(201).json({
-            userId: recipe.userId,
-            index: recipe.index,
-            name: recipe.name,
-            ingredients: recipe.ingredients,
-            steps: recipe.steps,
-            imageURL: recipe.imageURL,
-          })).catch(() => {
-            throw new Error('Failed to create recipe');
-          });
-        }).catch((err) => res.status(400).json({ message: err.message }));
+      Recipe.create({
+        userId,
+        name,
+        ingredients,
+        steps,
+        imageURL,
+      }).then((recipe) => res.status(201).json({
+        userId: recipe.userId,
+        name: recipe.name,
+        ingredients: recipe.ingredients,
+        steps: recipe.steps,
+        imageURL: recipe.imageURL,
+      })).catch(() => {
+        throw new Error('Failed to create recipe');
+      });
     } catch (err) {
       console.log(err);
       res.status(400).json({ message: err.message });
@@ -55,7 +47,7 @@ class RecipeController {
 
   // delete recipe
   static async DeleteRecipe(req, res) {
-    Recipe.deleteOne({ index: req.params.index }, (err, rec) => {
+    Recipe.deleteOne({ _id: req.params.id }, (err, rec) => {
       if (err) {
         console.log(err);
       } else {
@@ -79,7 +71,7 @@ class RecipeController {
 
   // single recipe in a page
   static async SingleRecipe(req, res) {
-    const recipe = Recipe.find({ index: req.params.index }, (err, rec) => {
+    const recipe = Recipe.find({ _id: req.params.id }, (err, rec) => {
       if (err) {
         console.log(err);
       } else {
