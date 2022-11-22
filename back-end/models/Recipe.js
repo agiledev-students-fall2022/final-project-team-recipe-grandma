@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 // const { addListener } = require('nodemon');
 
-const RecipeSchema = mongoose.Schema({
+const Recipe = mongoose.Schema({
   userId: {
     type: mongoose.Schema.Types.ObjectId,
     require: true,
@@ -25,6 +25,6 @@ const RecipeSchema = mongoose.Schema({
   //   type: Number,
   //   required: false,
   // },
-});
+}, { timestamps: true });
 
-module.exports = mongoose.model('Recipe', RecipeSchema);
+module.exports = mongoose.model('Recipe', Recipe);
