@@ -18,10 +18,13 @@ const router = express.Router();
 router.get('/test', RecipeController.TestRecipeFunction);
 // create new recipe
 router.post('/create', upload.single('file'), RecipeController.CreateRecipe);
-// recommend recipe by ingredients
-// router.get('/recbyingredients/:userid', RecipeController.RecommendbyIngredients);
+
+// recommendation algorithm 1: search by ingredients
+router.get('/recbyingredients/', RecipeController.RecommendedbyIngredients);
 // // recipe recommended based on user's likes
 // router.get('/recbylikes', RecipeController.RecommendbyLike);
+// recommendation algorithm 3: search by recipe name
+router.get('/recbyname/:name', RecipeController.RecommendedbyName);
 // delete a recipe
 router.get('/delete/:id', RecipeController.DeleteRecipe);
 // get all recipes
