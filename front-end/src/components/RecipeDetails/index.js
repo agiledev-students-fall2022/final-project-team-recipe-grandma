@@ -3,6 +3,7 @@ import { useState } from 'react';
 import RecipeReviews from '../RecipeReviews';
 import RGButton from '../RGButton';
 import RGSwipableModal from '../RGSwipableModal';
+import { BASE_API_URL } from '../../util';
 import './RecipeDetails.css';
 
 type Ingredient = $ReadOnly<{|
@@ -16,7 +17,7 @@ type Props = $ReadOnly<{|
   kitchen?: Array<string>,
   steps: Array<string>,
   name: string,
-  recipeIndex: int,
+  recipeId: string,
   rating?: float
 |}>;
 
@@ -30,12 +31,14 @@ function RecipeDetails(props: Props): React.Node {
     imageURL,
     ingredients,
     kitchen,
-    recipeIndex,
+    recipeId,
     name,
     steps,
     rating,
   } = props;
   const [isModalClosed, setModalClosed] = useState(true);
+
+  console.log('Will be used for reviews', recipeId);
 
   const ratingPercentage = rating * 20;
 
@@ -43,11 +46,11 @@ function RecipeDetails(props: Props): React.Node {
     const className = kitchen && kitchen.length > 0 && !kitchen.includes(ing.name) ? 'rg-sr-ing' : 'rg-sr-ing ing-in-kitch';
     return (
       <li key={i} className={className}>
-        {ing.name}
+        {ing.name || ing}
         &nbsp;
         |
         &nbsp;
-        {ing.quantity}
+        {ing.quantity || '1 cup'}
       </li>
     );
   });
@@ -67,7 +70,7 @@ function RecipeDetails(props: Props): React.Node {
   return (
     <div className="rg-sr-main container-fluid">
       <h1><strong>{name}</strong></h1>
-      <img src={imageURL} alt="recipe" className="rg-sr-img" />
+      <img src={`${BASE_API_URL}/rgapi/media/${imageURL}`} alt="recipe" className="rg-sr-img" />
       <section className="rg-sr-sec rg-sr-stats">
         <span className="material-icons-outlined">
           star
@@ -103,7 +106,7 @@ function RecipeDetails(props: Props): React.Node {
         <RecipeReviews
           overflowEndState="scroll"
           recipeRating={rating}
-          recipeId={recipeIndex}
+          recipeId={0}
         />
       </RGSwipableModal>
     </div>

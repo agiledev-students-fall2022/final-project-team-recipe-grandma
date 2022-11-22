@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { BASE_API_URL } from '../../util';
 import './RGRecipe.css';
 
 type Props = $ReadOnly<{|
@@ -74,7 +75,7 @@ function RGRecipe(props: Props): React.Node {
       <div className="rg-recipe-content">
         <button onClick={() => navigate(`../${recipeUrl}`, { state: { kitchen: kitchenStringified } })} type="button">
           <div className="rg-img-container">
-            <img className="rg-recipe-cover" src={imageUrl} alt="recipe cover" />
+            <img className="rg-recipe-cover" src={`${BASE_API_URL}/rgapi/media/${imageUrl}`} alt="recipe cover" />
             <div className="rg-blanket" />
           </div>
           <div className="mini-details">

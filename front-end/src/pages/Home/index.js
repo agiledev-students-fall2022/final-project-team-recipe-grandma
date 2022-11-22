@@ -34,6 +34,8 @@ function Home(): React.Node {
     setFilteredData(newFilteredData);
   };
 
+  console.log('Recipes', data);
+
   return (
     <>
       <Topbar
@@ -56,8 +58,8 @@ function Home(): React.Node {
               key={ind}
               author="Chadwick Boseman"
               authorID="1"
-              imageUrl={item.imageURL}
-              recipeUrl={`/recipe/${item.index}`}
+              imageUrl={item.cover}
+              recipeUrl={`/recipe/${item._id}`}
               title={item.name}
             />
           )) : StringConfig.API_FAILURE_WARNING}
