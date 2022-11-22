@@ -36,14 +36,12 @@ app.use(morgan('combined'));
 const UserRoutes = require('./routes/UserRoutes');
 const RecipeRoutes = require('./routes/RecipeRoutes');
 const ReviewCommentRoutes = require('./routes/ReviewCommentRoutes');
-const MyRecipeRoutes = require('./routes/MyRecipeRoutes');
 const IngredientRoutes = require('./routes/IngredientRoutes');
 const LikeRoutes = require('./routes/LikeRoutes');
 
 app.use('/rgapi/user', UserRoutes);
 app.use('/rgapi/recipe', RecipeRoutes);
 app.use('/rgapi/review', ReviewCommentRoutes);
-app.use('/rgapi/myrecipe', MyRecipeRoutes);
 app.use('/rgapi/ingredients', IngredientRoutes);
 app.use('/rgapi/like', LikeRoutes);
 const server = app.listen(port, () => console.log(`Server started on PORT: ${port}`));
