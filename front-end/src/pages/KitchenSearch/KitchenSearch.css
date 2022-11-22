@@ -102,6 +102,10 @@
   text-transform: capitalize;
 }
 
+.rg-kitchen .recommended-recipes {
+  width: 100%;
+}
+
 @media(min-width: 400px) {
   .rg-kitchen .rg-container header {
     display: flex;

@@ -5,6 +5,7 @@
   border-radius: 5px;
   margin-bottom: 10px;
   transition: 0.2s ease-in-out;
+  width: 100%;
 }
 
 .rg-recipe:hover {
