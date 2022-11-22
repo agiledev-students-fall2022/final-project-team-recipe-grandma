@@ -1,6 +1,6 @@
 const express = require('express');
 const RecipeController = require('../controllers/RecipeController');
-const { authenticate } = require('../middleware/auth');
+const upload = require('../middleware/upload');
 
 const router = express.Router();
 
@@ -17,18 +17,18 @@ const router = express.Router();
 // test
 router.get('/test', RecipeController.TestRecipeFunction);
 // create new recipe
-router.post('/create', authenticate, RecipeController.NewRecipe);
+router.post('/create', upload.single('file'), RecipeController.CreateRecipe);
 // recommend recipe by ingredients
 // router.get('/recbyingredients/:userid', RecipeController.RecommendbyIngredients);
 // // recipe recommended based on user's likes
 // router.get('/recbylikes', RecipeController.RecommendbyLike);
 // delete a recipe
-router.get('/delete/:id', authenticate, RecipeController.DeleteRecipe);
+router.get('/delete/:id', RecipeController.DeleteRecipe);
 // get all recipes
 router.get('/all', RecipeController.GetRecipes);
 // single recipe
-router.get('/:id', authenticate, RecipeController.SingleRecipe);
+router.get('/:id', RecipeController.SingleRecipe);
 // get recipe by user id
-router.get('/user/:userid', authenticate, RecipeController.getRecipeByUser);
+router.get('/user/:userid', RecipeController.getRecipeByUser);
 
 module.exports = router;

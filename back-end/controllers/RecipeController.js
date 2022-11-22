@@ -3,6 +3,7 @@
 // const axios = require('axios');
 // const data = require('../mockRecipeData.json');
 // const LikedRecipes = require('../mockLikedRecipeData.json');
+const { ObjectId } = require('mongoose').Types;
 const Recipe = require('../models/Recipe');
 // const Ingredient = require('../models/Ingredient');
 
@@ -12,6 +13,63 @@ class RecipeController {
       return res.status(400).json({ message: 'Bad request' });
     }
     return res.status(200).json({ message: 'Hello, World! Recipes here!' });
+  }
+
+  static async CreateRecipe(req, res) {
+    // Wrap in a try block due to JSON.parse
+    // If JSON.parse fails, we'll have an error that'll crash us
+    try {
+      const {
+        userId,
+        name,
+        ingredients,
+        steps,
+      } = req.body;
+
+      const image = req.file;
+      const ingredientsArr = JSON.parse(ingredients);
+      const stepsArr = JSON.parse(steps);
+
+      const mimetypes = ['image/png', 'image/jpeg', 'image/jpg'];
+
+      // Input validation
+      if (
+        !ObjectId.isValid(userId)
+        || typeof name !== 'string'
+        || !Array.isArray(ingredientsArr)
+        || !Array.isArray(stepsArr)
+        || !image
+        || !ObjectId.isValid(image.id)
+        || !mimetypes.includes(image.mimetype)
+      ) {
+        return res.status(400).json({ message: 'Invalid fields' });
+      }
+
+      // Create the recipe if validation passes
+      // We pass the image as an object ID as per our model's requirement
+      // Thus, we can grab the image data from our image bucket later
+      // In other words, in our HTML or post man, we can have a GET request
+      // towards the route http://localhost:8000/rgapi/media/:imageId
+      // And we get our image served to us directly from the database
+      Recipe.create({
+        userId,
+        name,
+        ingredients,
+        steps,
+        cover: image.id,
+      }).then(async (recipe) => {
+        res.status(200).json({
+          _id: recipe.id,
+          name: recipe.name,
+          ingredients: recipe.ingredients,
+          steps: recipe.steps,
+          cover: recipe.cover,
+        });
+      }).catch((err) => res.status(500).json({ message: err.message }));
+    } catch (err) {
+      return res.status(500).json({ message: err.message });
+    }
+    return null;
   }
 
   // create a recipe
