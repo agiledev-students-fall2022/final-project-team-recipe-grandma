@@ -8,35 +8,36 @@ import './RecipeInDetail.css';
 // import './ReviewButton.css';
 
 function RecipeInDetailPage(): React.Node {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState();
   const [recipeName, setRecipeName] = useState('User Recipe');
-  const { recipeindex } = useParams();
+  const { recipeId } = useParams();
 
-  console.log(recipeindex);
+  console.log(recipeId);
   const location = useLocation();
-  const kitchenData = location.state?.kitchen || [`${recipeindex}`];
-  const kitchen = JSON.parse(kitchenData);
+  const kitchenData = location.state?.kitchen || [`${recipeId}`];
+  console.log(recipeId);
+  const kitchen = location.state?.kitchen ? JSON.parse(kitchenData) : kitchenData;
 
   const apiCallback = (apiData) => {
     setData(apiData);
-    if (apiData && apiData[recipeindex]) {
-      setRecipeName(apiData[recipeindex].name);
+    if (apiData) {
+      setRecipeName(apiData.name);
     }
   };
 
   useEffect(() => {
-    Util.fetchRecipeData(apiCallback);
+    Util.fetchSingleRecipeData(recipeId, apiCallback);
   }, []);
 
-  const item = data.length > 0 ? data[recipeindex] : null;
+  console.log('LSDSLDLS', data);
 
-  const recipeContent = item ? (
+  const recipeContent = data ? (
     <RecipeDetails
-      ingredients={item.ingredients}
-      imageURL={item.imageURL}
-      name={item.name}
-      recipeIndex={recipeindex}
-      steps={item.steps}
+      ingredients={data.ingredients}
+      imageURL={data.cover}
+      name={data.name}
+      recipeId={recipeId}
+      steps={data.steps}
       kitchen={kitchen}
     />
   ) : null;

@@ -92,6 +92,14 @@ export async function fetchRecipeData(callback: CallbackType) {
   }
 }
 
+export async function fetchSingleRecipeData(recipeId: string, callback: CallbackType) {
+  const result = await axios(
+    `${BASE_API_URL}/rgapi/recipe/${recipeId}`,
+  ).catch((err) => console.log(err.message));
+  console.log('HUSD', result);
+  callback(result.data);
+}
+
 export async function fetchIngredientData(callback: CallbackType) {
   const result = await axios(
     `${BASE_API_URL}/rgapi/ingredients/all`,

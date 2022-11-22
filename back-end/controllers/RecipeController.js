@@ -30,6 +30,8 @@ class RecipeController {
       const ingredientsArr = JSON.parse(ingredients);
       const stepsArr = JSON.parse(steps);
 
+      console.log('Steps input', stepsArr);
+
       const mimetypes = ['image/png', 'image/jpeg', 'image/jpg'];
 
       // Input validation
@@ -54,8 +56,8 @@ class RecipeController {
       Recipe.create({
         userId,
         name,
-        ingredients,
-        steps,
+        ingredients: ingredientsArr,
+        steps: stepsArr,
         cover: image.id,
       }).then(async (recipe) => {
         res.status(200).json({
@@ -131,7 +133,7 @@ class RecipeController {
 
   // single recipe in a page
   static async SingleRecipe(req, res) {
-    const recipe = Recipe.find({ _id: req.params.id }, (err, rec) => {
+    const recipe = Recipe.findOne({ _id: req.params.id }, (err, rec) => {
       if (err) {
         console.log(err);
       } else {
