@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
 // const { addListener } = require('nodemon');
 
-const PostSchema = mongoose.Schema({
+const RecipeSchema = mongoose.Schema({
   userId: {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId,
     require: true,
   },
   name: {
@@ -18,9 +18,8 @@ const PostSchema = mongoose.Schema({
     type: Array,
     required: true,
   },
-  imageURL: {
-    type: String,
-    required: true,
+  cover: {
+    type: mongoose.Schema.Types.ObjectId,
   },
   // like: {
   //   type: Number,
@@ -28,4 +27,4 @@ const PostSchema = mongoose.Schema({
   // },
 });
 
-module.exports = mongoose.model('Posts', PostSchema);
+module.exports = mongoose.model('Recipe', RecipeSchema);
