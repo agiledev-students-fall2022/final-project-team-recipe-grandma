@@ -37,16 +37,16 @@ describe('workflow tests', () => {
       .send(recipe)
       .end((err, res) => {
         res.should.have.status(201);
-    
+
         chai.request(server)
           .get('/rgapi/recipe/all')
-          .end((err, res) => {
-            res.should.have.status(200);
-            res.body.should.be.a('array');
-            res.body.length.should.equal(1);
+          .end((error, resp) => {
+            resp.should.have.status(200);
+            resp.body.should.be.a('array');
+            resp.body.length.should.equal(1);
 
             // the added data and fetched data should match
-            const savedRecipe = res.body[0];
+            const savedRecipe = resp.body[0];
             (savedRecipe.userId).should.equal(recipe.userId);
             (savedRecipe.name).should.equal(recipe.name);
             (savedRecipe.imageURL).should.equal(recipe.imageURL);
@@ -65,13 +65,13 @@ describe('workflow tests', () => {
 
   it('should fetch recipe by user id', (done) => {
     chai.request(server)
-      .get('/rgapi/recipe/user/:' + '12')
+      .get(`/rgapi/recipe/user/:${12}`)
       .end((err, res) => {
         res.should.have.status(200);
         res.body.should.be.a('array');
         // res.body.length.should.equal(1);
         // res.body[0].name.should.equal('pasta');
         done();
-      })
+      });
   });
 });
