@@ -11,27 +11,21 @@ class ReviewCommentController {
 
   static async CreateReviewComment(req, res) {
     const {
-      id, body, stars, username, userId, parentId, createdAt,
+      body, stars, username, parentId,
     } = req.body;
     const reviewComment = await ReviewComment.create({
-      id,
       body,
       stars,
       username,
-      userId,
       parentId,
-      createdAt,
     });
 
     if (reviewComment) {
       return res.status(201).json({
-        id: reviewComment.id,
         body: reviewComment.body,
         stars: reviewComment.stars,
         username: reviewComment.username,
-        userId: reviewComment.userId,
         parentId: reviewComment.parentId,
-        createdAt: reviewComment.createdAt,
       });
     }
     return res.status(400);
@@ -46,6 +40,18 @@ class ReviewCommentController {
       return res.status(201).json(result.data[req.params.index]);
     }
     return res.sendStatus(400);
+  }
+
+  static async GetReviewDatabase(req, res) {
+    return ReviewComment.find({ parentId: req.params.id })
+      .then((reviews) => {
+        console.log(reviews);
+        if (reviews) {
+          res.status(200).json({
+            reviews,
+          });
+        }
+      });
   }
 
   static async GetSingleReviewComment(req, res) {
