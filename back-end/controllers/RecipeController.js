@@ -4,7 +4,7 @@
 // const data = require('../mockRecipeData.json');
 // const LikedRecipes = require('../mockLikedRecipeData.json');
 const Recipe = require('../models/Recipe');
-// const Ingredient = require('../models/Ingredient');
+// // const Ingredient = require('../models/Ingredient');
 
 class RecipeController {
   static async TestRecipeFunction(req, res) {
@@ -17,22 +17,21 @@ class RecipeController {
   // create a recipe
   static async NewRecipe(req, res) {
     const {
-      userId, username, name, ingredients, steps, imageURL,
+      userId, name, ingredients, steps,
     } = req.body;
-    if (!userId || !username || !name || !ingredients || !steps || !imageURL) {
+    const imageURL = req.file.filename;
+    if (!userId || !name || !ingredients || !steps || !imageURL) {
       return res.status(400);
     }
     try {
       Recipe.create({
         userId,
-        username,
         name,
         ingredients,
         steps,
         imageURL,
       }).then((recipe) => res.status(201).json({
         userId: recipe.userId,
-        username: recipe.username,
         name: recipe.name,
         ingredients: recipe.ingredients,
         steps: recipe.steps,
@@ -88,6 +87,39 @@ class RecipeController {
   //   // 1) get ingredients from user's shopping cart
   //   const addedIngredient = Ingredient.find({}, (err, rec) => {
   //     // 2) for each ingredient, check recipes containing the ingredient
+  //     // addedIngredient.recipes
+  //     // 3) check for repeated recipes
+  //     // 4) rank recipes with more repetition higher
+  //     // 5) return the final list in ranks
+  //   })
+  // }
+
+  // // recommend recipe by user's likes
+  // static async RecommendbyLike(req, res) {
+  //   const likedRecipes = Like.find({ userID: req.params.userID }, (err, rec))
+  //   // 1) fetch ingrients of the likedRecipes
+  //   // 2) check for repeated recipes
+  //   // 3) rank recipes with more repetition higher
+  //   // 4) return the final list in ranks
+  // }
+
+  // recipe recommended by ingredients
+  // static async RecommendbyIngredients(req, res) {
+  //   // 1) get ingredients from user's shopping cart
+  //   const addedIngredients = Ingredient.find({}, (err, rec) => {
+  //     let items = addedIngredients.map((addedIngredient) => addedIngredient)
+
+  //     let items = ingredients.map((ingredient) => ingredient.description);
+  //     let query = "q=";
+  //     for (let i = 0; i < items.length; i++) {
+  //         if (i === items.length - 1) {
+  //             query = query + items[i];
+  //         } else {
+  //             query = query + items[i] + "%26";
+  //         }
+  //     }
+  //     return query;
+  //     // 2) go over each recipe and check if the recipe contains the ingredient
   //     // addedIngredient.recipes
   //     // 3) check for repeated recipes
   //     // 4) rank recipes with more repetition higher
