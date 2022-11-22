@@ -1,4 +1,3 @@
-const axios = require('axios');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const User = require('../models/User');
@@ -97,7 +96,6 @@ class UserController {
       message: 'Profile test!',
     });
   }
-
 }
 
 module.exports = UserController;
