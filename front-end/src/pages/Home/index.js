@@ -42,6 +42,7 @@ function Home(): React.Node {
           <RGBaseSearchBar
             onAction={onSearchAction}
             placeholder="Search for recipes"
+            triggerOnChange={false}
           />
         </div>
         <div className="recipes">
