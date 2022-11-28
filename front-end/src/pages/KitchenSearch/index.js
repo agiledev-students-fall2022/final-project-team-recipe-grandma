@@ -1,11 +1,17 @@
 import * as React from 'react';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import Topbar, { TopbarType } from '../../components/Topbar';
 import RGBaseSearchBar from '../../components/RGBaseSearchBar';
 import RGRecipe from '../../components/RGRecipe';
 import StringConfig from '../../StringConfig';
-import { fetchIngredientData, fetchRecipeData } from '../../util';
+import {
+  fetchIngredientData,
+  fetchRecipeData,
+  searchRecipesByIngredient,
+  searchForIngredient,
+} from '../../util';
 import './KitchenSearch.css';
+import RGButton from '../../components/RGButton';
 
 function KitchenSearch(): React.Node {
   const [kitchenInfo, setKitchen] = useState([]);
@@ -14,19 +20,19 @@ function KitchenSearch(): React.Node {
   const [displayIngDropdown, setDisplayIngDropdown] = useState(false);
   const [recipeData, setRecipeData] = useState([]);
 
+  const abortControllerRef = useRef(new AbortController());
+
   useEffect(() => {
-    fetchIngredientData(setIngredients);
+    const controller = abortControllerRef.current;
+    fetchIngredientData(setIngredients, controller);
+    fetchRecipeData(setRecipeData);
 
-    const apiCallback = (apiData) => {
-      const mutatedData = apiData.map((rec, ind) => {
-        const newRec = { ...rec, index: ind };
-        return newRec;
-      });
-      setRecipeData(mutatedData);
+    return () => {
+      controller.abort();
     };
-
-    fetchRecipeData(apiCallback);
   }, []);
+
+  console.log(ingredients);
 
   const onBlur = (ev) => {
     if (!ev.currentTarget.contains(ev.relatedTarget)) {
@@ -34,12 +40,18 @@ function KitchenSearch(): React.Node {
     }
   };
 
-  const addKitchenItem = (item) => {
-    if (!kitchenInfo.includes(item)) setKitchen([...kitchenInfo, item]);
+  const onChange = (text) => {
+    setSearchValue(text);
+    const apiCallback = (apiData) => {
+      console.log(apiData);
+      setIngredients(apiData);
+    };
+
+    searchForIngredient(apiCallback, text);
   };
 
-  const onSearchAction = (text) => {
-    setSearchValue(text);
+  const addKitchenItem = (item) => {
+    if (!kitchenInfo.includes(item)) setKitchen([...kitchenInfo, item]);
   };
 
   const removeKitchenItem = (item) => {
@@ -47,23 +59,29 @@ function KitchenSearch(): React.Node {
     setKitchen(newKitchen);
   };
 
-  const filteredIngredients = ingredients.filter((ing) => searchValue && searchValue !== ''
-    && ing.name.toLowerCase().includes(searchValue.toLowerCase()));
-
-  const userIngredients = filteredIngredients.map((ing, ind) => (
+  const userIngredients = ingredients.map((ing) => (
     <button
-      key={ind}
+      key={ing.id}
       onBlur={onBlur}
-      onClick={() => addKitchenItem(ing.name)}
+      onClick={() => addKitchenItem(ing)}
       type="button"
     >
       {ing.name}
     </button>
   ));
 
+  const searchForRecipes = () => {
+    const apiCallback = (apiData) => {
+      console.log(apiData);
+      setRecipeData(apiData);
+    };
+
+    searchRecipesByIngredient(apiCallback, kitchenInfo);
+  };
+
   const kitchenItems = kitchenInfo.map((ki, ind) => (
     <div className="kitchen-item">
-      <span key={ind}>{ki}</span>
+      <span key={ind}>{ki.name}</span>
       <div className="buttons">
         <button
           className="minus"
@@ -96,7 +114,7 @@ function KitchenSearch(): React.Node {
     setDisplayIngDropdown(true);
   };
 
-  const dropdownClassName = displayIngDropdown && filteredIngredients.length > 0 ? 'ingredients-display' : 'ingredients-display hidden';
+  const dropdownClassName = displayIngDropdown && ingredients.length > 0 ? 'ingredients-display' : 'ingredients-display hidden';
 
   return (
     <>
@@ -115,15 +133,25 @@ function KitchenSearch(): React.Node {
             onBlur={onBlur}
           >
             <RGBaseSearchBar
-              onAction={onSearchAction}
               onFocus={onFocus}
+              onChange={onChange}
               placeholder="Search for ingredients"
+              value={searchValue}
             />
             <div className={dropdownClassName} onBlur={(e) => e.stopPropagation()}>
               {userIngredients}
             </div>
           </div>
-          <h6 className="ms-title">Your Available Ingredients</h6>
+          <h6 className="ms-title">
+            <span className="me-3">Your Available Ingredients</span>
+            <RGButton
+              onAction={searchForRecipes}
+              text="Search Recipes"
+              width="auto"
+              isBoxed
+              isFlat
+            />
+          </h6>
           {kitchenInfo.length > 0 ? (
             <div className="user-kitchen">
               {kitchenItems}

@@ -195,18 +195,34 @@ class RecipeController {
     });
   }
 
-  // recommendation algorithm 1: search by ingredients
+  // @desc Search by ingredients. Takes in an array of ingredient ObjectIds
+  // @desc Format: [{ "id": "<ObjectId>" }, ...]
+  // @route /rgapi/recipe/search-by-ingredients
+  // @access Public
   static async RecommendedbyIngredients(req, res) {
-    // still need to develop
-    // for now, returning to home page with all recipes in MongoDB
-    const recipe = Recipe.find({}, (err, rec) => {
-      if (err) {
-        console.log(err);
-      } else {
-        res.json(rec);
+    const { ingredients } = req.body;
+    if (!ingredients) return res.status(401).json({ message: 'Ingredients missing.' });
+
+    for (let i = 0; i < ingredients.length; i += 1) {
+      if (!ObjectId.isValid(ingredients[i]._id)) {
+        console.log(ingredients[i], 'Invalid data');
+        return res.status(401).json({ message: 'Improper ingredients sent.' });
       }
-      console.log(recipe);
+    }
+
+    const matchQuery = ingredients.map((x) => {
+      const output = { $elemMatch: { id: x._id } };
+      return output;
     });
+
+    Recipe.find({ ingredients: { $all: matchQuery } }).then((recipes) => {
+      console.log('Recipes are', recipes);
+      res.status(200).json(recipes);
+    }).catch((err) => {
+      console.log(err);
+      res.status(401).json({ message: 'An error occurred searching for ingredients' });
+    });
+    return true;
   }
 
   // recommendation algorithm 2: search by user's likes
@@ -217,7 +233,7 @@ class RecipeController {
     // modifiedname = big night pizza,
     // $options: changes modifedname to case-insensitive to match with name
     const modifiedname = req.params.name.replace('-', ' ');
-    console.log(modifiedname);
+
     Recipe.find({ name: { $regex: modifiedname, $options: 'i' } }, (err, rec) => {
       if (err) {
         console.log(err);
