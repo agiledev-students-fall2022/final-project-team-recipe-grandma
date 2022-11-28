@@ -218,13 +218,12 @@ class RecipeController {
     // $options: changes modifedname to case-insensitive to match with name
     const modifiedname = req.params.name.replace('-', ' ');
     console.log(modifiedname);
-    const recipe = Recipe.find({ name: { $regex: modifiedname, $options: 'i' } }, (err, rec) => {
+    Recipe.find({ name: { $regex: modifiedname, $options: 'i' } }, (err, rec) => {
       if (err) {
         console.log(err);
       } else {
         res.json(rec);
       }
-      console.log(recipe);
     });
   }
 }
