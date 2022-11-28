@@ -138,6 +138,7 @@ class RecipeController {
         userId: recipe.userId,
         username: recipe.username,
         name: recipe.name,
+        lowercasedName: recipe.name.toLowerCase().replace(' ', '-'),
         ingredients: recipe.ingredients,
         steps: recipe.steps,
         imageURL: recipe.imageURL,
@@ -187,30 +188,42 @@ class RecipeController {
     });
   }
 
-  // // recipe recommended by ingredients
-  // static async RecommendbyIngredients(req, res) {
-  //   // 1) get ingredients from user's shopping cart
-  //   const addedIngredient = Ingredient.find({}, (err, rec) => {
-  //     // 2) for each ingredient, check recipes containing the ingredient
-  //     // addedIngredient.recipes
-  //     // 3) check for repeated recipes
-  //     // 4) rank recipes with more repetition higher
-  //     // 5) return the final list in ranks
-  //   })
-  // }
-
-  // // recommend recipe by user's likes
-  // static async RecommendbyLike(req, res) {
-  //   const likedRecipes = Like.find({ userID: req.params.userID }, (err, rec))
-  //   // 1) fetch ingrients of the likedRecipes
-  //   // 2) check for repeated recipes
-  //   // 3) rank recipes with more repetition higher
-  //   // 4) return the final list in ranks
-  // }
-
   // recipes by user ID
   static async getRecipeByUser(req, res) {
     const recipe = Recipe.find({ userId: req.params.userId }, (err, rec) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.json(rec);
+      }
+      console.log(recipe);
+    });
+  }
+
+  // recommendation algorithm 1: search by ingredients
+  static async RecommendedbyIngredients(req, res) {
+    // still need to develop
+    // for now, returning to home page with all recipes in MongoDB
+    const recipe = Recipe.find({}, (err, rec) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.json(rec);
+      }
+      console.log(recipe);
+    });
+  }
+
+  // recommendation algorithm 2: search by user's likes
+
+  // recommendation algorithm 3: search by recipe name
+  static async RecommendedbyName(req, res) {
+    // if input from URL = big-night-pizza,
+    // modifiedname = big night pizza,
+    // $options: changes modifedname to case-insensitive to match with name
+    const modifiedname = req.params.name.replace('-', ' ');
+    console.log(modifiedname);
+    const recipe = Recipe.find({ name: { $regex: modifiedname, $options: 'i' } }, (err, rec) => {
       if (err) {
         console.log(err);
       } else {
