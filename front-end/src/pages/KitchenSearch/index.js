@@ -84,8 +84,8 @@ function KitchenSearch(): React.Node {
         key={ind}
         author="Chadwick Boseman"
         authorID="1"
-        imageUrl={item.imageURL}
-        recipeUrl={`/recipe/${item.index}`}
+        imageUrl={item.cover}
+        recipeUrl={`/recipe/${item._id}`}
         title={item.name}
         kitchenStringified={JSON.stringify(kitchenInfo)}
       />
