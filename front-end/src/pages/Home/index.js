@@ -11,30 +11,23 @@ import RGBaseSearchBar from '../../components/RGBaseSearchBar';
 
 function Home(): React.Node {
   const [data, setData] = useState([]);
-  const [filteredData, setFilteredData] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    const apiCallback = (apiData) => {
-      const mutatedData = apiData.map((rec, ind) => {
-        const newRec = { ...rec, index: ind };
-        return newRec;
-      });
-      setData(mutatedData);
-      setFilteredData(mutatedData);
-    };
-
-    Util.fetchRecipeData(apiCallback);
+    Util.fetchRecipeData(setData);
   }, []);
 
   const onSearchAction = (searchText) => {
-    const newFilteredData = data.filter((recipe) => recipe.name
-      .toLowerCase().includes(
-        searchText.toLowerCase(),
-      ));
-    setFilteredData(newFilteredData);
+    const sanitizedText = searchText.toLowerCase().replace(' ', '-');
+    setIsLoading(true);
+    const apiCallback = (apiData) => {
+      setIsLoading(false);
+      setData(apiData);
+    };
+    Util.searchRecipesByName(apiCallback, sanitizedText);
   };
 
-  console.log('Recipes', data);
+  console.log('Recipes', data, isLoading);
 
   return (
     <>
@@ -52,8 +45,7 @@ function Home(): React.Node {
           />
         </div>
         <div className="recipes">
-          {filteredData.length > 0 ? filteredData.map((item, ind) => (
-            // <Recipe key={ind} details={item} onAction={() => navigate(`recipe/${ind}`)} />
+          {data.length > 0 ? data.map((item, ind) => (
             <RGRecipe
               key={ind}
               author="Chadwick Boseman"

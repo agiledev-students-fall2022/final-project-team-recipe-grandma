@@ -110,6 +110,15 @@ export async function fetchIngredientData(callback: CallbackType) {
   }
 }
 
+export async function searchRecipesByName(callback: callbackType, name: string) {
+  const result = await axios(
+    `${BASE_API_URL}/rgapi/recipe/recbyname/${name}`,
+  ).catch((err) => console.log(err.message));
+  if (result && Array.isArray(result.data)) {
+    callback(result.data);
+  }
+}
+
 export async function fetchReviewData(callback: CallbackType, props: Props) {
   console.log(props);
   const url = `${BASE_API_URL}/rgapi/review/review/`;
