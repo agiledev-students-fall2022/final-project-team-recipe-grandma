@@ -14,7 +14,7 @@ const connectDB = async () => {
       .replace('<password>', adminPassword)
       .replace('<admin>', admin)
       .replace('<username>', admin);
-    console.log(`Connecting to: ${databaseURL}`);
+
     const conn = await mongoose.connect(databaseURL, options);
 
     console.log(`MongoDB Connected: ${conn.connection.host}`);

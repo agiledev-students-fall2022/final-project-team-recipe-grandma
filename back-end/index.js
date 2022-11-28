@@ -7,6 +7,8 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const morgan = require('morgan');
+const helmet = require('helmet');
+const path = require('path');
 // const multer  = require('multer');
 const connectDB = require('./config/db');
 
@@ -28,23 +30,26 @@ const app = express();
 // Middlewares
 app.use(cors(corsOptions));
 app.use(cookieParser());
+app.use(helmet());
+app.use(helmet.crossOriginResourcePolicy({ policy: 'cross-origin' }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(morgan('combined'));
+app.use('/assets', express.static(path.join(__dirname, 'public/assets')));
 
 // ROUTES
 const UserRoutes = require('./routes/UserRoutes');
 const RecipeRoutes = require('./routes/RecipeRoutes');
 const ReviewCommentRoutes = require('./routes/ReviewCommentRoutes');
-const MyRecipeRoutes = require('./routes/MyRecipeRoutes');
 const IngredientRoutes = require('./routes/IngredientRoutes');
 const LikeRoutes = require('./routes/LikeRoutes');
+const MediaRoutes = require('./routes/MediaRoutes');
 
 app.use('/rgapi/user', UserRoutes);
 app.use('/rgapi/recipe', RecipeRoutes);
 app.use('/rgapi/review', ReviewCommentRoutes);
-app.use('/rgapi/myrecipe', MyRecipeRoutes);
 app.use('/rgapi/ingredients', IngredientRoutes);
 app.use('/rgapi/like', LikeRoutes);
+app.use('/rgapi/media', MediaRoutes);
 const server = app.listen(port, () => console.log(`Server started on PORT: ${port}`));
 module.exports = server;

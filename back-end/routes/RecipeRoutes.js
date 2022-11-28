@@ -1,5 +1,6 @@
 const express = require('express');
 const RecipeController = require('../controllers/RecipeController');
+const upload = require('../middleware/upload');
 
 const router = express.Router();
 
@@ -16,7 +17,10 @@ const router = express.Router();
 // test
 router.get('/test', RecipeController.TestRecipeFunction);
 // create new recipe
-router.post('/create', RecipeController.NewRecipe);
+router.post('/create', upload.single('file'), RecipeController.CreateRecipe);
+// recommend recipe by ingredients
+// router.get('/recbyingredients/:userid', RecipeController.RecommendbyIngredients);
+// // recipe recommended based on user's likes
 // recommendation algorithm 1: search by ingredients
 router.get('/recbyingredients/', RecipeController.RecommendedbyIngredients);
 // recommendation algorithm 2: search by user's likes
