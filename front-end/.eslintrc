@@ -27,7 +27,7 @@
           "state"
         ]
       }],
-      "no-underscore-dangle": 0,
+      "no-underscore-dangle": "off",
       "no-plusplus": 0,
       "consistent-return": 0,
       "react/no-array-index-key": 0,

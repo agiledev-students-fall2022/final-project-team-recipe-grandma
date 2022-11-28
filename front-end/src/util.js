@@ -36,6 +36,19 @@ type RegistrationContext = $ReadOnly<{|
 
 export const BASE_API_URL = `${process.env.REACT_APP_API_BASE}:${process.env.REACT_APP_API_PORT || 3000}`;
 
+axios.defaults.baseURL = `${process.env.REACT_APP_API_BASE}:${process.env.REACT_APP_API_PORT || 3000}`;
+
+axios.interceptors.response.use((res) => res, async (err) => {
+  if (err.response.status === 403) {
+    const response = await axios.post('refresh-token', {}, { withCredentials: true });
+    if (response.status === 200) {
+      axios.defaults.headers.common.Authorization = `Bearer ${response.data.token}`;
+
+      return axios(err.config);
+    }
+  }
+});
+
 export async function LoginUser(context: LoginContext): UserContext {
   const {
     username,
@@ -85,7 +98,7 @@ export async function RegisterUser(context: RegistrationContext): UserContext {
 
 export async function fetchRecipeData(callback: CallbackType) {
   const result = await axios(
-    `${BASE_API_URL}/rgapi/recipe/all`,
+    'rgapi/recipe/all',
   ).catch((err) => console.log(err.message));
   if (result && Array.isArray(result.data)) {
     callback(result.data);

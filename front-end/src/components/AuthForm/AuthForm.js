@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { signIn } from '../../features/auth/authSlice';
 //  Permitted to use Redux for AUTH ONLY
+import useAuth from '../../hooks/useAuth';
 import { RegisterUser, LoginUser } from '../../util';
 import RGInput from '../UtilityComponents/RGInput';
 import './AuthForm.css';
@@ -36,6 +37,8 @@ function LogIn(): React.Node {
   const passwordError = AUTH_ERROR_ENUMS.PASSWORD_IS_INCORRECT === errorMsgToEnum;
   const emailError = AUTH_ERROR_ENUMS.USER_NOT_FOUND === errorMsgToEnum;
 
+  const { setAuth } = useAuth();
+
   const OnAuthCallback = (data) => {
     if (data.message) {
       setErrorMsg(data.message);
@@ -46,6 +49,13 @@ function LogIn(): React.Node {
     } else {
       setErrorMsg('');
       // We want to use the user data and store the token in session
+      setAuth({
+        _id: data._id,
+        name: data.name,
+        email: data.email,
+        token: data.token,
+      });
+
       dispatch(signIn({
         _id: data.id,
         name: data.name,
@@ -124,6 +134,8 @@ function Register(): React.Node {
   const [confirmedPasswordText, setConfirmedPasswordText] = useState('');
   const dispatch = useDispatch();
 
+  const { setAuth } = useAuth();
+
   const errorMsgToEnum = errorMsg.toLowerCase().replaceAll(' ', '_');
   const passwordError = AUTH_ERROR_ENUMS.PASSWORDS_DO_NOT_MATCH === errorMsgToEnum;
   const emailError = AUTH_ERROR_ENUMS.USER_ALREADY_EXISTS === errorMsgToEnum;
@@ -140,6 +152,14 @@ function Register(): React.Node {
       }, 2000);
     } else {
       setErrorMsg('');
+
+      setAuth({
+        _id: data._id,
+        name: data.name,
+        email: data.email,
+        token: data.token,
+      });
+
       // We want to use the user data and store the token in session
       dispatch(signIn({
         _id: data.id,

@@ -1,7 +1,8 @@
 import * as React from 'react';
+import { useEffect } from 'react';
 import { Outlet, Navigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { selectCurrentToken } from '../../features/auth/authSlice';
+import useAuth from '../../hooks/useAuth';
+import useRefreshToken from '../../hooks/useRefreshToken';
 
 type Props = {|
   RequireAuthOrLogout: boolean
@@ -13,10 +14,16 @@ const defaultProps = {
 
 function ProtectedRoutes(props: Props): React.Node {
   const { requireAuthOrLogout } = props;
-  const token = useSelector(selectCurrentToken);
+  const { auth } = useAuth();
+  const refresh = useRefreshToken();
 
-  const requireAuth = token ? <Outlet /> : <Navigate to="/login" />;
-  const requireLogout = !token ? <Outlet /> : <Navigate to="/" />;
+  useEffect(() => {
+    refresh();
+  }, []);
+
+  // console.log('Auth', auth);
+  const requireAuth = auth?.token ? <Outlet /> : <Navigate to="/login" />;
+  const requireLogout = !auth?.token ? <Outlet /> : <Navigate to="/" />;
   return requireAuthOrLogout ? requireAuth : requireLogout;
 }
 
