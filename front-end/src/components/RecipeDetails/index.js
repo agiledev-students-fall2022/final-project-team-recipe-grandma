@@ -53,7 +53,7 @@ function RecipeDetails(props: Props): React.Node {
         &nbsp;
         |
         &nbsp;
-        {ing.quantity || '1 cup'}
+        {`${ing.quantity} ${ing.unit}` || '1 cup'}
       </li>
     );
   });
