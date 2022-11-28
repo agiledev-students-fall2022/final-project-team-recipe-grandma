@@ -5,7 +5,7 @@
 // const LikedRecipes = require('../mockLikedRecipeData.json');
 const { ObjectId } = require('mongoose').Types;
 const Recipe = require('../models/Recipe');
-// const Ingredient = require('../models/Ingredient');
+const Ingredient = require('../models/Ingredient');
 
 class RecipeController {
   static async TestRecipeFunction(req, res) {
@@ -47,16 +47,56 @@ class RecipeController {
         return res.status(400).json({ message: 'Invalid fields' });
       }
 
+      const ingredientIds = [];
+
+      /* eslint-disable no-await-in-loop */
+      for (let i = 0; i < ingredientsArr.length; i += 1) {
+        const ing = ingredientsArr[i];
+        const foundIng = await Ingredient.findOne({ name: { $regex: `^${ing.name}$`, $options: 'i' } });
+
+        if (foundIng) {
+          ingredientIds.push({
+            id: foundIng.id,
+            name: foundIng.name,
+            ingredientType: foundIng.type,
+            quantity: ing.quantity,
+            unit: ing.unit.toLowerCase(),
+          });
+          /* eslint-disable no-continue */
+          continue;
+          /* eslint-enable no-continue */
+        }
+
+        console.log('New ing');
+
+        const newIng = await Ingredient.create({
+          name: ing.name,
+          type: ing.type.toLowerCase(),
+        });
+
+        ingredientIds.push({
+          id: newIng.id,
+          name: newIng.name,
+          ingredientType: newIng.type,
+          quantity: ing.quantity,
+          unit: ing.unit.toLowerCase(),
+        });
+      }
+      /* eslint-enable no-await-in-loop */
+
+      console.log('Ing list', ingredientIds);
+
       // Create the recipe if validation passes
       // We pass the image as an object ID as per our model's requirement
       // Thus, we can grab the image data from our image bucket later
       // In other words, in our HTML or post man, we can have a GET request
       // towards the route http://localhost:8000/rgapi/media/:imageId
       // And we get our image served to us directly from the database
+      console.log('Test stuff', ingredientIds);
       Recipe.create({
         userId,
         name,
-        ingredients: ingredientsArr,
+        ingredients: ingredientIds,
         steps: stepsArr,
         cover: image.id,
       }).then(async (recipe) => {
@@ -67,8 +107,12 @@ class RecipeController {
           steps: recipe.steps,
           cover: recipe.cover,
         });
-      }).catch((err) => res.status(500).json({ message: err.message }));
+      }).catch((err) => {
+        console.log(err);
+        res.status(500).json({ message: err.message });
+      });
     } catch (err) {
+      console.log(err);
       return res.status(500).json({ message: err.message });
     }
     return null;
