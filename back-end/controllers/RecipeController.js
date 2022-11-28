@@ -67,8 +67,6 @@ class RecipeController {
           /* eslint-enable no-continue */
         }
 
-        console.log('New ing');
-
         const newIng = await Ingredient.create({
           name: ing.name,
           type: ing.type.toLowerCase(),
@@ -84,15 +82,12 @@ class RecipeController {
       }
       /* eslint-enable no-await-in-loop */
 
-      console.log('Ing list', ingredientIds);
-
       // Create the recipe if validation passes
       // We pass the image as an object ID as per our model's requirement
       // Thus, we can grab the image data from our image bucket later
       // In other words, in our HTML or post man, we can have a GET request
       // towards the route http://localhost:8000/rgapi/media/:imageId
       // And we get our image served to us directly from the database
-      console.log('Test stuff', ingredientIds);
       Recipe.create({
         userId,
         name,
