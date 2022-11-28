@@ -10,10 +10,15 @@ const Recipe = mongoose.Schema({
     type: String,
     required: true,
   },
-  ingredients: {
-    type: Array,
-    required: true,
-  },
+  ingredients: [
+    {
+      id: mongoose.Schema.Types.ObjectId,
+      name: String,
+      ingredientType: String,
+      quantity: mongoose.Schema.Types.Number,
+      unit: String,
+    },
+  ],
   steps: {
     type: Array,
     required: true,
