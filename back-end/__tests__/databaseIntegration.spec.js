@@ -62,7 +62,8 @@ describe('workflow tests', () => {
         (savedRecipe.imageURL).should.equal(recipe.imageURL);
         (savedRecipe.steps.length).should.equal(recipe.steps.length);
         (savedRecipe.ingredients.length).should.equal(recipe.ingredients.length);
-        savedRecipeId = savedRecipe._id;
+        const { _id } = savedRecipe;
+        savedRecipeId = _id;
         done();
       });
   });
