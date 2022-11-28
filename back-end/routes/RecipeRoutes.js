@@ -21,7 +21,12 @@ router.post('/create', upload.single('file'), RecipeController.CreateRecipe);
 // recommend recipe by ingredients
 // router.get('/recbyingredients/:userid', RecipeController.RecommendbyIngredients);
 // // recipe recommended based on user's likes
+// recommendation algorithm 1: search by ingredients
+router.get('/recbyingredients/', RecipeController.RecommendedbyIngredients);
+// recommendation algorithm 2: search by user's likes
 // router.get('/recbylikes', RecipeController.RecommendbyLike);
+// recommendation algorithm 3: search by recipe name
+router.get('/recbyname/:name', RecipeController.RecommendedbyName);
 // delete a recipe
 router.get('/delete/:id', RecipeController.DeleteRecipe);
 // get all recipes

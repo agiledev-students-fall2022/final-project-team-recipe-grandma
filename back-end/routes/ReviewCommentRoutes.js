@@ -13,6 +13,7 @@ router.use((req, res, next) => {
 });
 router.get('/review/:index', ReviewCommentController.GetReviewComment);
 router.get('/review/:index1/:index2', ReviewCommentController.GetSingleReviewComment);
+router.get('/database/:id', ReviewCommentController.GetReviewDatabase);
 router.get('/reviewTest', ReviewCommentController.TestReviewComment);
 router.post('/review/create', ReviewCommentController.CreateReviewComment);
 
