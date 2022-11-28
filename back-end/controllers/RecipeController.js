@@ -116,6 +116,7 @@ class RecipeController {
     // modifiedname = big night pizza,
     // $options: changes modifedname to case-insensitive to match with name
     const modifiedname = req.params.name.replace('-', ' ');
+    console.log(modifiedname);
     const recipe = Recipe.find({ name: { $regex: modifiedname, $options: 'i' } }, (err, rec) => {
       if (err) {
         console.log(err);
