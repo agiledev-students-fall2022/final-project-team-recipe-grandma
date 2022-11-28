@@ -100,11 +100,52 @@ export async function fetchSingleRecipeData(recipeId: string, callback: Callback
   callback(result.data);
 }
 
-export async function fetchIngredientData(callback: CallbackType) {
+export async function fetchIngredientData(callback: CallbackType, controller?: AbortController) {
   const result = await axios(
-    `${BASE_API_URL}/rgapi/ingredients/all`,
+    `${BASE_API_URL}/rgapi/ingredient/all`,
+    {
+      signal: controller?.signal,
+    },
   ).catch((err) => console.log(err.message));
   console.log('Ingredient api result', result);
+  if (result && Array.isArray(result.data)) {
+    callback(result.data);
+  }
+}
+
+export async function searchForIngredient(
+  callback: CallbackType,
+  name: string,
+  controller?: AbortController,
+) {
+  console.log('Got a name', name);
+  const result = await axios(
+    `${BASE_API_URL}/rgapi/ingredient/search/${name}`,
+    {
+      signal: controller?.signal,
+    },
+  ).catch((err) => console.log(err.message));
+  console.log('Ingredient search api result', result);
+  if (result && Array.isArray(result.data)) {
+    callback(result.data);
+  }
+}
+
+export async function searchRecipesByIngredient(
+  callback: callbackType,
+  data: Array,
+  controller?: AbortController,
+) {
+  const result = await axios.post(
+    `${BASE_API_URL}/rgapi/recipe/search-by-ingredients`,
+    {
+      ingredients: data,
+    },
+    {
+      signal: controller?.signal,
+    },
+  ).catch((err) => console.log(err.message));
+  console.log('Ingredient api recipe search result', result);
   if (result && Array.isArray(result.data)) {
     callback(result.data);
   }
