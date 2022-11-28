@@ -48,7 +48,7 @@ const MediaRoutes = require('./routes/MediaRoutes');
 app.use('/rgapi/user', UserRoutes);
 app.use('/rgapi/recipe', RecipeRoutes);
 app.use('/rgapi/review', ReviewCommentRoutes);
-app.use('/rgapi/ingredients', IngredientRoutes);
+app.use('/rgapi/ingredient', IngredientRoutes);
 app.use('/rgapi/like', LikeRoutes);
 app.use('/rgapi/media', MediaRoutes);
 const server = app.listen(port, () => console.log(`Server started on PORT: ${port}`));
