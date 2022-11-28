@@ -121,25 +121,23 @@ class RecipeController {
 
   // get all recipes
   static async GetRecipes(req, res) {
-    const recipe = Recipe.find({}, (err, rec) => {
+    Recipe.find({}, (err, rec) => {
       if (err) {
         console.log(err);
       } else {
         res.json(rec);
       }
-      console.log(recipe);
     });
   }
 
   // single recipe in a page
   static async SingleRecipe(req, res) {
-    const recipe = Recipe.findOne({ _id: req.params.id }, (err, rec) => {
+    Recipe.findOne({ _id: req.params.id }, (err, rec) => {
       if (err) {
         console.log(err);
       } else {
         res.json(rec);
       }
-      console.log(recipe);
     });
   }
 
@@ -166,13 +164,12 @@ class RecipeController {
 
   // recipes by user ID
   static async getRecipeByUser(req, res) {
-    const recipe = Recipe.find({ userId: req.params.userId }, (err, rec) => {
+    Recipe.find({ userId: req.params.userId }, (err, rec) => {
       if (err) {
         console.log(err);
       } else {
         res.json(rec);
       }
-      console.log(recipe);
     });
   }
 }
