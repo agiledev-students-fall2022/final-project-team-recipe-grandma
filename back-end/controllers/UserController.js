@@ -1,4 +1,3 @@
-const axios = require('axios');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const User = require('../models/User');
@@ -96,14 +95,6 @@ class UserController {
     return res.status(200).json({
       message: 'Profile test!',
     });
-  }
-
-  static async GetMyRecipe(req, res) {
-    const myRecipeData = await axios('https://raw.githubusercontent.com/OyungerelA/sampleRecipes/main/myrecipe.json').catch((err) => console.log(err.message));
-    if (myRecipeData && Array.isArray(myRecipeData.data)) {
-      return res.status(200).json(myRecipeData.data);
-    }
-    return res.status(400);
   }
 }
 

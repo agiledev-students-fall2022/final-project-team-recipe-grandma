@@ -1,18 +1,15 @@
 const mongoose = require('mongoose');
 
 const Ingredient = mongoose.Schema({
-  ingredient: {
+  name: {
     type: String,
     required: [true, 'Please add a ingredient'],
+    unique: true,
   },
-  recipes: {
-    type: Array,
-    required: [true, 'Please add recipes with this ingredient'],
+  type: {
+    type: String,
+    required: [true, 'Please add a ingredient type'],
   },
-  // type: {
-  //   type: String,
-  //   require: [true, 'Please add a ingredient type'],
-  // },
 });
 
 module.exports = mongoose.model('Ingredient', Ingredient);
