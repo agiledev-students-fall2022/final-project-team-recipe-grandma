@@ -1,13 +1,13 @@
 const mongoose = require('mongoose');
 
 const Ingredient = mongoose.Schema({
-  ingredient: {
+  name: {
     type: String,
     required: [true, 'Please add a ingredient'],
   },
-  recipes: {
-    type: Array,
-    required: [true, 'Please add recipes with this ingredient'],
+  ingredientType: {
+    type: String,
+    required: true,
   },
   // type: {
   //   type: String,
