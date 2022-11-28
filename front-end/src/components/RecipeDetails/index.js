@@ -7,8 +7,11 @@ import { BASE_API_URL } from '../../util';
 import './RecipeDetails.css';
 
 type Ingredient = $ReadOnly<{|
+  _id: string,
   name: string,
-  quantity: int
+  quantity: int,
+  unit: string,
+  type: string
 |}>;
 
 type Props = $ReadOnly<{|
@@ -46,7 +49,7 @@ function RecipeDetails(props: Props): React.Node {
     const className = kitchen && kitchen.length > 0 && !kitchen.includes(ing.name) ? 'rg-sr-ing' : 'rg-sr-ing ing-in-kitch';
     return (
       <li key={i} className={className}>
-        {ing.name || ing}
+        {ing.name || ''}
         &nbsp;
         |
         &nbsp;
