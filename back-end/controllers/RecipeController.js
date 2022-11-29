@@ -177,7 +177,7 @@ class RecipeController {
       if (err) {
         console.log(err);
       } else {
-        res.json(rec);
+        res.status(200).json(rec);
       }
       console.log(recipe);
     });
