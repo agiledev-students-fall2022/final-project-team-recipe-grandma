@@ -126,7 +126,7 @@ export async function fetchReviewData(callback: CallbackType, props: Props) {
   }
 }
 
-export async function postReviewData(context: ReviewContext): null { //a function that post new review data in database.
+export async function postReviewData(context: ReviewContext): null {
   const {
     body,
     stars,
