@@ -44,7 +44,7 @@ function RecipeReviews(props: Props): React.Node {
     postReviewData(
       {
         body: commentText,
-        username: 'Test',
+        username: user.name,
         stars: ratingNum,
         parentId: recipeId,
       },
