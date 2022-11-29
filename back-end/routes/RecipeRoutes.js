@@ -4,24 +4,12 @@ const upload = require('../middleware/upload');
 
 const router = express.Router();
 
-// TO-DO list
-// ========================================
-// Allow fetch recommended recipes algorithmically
-// Recommended recipes by ingredients
-
-// FRONT-END work for later
-// ========================================
-// Link all functionalities to front-end
-// Link recipe creation to front-end
-
 // test
 router.get('/test', RecipeController.TestRecipeFunction);
 // create new recipe
 router.post('/create', upload.single('file'), RecipeController.CreateRecipe);
-
 // recommendation algorithm 1: search by ingredients
 router.post('/search-by-ingredients/', RecipeController.RecommendedbyIngredients);
-// // recipe recommended based on user's likes
 // recommendation algorithm 1: search by ingredients
 router.get('/recbyingredients/', RecipeController.RecommendedbyIngredients);
 // recommendation algorithm 2: search by user's likes
