@@ -97,11 +97,11 @@ function KitchenSearch(): React.Node {
   ));
 
   const generatedRecipes = (
-    recipeData.length > 0 ? recipeData.map((item, ind) => (
+    recipeData.length > 0 ? recipeData.map((item) => (
       <RGRecipe
-        key={ind}
-        author="Chadwick Boseman"
-        authorID="1"
+        key={item._id}
+        author={item.author}
+        authorID={item.userId}
         imageUrl={item.cover}
         recipeUrl={`/recipe/${item._id}`}
         title={item.name}

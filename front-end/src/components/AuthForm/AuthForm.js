@@ -47,7 +47,7 @@ function LogIn(): React.Node {
       setErrorMsg('');
       // We want to use the user data and store the token in session
       dispatch(signIn({
-        _id: data.id,
+        _id: data._id,
         name: data.name,
         email: data.email,
         token: data.token,
@@ -142,7 +142,7 @@ function Register(): React.Node {
       setErrorMsg('');
       // We want to use the user data and store the token in session
       dispatch(signIn({
-        _id: data.id,
+        _id: data._id,
         name: data.name,
         email: data.email,
         token: data.token,
