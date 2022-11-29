@@ -31,12 +31,6 @@ class RecipeController {
       const ingredientsArr = JSON.parse(ingredients);
       const stepsArr = JSON.parse(steps);
 
-      console.log('Steps input', stepsArr, ingredientsArr);
-      ingredientsArr.map((ing) => {
-        console.log('Ing is', ing);
-        return true;
-      });
-
       const mimetypes = ['image/png', 'image/jpeg', 'image/jpg'];
 
       // Input validation
@@ -187,7 +181,6 @@ class RecipeController {
       const user = await User.findOne({ id: rec.userId });
       if (!user) return res.status(500).json({ message: 'Could not find user' });
       rec.author = user.name;
-      console.log({ ...rec, author: user.name });
       const freshRec = {
         _id: rec.id,
         userId: rec.userId,
@@ -225,13 +218,12 @@ class RecipeController {
 
   // recipes by user ID
   static async getRecipeByUser(req, res) {
-    const recipe = Recipe.find({ userId: req.params.userId }, (err, rec) => {
+    Recipe.find({ userId: req.params.userId }, (err, rec) => {
       if (err) {
         console.log(err);
       } else {
         res.json(rec);
       }
-      console.log(recipe);
     });
   }
 
@@ -272,7 +264,6 @@ class RecipeController {
       const user = await User.findOne({ id: rec.userId });
       if (!user) return res.status(500).json({ message: 'Could not find user' });
       rec.author = user.name;
-      console.log({ ...rec, author: user.name });
       const freshRec = {
         _id: rec.id,
         userId: rec.userId,
