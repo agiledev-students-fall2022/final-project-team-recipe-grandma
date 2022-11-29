@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useEffect, useState } from 'react';
-import { fetchReviewData } from '../../util';
+// import { TestReviewComment } from '../../../../back-end/controllers/ReviewCommentController';
+import { fetchReviewData, postReviewData } from '../../util';
 
 import RGButton from '../RGButton';
 import SingleRecipeReview from '../SingleRecipeReview';
@@ -29,6 +30,22 @@ function RecipeReviews(props: Props): React.Node {
     };
     fetchReviewData(apiCallback, recipeId);
   }, []);
+
+  const handleReviewPost = () => {
+    setReviews((currReviews) => [...currReviews, {
+      body: commentText,
+      username: 'Test',
+      stars: ratingNum,
+      parentId: recipeId,
+    }]);
+    setRatingCount(reviews.length + 1);
+    postReviewData({
+      body: commentText,
+      username: 'Test',
+      stars: ratingNum,
+      parentId: recipeId,
+    });
+  };
 
   console.log(commentText, reviews);
 
@@ -115,6 +132,7 @@ function RecipeReviews(props: Props): React.Node {
         <RGButton
           isBoxed
           text="Post"
+          onAction={handleReviewPost}
         />
       </div>
       <div className="stars-cont">
