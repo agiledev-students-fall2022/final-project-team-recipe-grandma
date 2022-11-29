@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { useEffect, useState, useRef } from 'react';
+import { useSelector } from 'react-redux';
 import Topbar, { TopbarType } from '../../components/Topbar';
 import RGBaseSearchBar from '../../components/RGBaseSearchBar';
 import RGRecipe from '../../components/RGRecipe';
@@ -12,6 +13,7 @@ import {
 } from '../../util';
 import './KitchenSearch.css';
 import RGButton from '../../components/RGButton';
+import { selectUser } from '../../features/auth/authSlice';
 
 function KitchenSearch(): React.Node {
   const [kitchenInfo, setKitchen] = useState([]);
@@ -21,6 +23,8 @@ function KitchenSearch(): React.Node {
   const [recipeData, setRecipeData] = useState([]);
 
   const abortControllerRef = useRef(new AbortController());
+
+  const user = useSelector(selectUser);
 
   useEffect(() => {
     const controller = abortControllerRef.current;
@@ -47,7 +51,7 @@ function KitchenSearch(): React.Node {
       setIngredients(apiData);
     };
 
-    searchForIngredient(apiCallback, text);
+    searchForIngredient(apiCallback, text, `Bearer ${user.token}`);
   };
 
   const addKitchenItem = (item) => {
@@ -76,7 +80,7 @@ function KitchenSearch(): React.Node {
       setRecipeData(apiData);
     };
 
-    searchRecipesByIngredient(apiCallback, kitchenInfo);
+    searchRecipesByIngredient(apiCallback, kitchenInfo, null, `Bearer ${user.token}`);
   };
 
   const kitchenItems = kitchenInfo.map((ki, ind) => (
