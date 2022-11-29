@@ -10,7 +10,7 @@ const authenticate = async (req, res, next) => {
       /* eslint-enable no-unused-vars */
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
       req.user = await User.findById(decoded.id).select('-password');
-      next();
+      return next();
     } catch (error) {
       console.log(error);
       return res.status(401).json({ message: 'Missing session token.' });
