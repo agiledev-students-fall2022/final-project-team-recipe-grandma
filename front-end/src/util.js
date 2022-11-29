@@ -34,6 +34,13 @@ type RegistrationContext = $ReadOnly<{|
   callback?: (token: UserContext) => void
 |}>;
 
+type ReviewContext = $ReadOnly<{|
+  body: string,
+  stars: number,
+  username: string,
+  parentId: string
+|}>;
+
 export const BASE_API_URL = `${process.env.REACT_APP_API_BASE}:${process.env.REACT_APP_API_PORT || 3000}`;
 
 export async function LoginUser(context: LoginContext): UserContext {
@@ -104,7 +111,7 @@ export async function fetchIngredientData(callback: CallbackType) {
 
 export async function fetchReviewData(callback: CallbackType, props: Props) {
   console.log(props);
-  const url = `${BASE_API_URL}/rgapi/review/review/`;
+  const url = `${BASE_API_URL}/rgapi/review/database/`;
   const fullUrl = url.concat('', props);
   let result = await axios.get(
     fullUrl,
@@ -116,6 +123,28 @@ export async function fetchReviewData(callback: CallbackType, props: Props) {
   } else {
     result = await axios('https://raw.githubusercontent.com/geontackee/sample_reviews/main/Reviews.json');
     callback(result.data);
+  }
+}
+
+export async function postReviewData(context: ReviewContext): null { //a function that post new review data in database.
+  const {
+    body,
+    stars,
+    username,
+    parentId,
+  } = context;
+
+  const result = await axios.post(
+    `${BASE_API_URL}/rgapi/review/review/create`,
+    {
+      body,
+      stars,
+      username,
+      parentId,
+    },
+  );
+  if (result) {
+    return result.data;
   }
 }
 
