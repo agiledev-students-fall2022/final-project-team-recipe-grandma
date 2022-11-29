@@ -210,3 +210,27 @@
   margin: 0;
   text-align: center;
 }
+
+.rg-upload-recipe .ing-input-container .ingredients-dropdown {
+  height: 0;
+  overflow: hidden;
+}
+
+.rg-upload-recipe .ing-input-container:focus-within .ingredients-dropdown {
+  height: auto;
+  background-color: rgba(194, 212, 224, 0.4);
+  color: rgba(0,0,0,0.2);
+  padding: 10px;
+  font-weight: bold;
+  border-radius: 5px;
+}
+
+.rg-upload-recipe .ing-input-container .ingredients-dropdown .ing-recc:hover {
+  color: black;
+  cursor: pointer;
+}
+
+.rg-upload-recipe .ing-input-container .ingredients-dropdown .ing-recc {
+  display: block;
+  width: 100%;
+}

@@ -33,6 +33,17 @@
   border-radius: 5px;
 }
 
+.rg-base-button.disabled {
+  background-color: rgba(0,0,0,0.5);
+  color: white;
+  pointer-events: none;
+}
+
+.rg-base-button.disabled:hover {
+  box-shadow: none;
+  cursor: default;
+}
+
 .rg-base-button:active {
   box-shadow: none !important;
   background-color: white;
