@@ -1,16 +1,20 @@
 import * as React from 'react';
 import { useParams, useLocation } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
 import RecipeDetails from '../../components/RecipeDetails';
 import Topbar, { TopbarType } from '../../components/Topbar';
 import * as Util from '../../util';
 import './RecipeInDetail.css';
+import { selectUser } from '../../features/auth/authSlice';
 // import './ReviewButton.css';
 
 function RecipeInDetailPage(): React.Node {
   const [data, setData] = useState();
   const [recipeName, setRecipeName] = useState('User Recipe');
   const { recipeId } = useParams();
+
+  const user = useSelector(selectUser);
 
   console.log(recipeId);
   const location = useLocation();
@@ -26,7 +30,7 @@ function RecipeInDetailPage(): React.Node {
   };
 
   useEffect(() => {
-    Util.fetchSingleRecipeData(recipeId, apiCallback);
+    Util.fetchSingleRecipeData(recipeId, apiCallback, `Bearer ${user.token}`);
   }, []);
 
   console.log('LSDSLDLS', data);

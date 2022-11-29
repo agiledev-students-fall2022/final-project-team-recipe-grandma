@@ -25,7 +25,7 @@ function Profile(): React.Node {
       });
       setData(mutatedData);
     };
-    Util.fetchMyRecipes(apiCallback);
+    Util.fetchMyRecipes(apiCallback, `Bearer ${user.token}`);
   }, []);
 
   const logoutUser = () => {
@@ -68,7 +68,7 @@ function Profile(): React.Node {
       <Topbar
         hasBackButton
         type={TopbarType.TOPBAR_DEFAULT}
-        title="John Doe"
+        title={user.name}
       />
       <section className="rga-section rg-user-profile">
         <div>
