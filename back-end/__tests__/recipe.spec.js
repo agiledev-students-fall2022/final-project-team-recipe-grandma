@@ -27,11 +27,11 @@ describe('GET /rgapi/recipe/', () => {
         res.should.have.status(200);
         const allRecipes = res.body;
         allRecipes.forEach((item) => {
-          expect(item.index).not.to.be.a('null');
+          expect(item.userId).not.to.be.a('null');
           expect(item.name).to.be.a('string');
           expect(item.ingredients).not.to.be.a('null');
           expect(item.steps).not.to.be.a('null');
-          expect(item.imgURL).not.to.be.a('null');
+          expect(item.cover).not.to.be.a('null');
         });
         done();
       });
@@ -45,14 +45,14 @@ describe('GET /rgapi/recipe/', () => {
       .end((err, res) => {
         res.should.have.status(200);
         const {
-          index, name, ingredients, steps, imgURL,
+          userId, name, ingredients, steps, cover,
         } = res.body;
         // res.body.should.be.a('object');
-        expect(index).not.to.be.a('null');
+        expect(userId).not.to.be.a('null');
         expect(name).to.be.a('string');
         expect(ingredients).not.to.be.a('null');
         expect(steps).not.to.be.a('null');
-        expect(imgURL).not.to.be.a('null');
+        expect(cover).not.to.be.a('null');
         done();
       });
   });
@@ -60,17 +60,36 @@ describe('GET /rgapi/recipe/', () => {
   // Test to get recommended recipe record
   it('should get a recommended recipe record', (done) => {
     chai.request(server)
-      .get('/rgapi/recipe/recommendation')
+      .get('/rgapi/recipe/recbyingredients')
       .end((err, res) => {
         res.should.have.status(200);
         const {
-          index, name, ingredients, steps, imgURL,
+          userId, name, ingredients, steps, cover,
         } = res.body;
-        expect(index).not.to.be.a('null');
+        expect(userId).not.to.be.a('null');
         expect(name).not.to.be.a('null');
         expect(ingredients).not.to.be.a('null');
         expect(steps).not.to.be.a('null');
-        expect(imgURL).not.to.be.a('null');
+        expect(cover).not.to.be.a('null');
+        done();
+      });
+  });
+
+  // Test to get recommended recipe record by searching the nae
+  it('should get a recommended recipe record by name', (done) => {
+    const recipeName = 'Roasted Asparagus';
+    chai.request(server)
+      .get(`/rgapi/recipe/recbyname/${recipeName}`)
+      .end((err, res) => {
+        res.should.have.status(200);
+        const {
+          userId, name, ingredients, steps, cover,
+        } = res.body;
+        expect(userId).not.to.be.a('null');
+        expect(name).not.to.be.a('null');
+        expect(ingredients).not.to.be.a('null');
+        expect(steps).not.to.be.a('null');
+        expect(cover).not.to.be.a('null');
         done();
       });
   });
@@ -82,13 +101,13 @@ describe('GET /rgapi/recipe/', () => {
       .end((err, res) => {
         res.should.have.status(200);
         const {
-          index, name, ingredients, steps, imgURL,
+          userId, name, ingredients, steps, cover,
         } = res.body;
-        expect(index).not.to.be.a('null');
+        expect(userId).not.to.be.a('null');
         expect(name).not.to.be.a('null');
         expect(ingredients).not.to.be.a('null');
         expect(steps).not.to.be.a('null');
-        expect(imgURL).not.to.be.a('null');
+        expect(cover).not.to.be.a('null');
         done();
       });
   });
@@ -101,11 +120,11 @@ describe('POST /rgapi/recipe/create', () => {
       .post('/rgapi/recipe/create')
       .type('form')
       .send({
-        index: '1',
+        userId: '1',
         name: 'scrambled egg',
         ingredients: 'egg',
         steps: 'just make it',
-        imageURL: 'abc.com',
+        cover: 'abc.com',
       })
       .end((err, res) => {
         expect(res).to.have.status(201);
