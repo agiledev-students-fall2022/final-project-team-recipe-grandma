@@ -207,13 +207,13 @@ export async function postReviewData(context: ReviewContext, AuthStr: string): n
 
   const result = await axios.post(
     `${BASE_API_URL}/rgapi/review/review/create`,
-    { headers: { Authorization: AuthStr } },
     {
       body,
       stars,
       username,
       parentId,
     },
+    { headers: { Authorization: AuthStr } },
   );
   if (result) {
     return result.data;
