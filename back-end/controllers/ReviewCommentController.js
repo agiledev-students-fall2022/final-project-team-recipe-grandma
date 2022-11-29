@@ -34,12 +34,12 @@ class ReviewCommentController {
   static async GetReviewDatabase(req, res) {
     return ReviewComment.find({ parentId: req.params.id })
       .then((reviews) => {
-        if (reviews) {
+        if (req.params.id < 0 || req.params.id >= reviews.legnth) {
+          res.sendStatus(400);
+        } else if (reviews) {
           res.status(200).json({
             reviews,
           });
-        } else {
-          res.sendStatus(400);
         }
       });
   }
@@ -54,6 +54,13 @@ class ReviewCommentController {
         } else {
           res.sendStatus(400);
         }
+      });
+  }
+
+  static async DeleteReviewDatabase(req, res) {
+    return ReviewComment.findOneAndDelete({ username: req.params.username })
+      .then(() => {
+        res.status(200);
       });
   }
 }
