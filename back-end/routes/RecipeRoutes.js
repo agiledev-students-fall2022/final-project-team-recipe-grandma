@@ -18,8 +18,9 @@ const router = express.Router();
 router.get('/test', RecipeController.TestRecipeFunction);
 // create new recipe
 router.post('/create', upload.single('file'), RecipeController.CreateRecipe);
-// recommend recipe by ingredients
-// router.get('/recbyingredients/:userid', RecipeController.RecommendbyIngredients);
+
+// recommendation algorithm 1: search by ingredients
+router.post('/search-by-ingredients/', RecipeController.RecommendedbyIngredients);
 // // recipe recommended based on user's likes
 // recommendation algorithm 1: search by ingredients
 router.get('/recbyingredients/', RecipeController.RecommendedbyIngredients);

@@ -67,8 +67,6 @@ class RecipeController {
           /* eslint-enable no-continue */
         }
 
-        console.log('New ing');
-
         const newIng = await Ingredient.create({
           name: ing.name,
           type: ing.type.toLowerCase(),
@@ -84,15 +82,12 @@ class RecipeController {
       }
       /* eslint-enable no-await-in-loop */
 
-      console.log('Ing list', ingredientIds);
-
       // Create the recipe if validation passes
       // We pass the image as an object ID as per our model's requirement
       // Thus, we can grab the image data from our image bucket later
       // In other words, in our HTML or post man, we can have a GET request
       // towards the route http://localhost:8000/rgapi/media/:imageId
       // And we get our image served to us directly from the database
-      console.log('Test stuff', ingredientIds);
       Recipe.create({
         userId,
         name,
@@ -200,18 +195,34 @@ class RecipeController {
     });
   }
 
-  // recommendation algorithm 1: search by ingredients
+  // @desc Search by ingredients. Takes in an array of ingredient ObjectIds
+  // @desc Format: [{ "id": "<ObjectId>" }, ...]
+  // @route /rgapi/recipe/search-by-ingredients
+  // @access Public
   static async RecommendedbyIngredients(req, res) {
-    // still need to develop
-    // for now, returning to home page with all recipes in MongoDB
-    const recipe = Recipe.find({}, (err, rec) => {
-      if (err) {
-        console.log(err);
-      } else {
-        res.json(rec);
+    const { ingredients } = req.body;
+    if (!ingredients) return res.status(401).json({ message: 'Ingredients missing.' });
+
+    for (let i = 0; i < ingredients.length; i += 1) {
+      if (!ObjectId.isValid(ingredients[i]._id)) {
+        console.log(ingredients[i], 'Invalid data');
+        return res.status(401).json({ message: 'Improper ingredients sent.' });
       }
-      console.log(recipe);
+    }
+
+    const matchQuery = ingredients.map((x) => {
+      const output = { $elemMatch: { id: x._id } };
+      return output;
     });
+
+    Recipe.find({ ingredients: { $all: matchQuery } }).then((recipes) => {
+      console.log('Recipes are', recipes);
+      res.status(200).json(recipes);
+    }).catch((err) => {
+      console.log(err);
+      res.status(401).json({ message: 'An error occurred searching for ingredients' });
+    });
+    return true;
   }
 
   // recommendation algorithm 2: search by user's likes
@@ -222,14 +233,13 @@ class RecipeController {
     // modifiedname = big night pizza,
     // $options: changes modifedname to case-insensitive to match with name
     const modifiedname = req.params.name.replace('-', ' ');
-    console.log(modifiedname);
-    const recipe = Recipe.find({ name: { $regex: modifiedname, $options: 'i' } }, (err, rec) => {
+
+    Recipe.find({ name: { $regex: modifiedname, $options: 'i' } }, (err, rec) => {
       if (err) {
         console.log(err);
       } else {
         res.json(rec);
       }
-      console.log(recipe);
     });
   }
 }
