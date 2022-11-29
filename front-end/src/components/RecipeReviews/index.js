@@ -30,7 +30,7 @@ function RecipeReviews(props: Props): React.Node {
       setReviews(apiData);
       setRatingCount(apiData.length);
     };
-    fetchReviewData(apiCallback, recipeId);
+    fetchReviewData(apiCallback, recipeId, `Bearer ${user.token}`);
   }, []);
 
   const handleReviewPost = () => {
@@ -41,12 +41,15 @@ function RecipeReviews(props: Props): React.Node {
       parentId: recipeId,
     }]);
     setRatingCount(reviews.length + 1);
-    postReviewData({
-      body: commentText,
-      username: 'Test',
-      stars: ratingNum,
-      parentId: recipeId,
-    });
+    postReviewData(
+      {
+        body: commentText,
+        username: 'Test',
+        stars: ratingNum,
+        parentId: recipeId,
+      },
+      `Bearer ${user.token}`,
+    );
   };
 
   console.log(commentText, reviews);
