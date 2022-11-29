@@ -218,6 +218,20 @@ export async function fetchMyRecipes(callback: CallbackType) {
   }
 }
 
+export async function publishRecipe(callback: CallbackType, recipeData: FormData) {
+  axios({
+    url: `${BASE_API_URL}/rgapi/recipe/create`,
+    method: 'post',
+    data: recipeData,
+    headers: { 'Content-Type': 'multipart/form-data' },
+  }).then((res) => {
+    console.log(res);
+    callback(res.data);
+  }).catch((err) => {
+    console.log(err);
+  });
+}
+
 export default {
   fetchRecipeData,
   fetchIngredientData,
