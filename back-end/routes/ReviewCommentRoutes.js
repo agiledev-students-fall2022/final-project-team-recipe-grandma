@@ -17,5 +17,6 @@ router.get('/database/single/:id', ReviewCommentController.GetSingleReviewDataba
 router.get('/database/:id', ReviewCommentController.GetReviewDatabase);
 router.get('/reviewTest', ReviewCommentController.TestReviewComment);
 router.post('/review/create', ReviewCommentController.CreateReviewComment);
+// router.post('/review/delete/:username', ReviewCommentController.DeleteReviewDatabase);
 
 module.exports = router;

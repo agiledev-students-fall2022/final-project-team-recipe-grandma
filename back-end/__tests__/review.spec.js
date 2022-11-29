@@ -16,35 +16,59 @@ after((done) => {
 
 describe('GET /rgapi/review/review/:index', () => {
   it('Should return the reviews of the desired recipe by index', (done) => {
-    // const correctCount = 0;
     const currIndex = 0;
     chai.request(server)
-      .get(`/rgapi/review/review/${currIndex}`)
+      .get(`/rgapi/review/database/${currIndex}`)
       .end((err, res) => {
-        res.should.have.status(201);
+        res.should.have.status(200);
         const {
-          id, body, stars, username, userId, parentId, createdAt,
+          id, body, stars, username, parentId,
         } = res.body.reviews[0];
-        expect(id).to.be.a('number');
+        expect(id).to.not.be.a('null');
         expect(body).to.be.a('string');
         expect(stars).to.be.a('number');
         expect(username).to.be.a('string');
-        expect(userId).to.be.a('number');
-        expect(parentId).to.be.a('number');
-        expect(createdAt).to.be.a('string');
+        expect(parentId).to.be.a('string');
         done();
       });
   });
 });
 
-describe('GET /rgapi/review/review:invalidIndex', () => {
+describe('GET /rgapi/review/database/:invalidIndex', () => {
   it('Should return status 400 since index is invalid', (done) => {
     const falseIndex = -1;
     chai.request(server)
-      .get(`/rgapi/review/review/${falseIndex}`)
+      .get(`/rgapi/review/database/${falseIndex}`)
       .end((err, res) => {
         res.should.have.status(400);
         done();
       });
   });
 });
+
+// describe('POST /rgapi/review/review/create', () => {
+//   it('Should create a new review an upload it to database', (done) => {
+//     chai.request(server)
+//       .post('/rgapi/review/review/create')
+//       .type('form')
+//       .send({
+//         body: 'Test',
+//         stars: 1,
+//         username: 'Test',
+//         parentId: '0',
+//       })
+//       .end((err, res) => {
+//         expect(res).to.have.status(200);
+//         done();
+//       });
+//   });
+// });
+
+// describe('POST /rgapi/review/review/delete', () => { 
+//   it('Should delete the previous review from database', (done) => {
+//     const sampleUsername = 'Test';
+//     chai.request(server)
+//       .post('/rgapi/review/review/delete/Test')
+//       .send({username: 'Test'})
+//   })
+// })
