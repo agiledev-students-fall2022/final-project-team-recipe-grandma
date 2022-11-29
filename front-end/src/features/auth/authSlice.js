@@ -24,10 +24,12 @@ type State = {|
 
 const LoginReduction = (state: State, action: AuthActionContext) => {
   state.user = action.payload;
+  localStorage.setItem('userSession', JSON.stringify(action.payload));
 };
 
 const LogoutReduction = (state: State) => {
   state.user = null;
+  localStorage.removeItem('userSession');
 };
 
 //  Professor permitted Redux

@@ -13,7 +13,7 @@ const authenticate = async (req, res, next) => {
       return next();
     } catch (error) {
       console.log(error);
-      return res.status(401).json({ message: 'Missing session token.' });
+      return res.status(403).json({ message: 'Missing session token.' });
     }
   }
   return res.status(401).json({ message: 'Invalid login.' });
