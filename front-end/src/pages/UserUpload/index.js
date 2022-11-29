@@ -1,9 +1,13 @@
 import * as React from 'react';
-import { useState } from 'react';
-import './UserUpload.css';
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import Topbar, { TopbarType } from '../../components/Topbar';
 import RGInput from '../../components/UtilityComponents/RGInput';
 import RGButton from '../../components/RGButton';
+import * as Util from '../../util';
+import { selectUser } from '../../features/auth/authSlice';
+
+import './UserUpload.css';
 
 const FoodGroups = ['fruit', 'vegetable', 'meat', 'grain', 'spice'];
 const FoodMeasures = ['g', 'cup', 'tbsp', 'tsp', 'pinch', 'ml', 'kg', 'liter', 'lbs', 'oz', 'fl. oz', 'number'];
@@ -14,8 +18,55 @@ function UserUpload(): React.Node {
   const [ingredientsList, setIngredientsList] = useState([]);
   const [recipeCover, setRecipeCover] = useState(null);
   const [fileError, setFileError] = useState('Please upload an image.');
+  const [existingIngredients, setExistingIngredientsList] = useState([]);
+  const [isUploading, setIsUploading] = useState(false);
+
+  const user = useSelector(selectUser);
+
+  useEffect(() => {
+    Util.fetchIngredientData(setExistingIngredientsList);
+  }, []);
+
+  console.log(existingIngredients);
 
   const onSubmit = () => {
+    // Validation
+    for (let i = 0; i < ingredientsList.length; i += 1) {
+      const ing = ingredientsList[i];
+      if (
+        !ing.name
+        || ing.name === ''
+        || ing.quantity === 0
+        || !ing.unit
+        || !ing.type
+      ) {
+        console.log('Ingredients not valid fam', ing.unit);
+        // Set error here somewhere
+        return;
+      }
+    }
+
+    if (instructionList.length <= 0) return;
+
+    console.log('Uploading form data');
+    setIsUploading(true);
+
+    const newIngList = JSON.stringify(ingredientsList);
+    const newStepList = JSON.stringify(instructionList);
+
+    const formData = new FormData();
+    formData.append('ingredients', newIngList);
+    formData.append('steps', newStepList);
+    formData.append('name', titleText);
+    formData.append('file', recipeCover);
+    formData.append('userId', user._id);
+
+    const apiCallback = () => {
+      console.log('Uploaded!');
+      setIsUploading(false);
+    };
+
+    Util.publishRecipe(apiCallback, formData);
     console.log('Submitting...');
   };
 
@@ -69,10 +120,16 @@ function UserUpload(): React.Node {
     setIngredientsList(ingList);
   };
 
+  const setIngName = (ind, text) => {
+    const ingList = [...ingredientsList];
+    ingList[ind].name = text;
+    setIngredientsList(ingList);
+  };
+
   const onIngMeasureChange = (ind, ev) => {
     const measure = ev.target.value;
     const ingList = [...ingredientsList];
-    ingList[ind].measure = measure;
+    ingList[ind].unit = measure;
     setIngredientsList(ingList);
   };
 
@@ -89,7 +146,7 @@ function UserUpload(): React.Node {
       type: FoodGroups[0],
       quantity: 0,
       name: '',
-      measure: FoodMeasures[0],
+      unit: FoodMeasures[0],
     });
     setIngredientsList(ingList);
   };
@@ -99,8 +156,6 @@ function UserUpload(): React.Node {
     const data = ings.slice(0, ind).concat(ings.slice(ind + 1));
     setIngredientsList(data);
   };
-
-  console.log(ingredientsList);
 
   const instructionInputs = instructionList.map((step, ind) => (
     <div
@@ -127,73 +182,89 @@ function UserUpload(): React.Node {
   ));
 
   const ingredientInputs = ingredientsList.map((ing, ind) => (
-    <div className="ing-input" key={ind}>
-      <div className="ing-type ing-field">
-        <p className="soft-comment">Type</p>
-        <select
-          name="Food Group"
-          id="foodGroup"
-          onChange={(ev) => onIngTypeChange(ind, ev.target.value)}
-          value={ing.type}
+    <div className="ing-input-container" key={ind}>
+      <div className="ing-input">
+        <div className="ing-type ing-field">
+          <p className="soft-comment">Type</p>
+          <select
+            name="Food Group"
+            id="foodGroup"
+            onChange={(ev) => onIngTypeChange(ind, ev.target.value)}
+            value={ing.type}
+          >
+            {FoodGroups.map((group, groupInd) => (
+              <option
+                key={groupInd}
+              >
+                {group}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className="ing-field input ing-recc-main">
+          <p className="soft-comment">Name</p>
+          <RGInput
+            onChange={(ev) => onIngNameChange(ind, ev)}
+            placeholder="Ingredient Name"
+            type="text"
+            value={ing.name}
+            fontSize="0.65em"
+            padding="5px 12px"
+          />
+        </div>
+        <div className="ing-field input">
+          <p className="soft-comment">Quantity</p>
+          <RGInput
+            onChange={(ev) => onIngQuantityChange(ind, ev)}
+            placeholder="Amount"
+            type="number"
+            value={ing.quantity}
+            width="max-content"
+            fontSize="0.65em"
+            padding="5px 12px"
+          />
+        </div>
+        <div className="ing-field">
+          <p className="soft-comment">Unit</p>
+          <select
+            name="Food Measure"
+            id="foodMEasure"
+            onChange={(ev) => onIngMeasureChange(ind, ev)}
+            value={ing.unit}
+          >
+            {FoodMeasures.map((measure, measureInd) => (
+              <option
+                key={measureInd}
+              >
+                {measure}
+              </option>
+            ))}
+          </select>
+        </div>
+        <button
+          className="minus"
+          onClick={() => removeIngredient(ind)}
+          type="button"
         >
-          {FoodGroups.map((group, groupInd) => (
-            <option
-              key={groupInd}
-            >
-              {group}
-            </option>
-          ))}
-        </select>
+          <span className="material-icons-outlined">
+            do_not_disturb_on
+          </span>
+        </button>
       </div>
-      <div className="ing-field input">
-        <p className="soft-comment">Name</p>
-        <RGInput
-          onChange={(ev) => onIngNameChange(ind, ev)}
-          placeholder="Ingredient Name"
-          type="text"
-          value={ing.name}
-          fontSize="0.65em"
-          padding="5px 12px"
-        />
+      <div className="ingredients-dropdown">
+        {existingIngredients.filter(
+          (exIng) => exIng.name.includes(ingredientsList[ind].name),
+        ).map((ingSelector, reccIngInd) => (
+          <button
+            onClick={() => setIngName(ind, ingSelector.name)}
+            className="ing-recc"
+            key={reccIngInd}
+            type="button"
+          >
+            {ingSelector.name}
+          </button>
+        ))}
       </div>
-      <div className="ing-field input">
-        <p className="soft-comment">Quantity</p>
-        <RGInput
-          onChange={(ev) => onIngQuantityChange(ind, ev)}
-          placeholder="Amount"
-          type="number"
-          value={ing.quantity}
-          width="max-content"
-          fontSize="0.65em"
-          padding="5px 12px"
-        />
-      </div>
-      <div className="ing-field">
-        <p className="soft-comment">Unit</p>
-        <select
-          name="Food Measure"
-          id="foodMEasure"
-          onChange={(ev) => onIngMeasureChange(ind, ev)}
-          value={ing.measure}
-        >
-          {FoodMeasures.map((measure, measureInd) => (
-            <option
-              key={measureInd}
-            >
-              {measure}
-            </option>
-          ))}
-        </select>
-      </div>
-      <button
-        className="minus"
-        onClick={() => removeIngredient(ind)}
-        type="button"
-      >
-        <span className="material-icons-outlined">
-          do_not_disturb_on
-        </span>
-      </button>
     </div>
   ));
 
@@ -277,6 +348,7 @@ function UserUpload(): React.Node {
             isBoxed
             onAction={onSubmit}
             text="Upload Your Recipe"
+            disabled={isUploading}
           />
         </div>
       </section>
