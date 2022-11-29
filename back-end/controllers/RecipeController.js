@@ -6,6 +6,7 @@
 const { ObjectId } = require('mongoose').Types;
 const Recipe = require('../models/Recipe');
 const Ingredient = require('../models/Ingredient');
+const User = require('../models/User');
 
 class RecipeController {
   static async TestRecipeFunction(req, res) {
@@ -30,7 +31,11 @@ class RecipeController {
       const ingredientsArr = JSON.parse(ingredients);
       const stepsArr = JSON.parse(steps);
 
-      console.log('Steps input', stepsArr);
+      console.log('Steps input', stepsArr, ingredientsArr);
+      ingredientsArr.map((ing) => {
+        console.log('Ing is', ing);
+        return true;
+      });
 
       const mimetypes = ['image/png', 'image/jpeg', 'image/jpg'];
 
@@ -44,6 +49,14 @@ class RecipeController {
         || !ObjectId.isValid(image.id)
         || !mimetypes.includes(image.mimetype)
       ) {
+        console.log(
+          typeof name !== 'string',
+          !Array.isArray(ingredientsArr),
+          !Array.isArray(stepsArr),
+          !image,
+          !ObjectId.isValid(image.id),
+          !mimetypes.includes(image.mimetype),
+        );
         return res.status(400).json({ message: 'Invalid fields' });
       }
 
@@ -95,8 +108,11 @@ class RecipeController {
         steps: stepsArr,
         cover: image.id,
       }).then(async (recipe) => {
-        res.status(200).json({
+        const user = await User.findOne({ id: recipe.userId });
+        if (!user) return res.status(500).json({ message: 'Could not find user' });
+        return res.status(200).json({
           _id: recipe.id,
+          author: user.name,
           name: recipe.name,
           ingredients: recipe.ingredients,
           steps: recipe.steps,
@@ -161,14 +177,33 @@ class RecipeController {
 
   // get all recipes
   static async GetRecipes(req, res) {
-    const recipe = Recipe.find({}, (err, rec) => {
-      if (err) {
-        console.log(err);
-      } else {
-        res.json(rec);
-      }
-      console.log(recipe);
-    });
+    const recipes = await Recipe.find({});
+    if (!recipes) return res.status(500).json({ message: 'Could not fetch recipes' });
+
+    const freshRecipes = [];
+    /* eslint-disable no-await-in-loop */
+    for (let i = 0; i < recipes.length; i += 1) {
+      const rec = recipes[i];
+      const user = await User.findOne({ id: rec.userId });
+      if (!user) return res.status(500).json({ message: 'Could not find user' });
+      rec.author = user.name;
+      console.log({ ...rec, author: user.name });
+      const freshRec = {
+        _id: rec.id,
+        userId: rec.userId,
+        name: rec.name,
+        ingredients: rec.ingredients,
+        steps: rec.steps,
+        author: user.name,
+        cover: rec.cover,
+        createdAt: rec.createdAt,
+        updatedAt: rec.updatedAt,
+      };
+      freshRecipes.push(freshRec);
+    }
+    /* eslint-enable no-await-in-loop */
+
+    return res.status(200).json(freshRecipes);
   }
 
   // single recipe in a page
@@ -215,13 +250,40 @@ class RecipeController {
       return output;
     });
 
-    Recipe.find({ ingredients: { $all: matchQuery } }).then((recipes) => {
-      console.log('Recipes are', recipes);
-      res.status(200).json(recipes);
-    }).catch((err) => {
+    const recipes = await Recipe.find({ ingredients: { $all: matchQuery } }).catch((err) => {
       console.log(err);
       res.status(401).json({ message: 'An error occurred searching for ingredients' });
     });
+    if (!recipes) {
+      return res.status(401).json({
+        message: 'An error occurred searching for ingredients',
+      });
+    }
+
+    const freshRecipes = [];
+    /* eslint-disable no-await-in-loop */
+    for (let i = 0; i < recipes.length; i += 1) {
+      const rec = recipes[i];
+      const user = await User.findOne({ id: rec.userId });
+      if (!user) return res.status(500).json({ message: 'Could not find user' });
+      rec.author = user.name;
+      console.log({ ...rec, author: user.name });
+      const freshRec = {
+        _id: rec.id,
+        userId: rec.userId,
+        name: rec.name,
+        ingredients: rec.ingredients,
+        steps: rec.steps,
+        author: user.name,
+        cover: rec.cover,
+        createdAt: rec.createdAt,
+        updatedAt: rec.updatedAt,
+      };
+      freshRecipes.push(freshRec);
+    }
+    /* eslint-enable no-await-in-loop */
+
+    res.status(200).json(freshRecipes);
     return true;
   }
 

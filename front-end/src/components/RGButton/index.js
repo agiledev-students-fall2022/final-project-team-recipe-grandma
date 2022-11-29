@@ -3,6 +3,7 @@ import './RGButton.css';
 
 type Props = $ReadOnly<{|
   className?: string,
+  disabled?: boolean,
   isBoxed?: boolean,
   isFlat?: boolean,
   onAction: () => void,
@@ -13,6 +14,7 @@ type Props = $ReadOnly<{|
 
 const defaultProps = {
   className: '',
+  disabled: false,
   isBoxed: false,
   isFlat: false,
   onKeyDown: () => null,
@@ -22,6 +24,7 @@ const defaultProps = {
 function RGButton(props: Props): React.Node {
   const {
     className,
+    disabled,
     isBoxed,
     isFlat,
     onAction,
@@ -35,7 +38,8 @@ function RGButton(props: Props): React.Node {
     onKeyDown?.(ev);
   };
 
-  const boxClassName = isBoxed ? `rg-base-button rg-boxed-button ${className}` : `rg-base-button ${className}`;
+  const disabledClassName = disabled ? `rg-base-button ${className} disabled` : `rg-base-button ${className}`;
+  const boxClassName = isBoxed ? `rg-boxed-button ${disabledClassName}` : disabledClassName;
   const finalClassName = isFlat ? `${boxClassName} flat` : boxClassName;
 
   return (
