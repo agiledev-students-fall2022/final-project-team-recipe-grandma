@@ -49,8 +49,8 @@ function Home(): React.Node {
           {data.length > 0 ? data.map((item, ind) => (
             <RGRecipe
               key={ind}
-              author="Chadwick Boseman"
-              authorID="1"
+              author={item.author}
+              authorID={item.userId}
               imageUrl={item.cover}
               recipeUrl={`/recipe/${item._id}`}
               title={item.name}
