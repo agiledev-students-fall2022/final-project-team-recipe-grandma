@@ -66,7 +66,7 @@ function UserUpload(): React.Node {
       setIsUploading(false);
     };
 
-    Util.publishRecipe(apiCallback, formData);
+    Util.publishRecipe(apiCallback, formData, `Bearer ${user.token}`);
     console.log('Submitting...');
   };
 

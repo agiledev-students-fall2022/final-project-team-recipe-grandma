@@ -99,9 +99,15 @@ export async function fetchRecipeData(callback: CallbackType) {
   }
 }
 
-export async function fetchSingleRecipeData(recipeId: string, callback: CallbackType) {
+// Requires auth
+export async function fetchSingleRecipeData(
+  recipeId: string,
+  callback: CallbackType,
+  AuthStr: string,
+) {
   const result = await axios(
     `${BASE_API_URL}/rgapi/recipe/${recipeId}`,
+    { headers: { Authorization: AuthStr } },
   ).catch((err) => console.log(err.message));
   console.log('HUSD', result);
   callback(result.data);
@@ -120,16 +126,19 @@ export async function fetchIngredientData(callback: CallbackType, controller?: A
   }
 }
 
+// requires auth
 export async function searchForIngredient(
   callback: CallbackType,
   name: string,
   controller?: AbortController,
+  AuthStr: string,
 ) {
   console.log('Got a name', name);
   const result = await axios(
     `${BASE_API_URL}/rgapi/ingredient/search/${name}`,
     {
       signal: controller?.signal,
+      headers: { Authorization: AuthStr },
     },
   ).catch((err) => console.log(err.message));
   console.log('Ingredient search api result', result);
@@ -138,10 +147,12 @@ export async function searchForIngredient(
   }
 }
 
+// requires auth
 export async function searchRecipesByIngredient(
   callback: callbackType,
   data: Array,
   controller?: AbortController,
+  AuthStr: string,
 ) {
   const result = await axios.post(
     `${BASE_API_URL}/rgapi/recipe/search-by-ingredients`,
@@ -150,6 +161,7 @@ export async function searchRecipesByIngredient(
     },
     {
       signal: controller?.signal,
+      headers: { Authorization: AuthStr },
     },
   ).catch((err) => console.log(err.message));
   console.log('Ingredient api recipe search result', result);
@@ -206,10 +218,12 @@ export async function postReviewData(context: ReviewContext): null {
   }
 }
 
-export async function fetchMyRecipes(callback: CallbackType) {
+// Requires auth
+export async function fetchMyRecipes(callback: CallbackType, AuthStr: string) {
   // need to change this after backend is done
   const result = await axios(
     `${BASE_API_URL}/rgapi/user/myrecipe`,
+    { headers: { Authorization: AuthStr } },
   ).catch((err) => console.log(err.message));
   console.log('MY RECIPES', result);
   if (result && Array.isArray(result.data)) {
@@ -218,12 +232,17 @@ export async function fetchMyRecipes(callback: CallbackType) {
   }
 }
 
-export async function publishRecipe(callback: CallbackType, recipeData: FormData) {
+// requires Auth
+export async function publishRecipe(callback: CallbackType, recipeData: FormData, AuthStr: string) {
+  console.log(AuthStr);
   axios({
     url: `${BASE_API_URL}/rgapi/recipe/create`,
     method: 'post',
     data: recipeData,
-    headers: { 'Content-Type': 'multipart/form-data' },
+    headers: {
+      'Content-Type': 'multipart/form-data',
+      Authorization: AuthStr,
+    },
   }).then((res) => {
     console.log(res);
     callback(res.data);
