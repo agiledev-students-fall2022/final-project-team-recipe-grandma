@@ -208,14 +208,19 @@ class RecipeController {
 
   // single recipe in a page
   static async SingleRecipe(req, res) {
-    const recipe = Recipe.findOne({ _id: req.params.id }, (err, rec) => {
-      if (err) {
-        console.log(err);
-      } else {
-        res.status(200).json(rec);
-      }
-      console.log(recipe);
-    });
+    const recipe = await Recipe.findOne({ _id: req.params.id });
+    return res.status(200).json(recipe);
+    // try {
+    //   Recipe.findOne({ _id: req.params.id }).then((rec) => {
+    //     console.log(res.status);
+    //     return res.status(200).send(rec);
+    //   }).catch((err) => {
+    //     console.log(err);
+    //     // res.status(500).json({ message: 'Could not find recipe' });
+    //   });
+    // } catch (err) {
+    //   console.log(err);
+    // }
   }
 
   // recipes by user ID
