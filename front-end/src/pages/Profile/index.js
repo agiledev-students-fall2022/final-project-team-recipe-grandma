@@ -1,7 +1,10 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import RGRecipe from '../../components/RGRecipe';
 import Topbar, { TopbarType } from '../../components/Topbar';
+import { signOut, selectUser } from '../../features/auth/authSlice';
 
 import * as Util from '../../util';
 import './Profile.css';
@@ -9,6 +12,11 @@ import './Profile.css';
 function Profile(): React.Node {
   const [data, setData] = useState([]);
   const [pillBodyType, setPillBodyType] = useState('');
+
+  const user = useSelector(selectUser);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   useEffect(() => {
     const apiCallback = (apiData) => {
       const mutatedData = apiData.map((rec, ind) => {
@@ -20,13 +28,18 @@ function Profile(): React.Node {
     Util.fetchMyRecipes(apiCallback);
   }, []);
 
+  const logoutUser = () => {
+    dispatch(signOut());
+    navigate('/', { replace: true });
+  };
+
   const recipes = data.map((item, ind) => (
     <RGRecipe
       key={ind}
-      author="John Doe"
-      authorID="1"
-      imageUrl={item.imageURL}
-      recipeUrl={`recipe/${item.index}`}
+      author={item.author}
+      authorID={item.userId}
+      imageUrl={item.cover}
+      recipeUrl={`recipe/${item._id}`}
       title={item.name}
     />
   ));
@@ -63,12 +76,12 @@ function Profile(): React.Node {
             <img src="https://picsum.photos/200" alt="avatar" />
             <div className="profile-info">
               <div className="info-header">
-                <h6>John Doe</h6>
+                <h6>{user.name}</h6>
                 <button
-                  onClick={() => null}
+                  onClick={logoutUser}
                   type="button"
                 >
-                  Edit Profile
+                  Logout
                 </button>
               </div>
             </div>
