@@ -18,14 +18,14 @@ after((done) => {
 
 // const selectUser = (state) => state.auth.user;
 // const user = useSelector(selectUser);
-//need to find way to retrieve current user token.
+// need to find way to retrieve current user token.
 
 describe('GET /rgapi/review/database/:index', () => {
   it('Should return the reviews of the desired recipe by index', (done) => {
     const currIndex = 0;
     chai.request(server)
       .get(`/rgapi/review/database/${currIndex}`)
-      .set({ Authorization: `Bearer ${user.token}` })
+      // .set({ Authorization: `Bearer ${user.token}` })
       .end((err, res) => {
         res.should.have.status(200);
         const {
