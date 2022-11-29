@@ -1,7 +1,9 @@
 import * as React from 'react';
 import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 // import { TestReviewComment } from '../../../../back-end/controllers/ReviewCommentController';
 import { fetchReviewData, postReviewData } from '../../util';
+import { selectUser } from '../../features/auth/authSlice';
 
 import RGButton from '../RGButton';
 import SingleRecipeReview from '../SingleRecipeReview';
@@ -17,7 +19,7 @@ function RecipeReviews(props: Props): React.Node {
   const [ratingNum, setRatingNum] = useState(0);
   const [ratingCount, setRatingCount] = useState(0);
   const [reviews, setReviews] = useState([]);
-
+  const user = useSelector(selectUser);
   const {
     recipeRating,
     recipeId,
@@ -34,7 +36,7 @@ function RecipeReviews(props: Props): React.Node {
   const handleReviewPost = () => {
     setReviews((currReviews) => [...currReviews, {
       body: commentText,
-      username: 'Test',
+      username: user.name,
       stars: ratingNum,
       parentId: recipeId,
     }]);
