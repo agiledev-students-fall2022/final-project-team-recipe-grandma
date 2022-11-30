@@ -187,7 +187,7 @@ class RecipeController {
         name: rec.name,
         ingredients: rec.ingredients,
         steps: rec.steps,
-        author: user.name,
+        // author: user.name,
         cover: rec.cover,
         createdAt: rec.createdAt,
         updatedAt: rec.updatedAt,
