@@ -1,9 +1,7 @@
 process.env.NODE_ENV = 'test';
 const chai = require('chai');
 const { expect, should } = require('chai');
-const {
-  describe, it, after, before,
-} = require('mocha');
+const { describe, it, after } = require('mocha');
 const chaiHttp = require('chai-http');
 const mongoose = require('mongoose');
 const server = require('../index');
@@ -18,70 +16,66 @@ after((done) => {
   done();
 });
 
-const testUserCredentials = {
-  email: 'yeonieh@gmail.com',
-  password: '12345',
-  name: 'yeonie',
-};
-
-let testUser;
-before((done) => {
-  chai.request(server)
-    .post('/rgapi/user/login')
-    .type('form')
-    .send({
-      email: testUserCredentials.email,
-      password: testUserCredentials.password,
-      name: testUserCredentials.name,
-    })
-    .end((err, res) => {
-      expect(res).to.have.status(200);
-      testUser = res.body;
-      done();
-    });
-});
-
-// let deleteUser;
-// after((done) => {
-//   chai.request(server)
-//     .post('/rgapi/user/delete')
-//     .type('form')
-//     .send({
-//       id: testUserCredentials.id,
-//     })
-//     .end((err, res) => {
-//       expect(res).to.have.status(200);
-//       testUser = res.body;
-//       done();
-//     });
-// });
-
 describe('GET /rgapi/recipe/', () => {
-  // Test to get all recipes
-  // changed logic to test first recipe instead of the whole recipes in the matter of runtime
-  it('Should return all recipes', (done) => {
+  it('test to get all recipes endpoint', (done) => {
     chai.request(server)
       .get('/rgapi/recipe/all')
       .end((err, res) => {
         res.should.have.status(200);
         const allRecipes = res.body;
-        const {
-          id, userId, name, ingredients, steps, cover, createdAt, updatedAt,
-        } = allRecipes[0];
-        expect(id).not.to.be.a('null');
-        expect(userId).not.to.be.a('null');
-        expect(name).to.be.a('string');
-        expect(ingredients).to.be.a('array');
-        expect(steps).to.be.a('array');
-        expect(cover).not.to.be.a('null');
-        expect(createdAt).not.to.be.a('null');
-        expect(updatedAt).not.to.be.a('null');
+        allRecipes.forEach((item) => {
+          expect(item.userId).not.to.be.a('null');
+          expect(item.name).to.be.a('string');
+          expect(item.ingredients).not.to.be.a('null');
+          expect(item.steps).not.to.be.a('null');
+          expect(item.cover).not.to.be.a('null');
+        });
         done();
       });
   });
 
-  // Test to get recommended recipe record by searching the name
-  it('Should return a recommended recipe record by name', (done) => {
+  // Will not work unless we know the id of the recipe
+  // Test to get single recipe record
+  //   it('should get a single recipe record', (done) => {
+  //     const id = 0;
+  //     chai.request(server)
+  //       .get(`/rgapi/recipe/${id}`)
+  //       .end((err, res) => {
+  //         res.should.have.status(200);
+  //         const {
+  //           userId, name, ingredients, steps, cover,
+  //         } = res.body;
+  //         // res.body.should.be.a('object');
+  //         expect(userId).not.to.be.a('null');
+  //         expect(name).to.be.a('string');
+  //         expect(ingredients).not.to.be.a('null');
+  //         expect(steps).not.to.be.a('null');
+  //         expect(cover).not.to.be.a('null');
+  //         done();
+  //       });
+  //   });
+
+  // Will need to fix the router to include ingredient
+  // Test to get recommended recipe record
+  //   it('should get a recommended recipe record', (done) => {
+  //     chai.request(server)
+  //       .get('/rgapi/recipe/recbyingredients/')
+  //       .end((err, res) => {
+  //         res.should.have.status(200);
+  //         const {
+  //           userId, name, ingredients, steps, cover,
+  //         } = res.body;
+  //         expect(userId).not.to.be.a('null');
+  //         expect(name).not.to.be.a('null');
+  //         expect(ingredients).not.to.be.a('null');
+  //         expect(steps).not.to.be.a('null');
+  //         expect(cover).not.to.be.a('null');
+  //         done();
+  //       });
+  //   });
+
+  // Test to get recommended recipe record by searching the nae
+  it('should get a recommended recipe record by name', (done) => {
     const recipeName = 'Roasted Asparagus';
     chai.request(server)
       .get(`/rgapi/recipe/recbyname/${recipeName}`)
@@ -98,60 +92,25 @@ describe('GET /rgapi/recipe/', () => {
         done();
       });
   });
-
-  // Test to get single recipe record & authentication
-  it('Should return a single recipe', (done) => {
-    chai.request(server)
-      .get('/rgapi/recipe/6386c88d4a8f28288e0b2c06')
-      .set({ Authorization: `Bearer ${testUser.token}` })
-      .end((err, res) => {
-        res.should.have.status(200);
-        const {
-          id, userId, name, ingredients, steps, cover, createdAt, updatedAt,
-        } = res.body;
-        expect(id).not.to.be.a('null');
-        expect(userId).not.to.be.a('null');
-        expect(name).to.be.a('string');
-        expect(ingredients).to.be.a('array');
-        expect(steps).to.be.a('array');
-        expect(cover).not.to.be.a('null');
-        expect(createdAt).not.to.be.a('null');
-        expect(updatedAt).not.to.be.a('null');
-        done();
-      });
-  });
-
-  // Test to get recommended recipe record by ingredients
-  // POST REQUEST
-  it('Should create a recommended recipe by ingredients', (done) => {
-    chai.request(server)
-      .get('/rgapi/recipe/search-by-ingredients/')
-      .set({ Authorization: `Bearer ${testUser.token}` })
-      .type('form')
-      // .send({
-      //   name: 'test'
-      // })
-      .end((err, res) => {
-        expect(res).to.have.status(201);
-        done();
-      });
-  });
-
-  // Test creating a recipe
-  // HAVE TO POST A PHOTO AS WELL
-  it('Should create a new recipe and upload to the database', (done) => {
-    chai.request(server)
-      .post('/rgapi/review/review/create')
-      .set({ Authorization: `Bearer ${testUser.token}` })
-      .type('form')
-      .send({
-        name: 'testing',
-        ingredients: ['apple'],
-        steps: ['wash your apple', 'trash your apple'],
-      })
-      .end((err, res) => {
-        expect(res).to.have.status(201);
-        done();
-      });
-  });
 });
+
+// Can no longer post a recipe manually as the recipe model was changed
+// describe('POST /rgapi/recipe/create', () => {
+// // test create new post endpoint
+//   it('should post a new recipe', (done) => {
+//     chai.request(server)
+//       .post('/rgapi/recipe/create')
+//       .type('form')
+//       .send({
+//         userId: '1',
+//         name: 'scrambled egg',
+//         ingredients: 'egg',
+//         steps: 'just make it',
+//         cover: 'abc.com',
+//       })
+//       .end((err, res) => {
+//         expect(res).to.have.status(201);
+//         done();
+//       });
+//   });
+// });
