@@ -11,8 +11,6 @@ router.get('/test', authenticate, RecipeController.TestRecipeFunction);
 router.post('/create', [upload.single('file'), authenticate], RecipeController.CreateRecipe);
 // recommendation algorithm 1: search by ingredients
 router.post('/search-by-ingredients/', authenticate, RecipeController.RecommendedbyIngredients);
-// recommendation algorithm 1: search by ingredients
-router.get('/recbyingredients/', RecipeController.RecommendedbyIngredients);
 // recommendation algorithm 2: search by user's likes
 // router.get('/recbylikes', RecipeController.RecommendbyLike);
 // recommendation algorithm 3: search by recipe name
