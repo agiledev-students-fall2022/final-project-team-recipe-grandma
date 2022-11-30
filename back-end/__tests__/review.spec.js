@@ -1,11 +1,11 @@
 process.env.NODE_ENV = 'test';
 const chai = require('chai');
 const { expect } = require('chai');
-const { describe, it, after } = require('mocha');
+const {
+  describe, it, after, before,
+} = require('mocha');
 const chaiHttp = require('chai-http');
-// const { useSelector } = require('react-redux');
 const mongoose = require('mongoose');
-// const { selectUser } = require('../../front-end/src/features/auth/authSlice');
 const server = require('../index');
 
 chai.use(chaiHttp);
@@ -16,16 +16,36 @@ after((done) => {
   done();
 });
 
-// const selectUser = (state) => state.auth.user;
-// const user = useSelector(selectUser);
-// need to find way to retrieve current user token.
+// make sure to replace the testUserCredentials with what you have in your database
+const testUserCredentials = {
+  email: 'gtl256@nyu.edu',
+  password: 'iawVv9CxWhJcwN7',
+  name: 'geontack',
+};
+
+let testUser;
+before((done) => {
+  chai.request(server)
+    .post('/rgapi/user/login')
+    .type('form')
+    .send({
+      email: testUserCredentials.email,
+      password: testUserCredentials.password,
+      name: testUserCredentials.name,
+    })
+    .end((err, res) => {
+      expect(res).to.have.status(200);
+      testUser = res.body;
+      done();
+    });
+});
 
 describe('GET /rgapi/review/database/:index', () => {
   it('Should return the reviews of the desired recipe by index', (done) => {
     const currIndex = 0;
     chai.request(server)
       .get(`/rgapi/review/database/${currIndex}`)
-      // .set({ Authorization: `Bearer ${user.token}` })
+      .set({ Authorization: `Bearer ${testUser.token}` })
       .end((err, res) => {
         res.should.have.status(200);
         const {
@@ -46,6 +66,7 @@ describe('GET /rgapi/review/database/:invalidIndex', () => {
     const falseIndex = -1;
     chai.request(server)
       .get(`/rgapi/review/database/${falseIndex}`)
+      .set({ Authorization: `Bearer ${testUser.token}` })
       .end((err, res) => {
         res.should.have.status(400);
         done();
@@ -57,6 +78,7 @@ describe('POST /rgapi/review/review/create', () => {
   it('Should create a new review an upload it to database', (done) => {
     chai.request(server)
       .post('/rgapi/review/review/create')
+      .set({ Authorization: `Bearer ${testUser.token}` })
       .type('form')
       .send({
         body: 'Test',
@@ -65,7 +87,7 @@ describe('POST /rgapi/review/review/create', () => {
         parentId: '0',
       })
       .end((err, res) => {
-        expect(res).to.have.status(200);
+        expect(res).to.have.status(201);
         done();
       });
   });
