@@ -22,8 +22,14 @@ let userId;
 let recipeId;
 const basedir = path.resolve('./__tests__');
 
+const registerUser = {
+  name: 'foobar',
+  email: 'foobar123@yahoo.com',
+  password: 'qwerty123',
+};
+
 const user = {
-  email: 'foobar@yahoo.com',
+  email: 'foobar123@yahoo.com',
   password: 'qwerty123',
 };
 
@@ -35,6 +41,17 @@ const recipe = {
 };
 
 describe('workflow tests', () => {
+  it('should register a user', async () => {
+    chai.request(server)
+      .post('/rgapi/user/register')
+      .send(registerUser)
+      .end((err, res) => {
+        expect(res).to.have.status(201);
+        expect(res.body.email).to.equal(registerUser.email);
+        expect(res.body.name).to.equal(registerUser.name);
+      });
+  });
+
   it('should login a user', async () => {
     chai.request(server)
       .post('/rgapi/user/login')
