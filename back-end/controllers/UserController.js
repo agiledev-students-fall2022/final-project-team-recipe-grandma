@@ -65,6 +65,9 @@ class UserController {
     return null;
   }
 
+  // @desc Login a user
+  // @route /rgapi/user/login
+  // @access Public
   static async LoginUser(req, res) {
     console.log('Got requested to login');
     const { email, password } = req.body;
@@ -92,6 +95,24 @@ class UserController {
       }).catch((err) => {
         res.status(400).json({ message: err.message });
       });
+  }
+
+  // @desc Deletes a user by getting the JWT id
+  // This way, the user can select to delete their account
+  // Only if they're logged in
+  // @route /rgapi/user/delete
+  // @access Public
+  static async DeleteUser(req, res) {
+    const { user } = req; // Comes from auth middleware
+    User.deleteOne({ _id: user.id }).then((result) => {
+      res.status(200).json({
+        message: 'User deleted',
+        result,
+      });
+    }).catch((err) => {
+      console.log(err);
+      res.status(400).json({ message: 'User deletion rejected' });
+    });
   }
 
   static async GetProfile(req, res) {
