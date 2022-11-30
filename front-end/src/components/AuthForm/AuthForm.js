@@ -131,13 +131,17 @@ function Register(): React.Node {
     || AUTH_ERROR_ENUMS.USER_CREATION_FAILED === errorMsgToEnum
   );
 
+  const makeErrorMessageSpawn = () => {
+    setEMVisible(true);
+    setTimeout(() => {
+      setEMVisible(false);
+    }, 2000);
+  };
+
   const OnAuthCallback = (data) => {
     if (data.message) {
       setErrorMsg(data.message);
-      setEMVisible(true);
-      setTimeout(() => {
-        setEMVisible(false);
-      }, 2000);
+      makeErrorMessageSpawn();
     } else {
       setErrorMsg('');
       // We want to use the user data and store the token in session
@@ -152,14 +156,16 @@ function Register(): React.Node {
 
   const handleRegistation = () => {
     if (confirmedPasswordText !== passwordText) {
-      setErrorMsg(AUTH_ERROR_ENUMS.PASSWORDS_DO_NOT_MATCH);
+      setErrorMsg(AUTH_ERROR_ENUMS.PASSWORDS_DO_NOT_MATCH.replaceAll('_', ' '));
+      makeErrorMessageSpawn();
+    } else {
+      RegisterUser({
+        email: emailText,
+        name: usernameText,
+        password: passwordText,
+        callback: OnAuthCallback,
+      });
     }
-    RegisterUser({
-      email: emailText,
-      name: usernameText,
-      password: passwordText,
-      callback: OnAuthCallback,
-    });
   };
 
   const errorNotifyComponent = !errorMsgVisible ? null : (
