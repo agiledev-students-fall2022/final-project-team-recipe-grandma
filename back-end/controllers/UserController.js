@@ -52,8 +52,8 @@ class UserController {
             name: user.name,
             email: user.email,
             token: UserController.#generateToken(user.id),
-          })).catch(() => {
-            throw new Error('Failed to create user');
+          })).catch((err) => {
+            throw new Error(`Failed to create user${err.message}`);
           });
         }).catch((err) => res.status(400).json({ message: err.message }));
     } catch (err) {

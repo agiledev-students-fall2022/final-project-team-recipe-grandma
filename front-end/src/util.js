@@ -88,6 +88,7 @@ export async function fetchRecipeData(callback: CallbackType) {
     `${BASE_API_URL}/rgapi/recipe/all`,
   ).catch((err) => console.log(err.message));
   if (result && Array.isArray(result.data)) {
+    console.log(result.data);
     callback(result.data);
   }
 }
