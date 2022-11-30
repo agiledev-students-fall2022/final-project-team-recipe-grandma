@@ -33,27 +33,30 @@ class UserController {
       });
     }
 
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
-
     try {
+      const salt = await bcrypt.genSalt(10);
+      const hashedPassword = await bcrypt.hash(password, salt);
+
       User
         .findOne({ email })
         .then((userExistence) => {
-          if (userExistence) throw new Error('User exists');
-        }).then(() => {
-          User.create({
-            name,
-            email,
-            password: hashedPassword,
-          }).then((user) => res.status(201).json({
-            _id: user.id,
-            name: user.name,
-            email: user.email,
-            token: UserController.#generateToken(user.id),
-          })).catch(() => {
-            throw new Error('Failed to create user');
-          });
+          if (userExistence) {
+            res.status(400).json({ message: 'User exists' });
+          } else {
+            User.create({
+              name,
+              email,
+              password: hashedPassword,
+            }).then((user) => res.status(201).json({
+              _id: user.id,
+              name: user.name,
+              email: user.email,
+              token: UserController.#generateToken(user.id),
+            })).catch((err) => {
+              console.log(err);
+              res.status(400).json({ message: 'Failed to create user' });
+            });
+          }
         }).catch((err) => res.status(400).json({ message: err.message }));
     } catch (err) {
       console.log(err);
