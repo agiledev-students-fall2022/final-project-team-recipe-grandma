@@ -19,6 +19,7 @@ function RecipeReviews(props: Props): React.Node {
   const [ratingNum, setRatingNum] = useState(0);
   const [ratingCount, setRatingCount] = useState(0);
   const [reviews, setReviews] = useState([]);
+  const [isUploading, setIsUploading] = useState(false);
   const user = useSelector(selectUser);
   const {
     recipeRating,
@@ -34,14 +35,20 @@ function RecipeReviews(props: Props): React.Node {
   }, []);
 
   const handleReviewPost = () => {
+    const reviewCallback = () => {
+      console.log('Review Uploaded');
+      setIsUploading(false);
+    };
     setReviews((currReviews) => [...currReviews, {
       body: commentText,
       username: user.name,
       stars: ratingNum,
       parentId: recipeId,
     }]);
+    setIsUploading(true);
     setRatingCount(reviews.length + 1);
     postReviewData(
+      reviewCallback,
       {
         body: commentText,
         username: user.name,
@@ -138,6 +145,7 @@ function RecipeReviews(props: Props): React.Node {
           isBoxed
           text="Post"
           onAction={handleReviewPost}
+          disabled={isUploading}
         />
       </div>
       <div className="stars-cont">
