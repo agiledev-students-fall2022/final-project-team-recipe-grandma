@@ -21,6 +21,24 @@ class LikeController {
     }
   }
 
+  static async FindLikeByUser(req, res) {
+    try {
+      const like = Like.findById(req.params.userId);
+      res.send(like);
+    } catch (err) {
+      res.status(400).json({ message: err });
+    }
+  }
+
+  static async FindLikeByRecipe(req, res) {
+    try {
+      const like = Like.findById(req.params.recipeId);
+      res.send(like);
+    } catch (err) {
+      res.status(400).json({ message: err });
+    }
+  }
+
   static async DeleteLike(req, res) {
     try {
       const RemoveLike = await Like.remove(req.params.userId);
