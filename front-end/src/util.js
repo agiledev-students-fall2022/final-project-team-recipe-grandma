@@ -13,7 +13,6 @@ import axios from 'axios';
 */
 
 type CallbackType = (p1: Array) => void;
-type Props = Int;
 export type UserContext = $ReadOnly<{|
   _id: string,
   name: string,
@@ -179,10 +178,9 @@ export async function searchRecipesByName(callback: callbackType, name: string) 
   }
 }
 
-export async function fetchReviewData(callback: CallbackType, props: Props, AuthStr: string) {
-  console.log(props);
+export async function fetchReviewData(callback: CallbackType, recipeId: string, AuthStr: string) {
   const url = `${BASE_API_URL}/rgapi/review/database/`;
-  const fullUrl = url.concat('', props);
+  const fullUrl = url.concat('', recipeId);
   let result = await axios.get(
     fullUrl,
     { headers: { Authorization: AuthStr } },
@@ -197,7 +195,11 @@ export async function fetchReviewData(callback: CallbackType, props: Props, Auth
   }
 }
 
-export async function postReviewData(context: ReviewContext, AuthStr: string): null {
+export async function postReviewData(
+  callback: CallbackType,
+  context: ReviewContext,
+  AuthStr: string,
+): null {
   const {
     body,
     stars,
@@ -216,6 +218,7 @@ export async function postReviewData(context: ReviewContext, AuthStr: string): n
     { headers: { Authorization: AuthStr } },
   );
   if (result) {
+    callback(result.data);
     return result.data;
   }
 }
