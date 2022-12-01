@@ -4,7 +4,7 @@ const { should, expect } = require('chai');
 const { describe, it, after } = require('mocha');
 const chaiHttp = require('chai-http');
 const mongoose = require('mongoose');
-const path = require('path');
+// const path = require('path');
 const server = require('../index');
 
 // Configure chai
@@ -36,15 +36,15 @@ const user = {
 
 const like = {
   userId: `${userId}`,
-  recipeId: `${recipeId}`
+  recipeId: `${recipeId}`,
 };
 
 // make sure to replace the testUserCredentials with what you have in your database
-const testUserCredentials = {
-  email: 'lz2278@nyu.edu',
-  password: 'Lifeiyifan@0405@',
-  name: 'jenniferzheng',
-};
+// const testUserCredentials = {
+//   email: 'lz2278@nyu.edu',
+//   password: 'Lifeiyifan@0405@',
+//   name: 'jenniferzheng',
+// };
 
 describe('workflow tests', () => {
   it('should register a user', async () => {
