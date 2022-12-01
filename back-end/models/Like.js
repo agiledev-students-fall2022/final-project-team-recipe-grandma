@@ -9,6 +9,9 @@ const Like = mongoose.Schema({
     type: String,
     required: [true, 'Please add recipe ID'],
   },
+  {
+    timestamps: true,
+  },
 });
 
 module.exports = mongoose.model('Like', Like);
