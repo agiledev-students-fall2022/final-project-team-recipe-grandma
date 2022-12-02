@@ -2,11 +2,14 @@ const express = require('express');
 const LikeController = require('../controllers/LikeController');
 
 const router = express.Router();
-const { authenticate } = require('../middleware/auth');
+// const { authenticate } = require('../middleware/auth');
 
-router.post('/like', authenticate, LikeController.CreateLike);
-router.get('/delete/:userId', authenticate, LikeController.DeleteLike);
-router.get('/getlikebyuser', authenticate, LikeController.FindLikeByUser);
-router.get('/getlikebyrecipe', authenticate, LikeController.FindLikeByRecipe);
+router.get('/test', LikeController.TestLikeFunction);
+router.post('/like', LikeController.CreateLike);
+router.get('/delete/', LikeController.DeleteLike);
+router.get('/countlikebyrecipe', LikeController.CountLikeByRecipe);
+router.get('/getlikebyrecipe/', LikeController.FindLikeByRecipe);
+router.get('/getlikebyuser', LikeController.FindLikeByUser);
+// router.get('/recbyname/:name', RecipeController.RecommendedbyName);
 
 module.exports = router;
