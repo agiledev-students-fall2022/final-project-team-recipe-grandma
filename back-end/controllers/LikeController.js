@@ -1,4 +1,5 @@
 const Like = require('../models/Like');
+// const Recipe = require('../models/Recipe');
 
 class LikeController {
   static async TestLikeFunction(req, res) {
@@ -25,6 +26,7 @@ class LikeController {
               userId,
               recipeId,
             });
+            console.log('Like created!');
           }
         }).catch((err) => res.status(400).json({ message: err.message }));
     } catch (err) {
@@ -32,27 +34,26 @@ class LikeController {
     }
   }
 
-  static async FindLikeByUser(req, res) {
-    try {
-      const like = Like.findById(req.params.userId);
-      res.send(like);
-    } catch (err) {
-      res.status(400).json({ message: err });
-    }
-  }
+  static async CountLikeByRecipe(req, res) {
+    const {
+      recipeId,
+    } = req.body;
 
-  static async FindLikeByRecipe(req, res) {
     try {
-      const like = Like.findById(req.params.recipeId);
-      res.send(like);
+      const likeCount = Like.count({ recipeId });
+      res.json(likeCount);
     } catch (err) {
       res.status(400).json({ message: err });
     }
   }
 
   static async DeleteLike(req, res) {
+    const {
+      userId,
+      recipeId,
+    } = req.body;
     try {
-      const RemoveLike = await Like.remove(req.params.userId);
+      const RemoveLike = await Like.remove({ userId, recipeId });
       res.json(RemoveLike);
     } catch (err) {
       res.json({ message: err.message });
