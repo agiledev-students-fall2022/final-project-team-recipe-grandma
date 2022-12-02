@@ -34,6 +34,33 @@ class LikeController {
     }
   }
 
+  static async FindLikeByUser(req, res) {
+    const {
+      userId,
+    } = req.body;
+    Like.find({ userId }, (err, rec) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.json(rec);
+      }
+    });
+  }
+
+  static async FindLikeByRecipe(req, res) {
+    const {
+      recipeId,
+    } = req.body;
+    Like.find({ recipeId }, (err, rec) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.json(rec);
+      }
+    });
+  }
+
+  // Count for recipe like
   static async CountLikeByRecipe(req, res) {
     const {
       recipeId,
