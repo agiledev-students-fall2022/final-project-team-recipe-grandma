@@ -7,9 +7,8 @@ const router = express.Router();
 router.get('/test', LikeController.TestLikeFunction);
 router.post('/like', LikeController.CreateLike);
 router.get('/delete/', LikeController.DeleteLike);
-router.get('/countlikebyrecipe', LikeController.CountLikeByRecipe);
-router.get('/getlikebyrecipe/', LikeController.FindLikeByRecipe);
-router.get('/getlikebyuser', LikeController.FindLikeByUser);
-// router.get('/recbyname/:name', RecipeController.RecommendedbyName);
+router.get('/countlikebyrecipe/:recipeid', LikeController.CountLikeByRecipe);
+router.get('/getlikebyrecipe/:recipeid', LikeController.FindLikeByRecipe);
+router.get('/getlikebyuser/:userid', LikeController.FindLikeByUser);
 
 module.exports = router;
