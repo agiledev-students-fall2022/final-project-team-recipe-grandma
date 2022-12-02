@@ -9,13 +9,24 @@ class LikeController {
   }
 
   static async CreateLike(req, res) {
-    const like = new Like({
-      userId: req.body.userId,
-      recipeId: req.body.recipeId,
-    });
+    const {
+      userId,
+      recipeId,
+    } = req.body;
+
     try {
-      const NewLike = await like.save();
-      res.status(201).send(NewLike);
+      Like
+        .findOne({ userId, recipeId })
+        .then((likeExistence) => {
+          if (likeExistence) {
+            res.status(400).json({ message: 'Already liked!' });
+          } else {
+            Like.create({
+              userId,
+              recipeId,
+            });
+          }
+        }).catch((err) => res.status(400).json({ message: err.message }));
     } catch (err) {
       res.status(400).json({ message: err });
     }
