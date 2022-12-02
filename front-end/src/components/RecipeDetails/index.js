@@ -109,7 +109,7 @@ function RecipeDetails(props: Props): React.Node {
         <RecipeReviews
           overflowEndState="scroll"
           recipeRating={rating}
-          recipeId={0}
+          recipeId={recipeId}
         />
       </RGSwipableModal>
     </div>
