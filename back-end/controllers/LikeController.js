@@ -51,6 +51,7 @@ class LikeController {
     const {
       recipeId,
     } = req.body;
+    
     Like.find({ recipeId }, (err, rec) => {
       if (err) {
         console.log(err);
