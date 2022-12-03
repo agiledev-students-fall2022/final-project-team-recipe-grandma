@@ -92,6 +92,8 @@
 
   .rg-swipable-modal .children-cont {
     margin-bottom: 0;
+    overflow-x: hidden;
+    height: 100%;
   }
 
   .rg-swipable-modal .modal-container {
