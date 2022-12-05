@@ -83,6 +83,12 @@ function RGRecipe(props: Props): React.Node {
             <span>
               {stars}
             </span>
+            <div className="count-number">
+              Count:
+              <span>
+                100
+              </span>
+            </div>
           </div>
         </button>
         <div className="main-details">
