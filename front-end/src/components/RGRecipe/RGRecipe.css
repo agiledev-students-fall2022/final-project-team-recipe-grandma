@@ -60,7 +60,7 @@
   font-weight: bold;
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: left;
 }
 
 .rg-recipe .mini-details > span {
@@ -98,4 +98,10 @@
   font-weight: bold;
   text-transform: uppercase;
   font-size: 0.8em;
+}
+
+.count-number{
+  padding-left: 43%;
+  float: right;
+  width: 100px;
 }
