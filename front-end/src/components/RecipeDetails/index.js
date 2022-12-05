@@ -2,6 +2,7 @@ import * as React from 'react';
 import { useState } from 'react';
 import RecipeReviews from '../RecipeReviews';
 import RGButton from '../RGButton';
+import LikeButton from '../LikeButton';
 import RGSwipableModal from '../RGSwipableModal';
 import { BASE_API_URL } from '../../util';
 import './RecipeDetails.css';
@@ -84,6 +85,12 @@ function RecipeDetails(props: Props): React.Node {
             {ratingPercentage}
             approval rating
           </h6>
+        </div>
+        <div className="like-btn-container">
+          <LikeButton
+            // onAction={() => setModalClosed(false)}
+            text="Like"
+          />
         </div>
       </section>
       <section className="rg-sr-sec rg-sr-ingredients">
