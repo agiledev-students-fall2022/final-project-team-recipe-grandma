@@ -111,3 +111,9 @@
     display: block;
   }
 }
+
+.like-btn-container {
+  padding-left: 45%;
+  float: right;
+  width: 300px;
+}
