@@ -35,28 +35,30 @@ function RecipeReviews(props: Props): React.Node {
   }, []);
 
   const handleReviewPost = () => {
-    const reviewCallback = () => {
-      console.log('Review Uploaded');
-      setIsUploading(false);
-    };
-    setReviews((currReviews) => [...currReviews, {
-      body: commentText,
-      username: user.name,
-      stars: ratingNum,
-      parentId: recipeId,
-    }]);
-    setIsUploading(true);
-    setRatingCount(reviews.length + 1);
-    postReviewData(
-      reviewCallback,
-      {
+    if (commentText !== '') {
+      const reviewCallback = () => {
+        console.log('Review Uploaded');
+        setIsUploading(false);
+      };
+      setReviews((currReviews) => [...currReviews, {
         body: commentText,
         username: user.name,
         stars: ratingNum,
         parentId: recipeId,
-      },
-      `Bearer ${user.token}`,
-    );
+      }]);
+      setIsUploading(true);
+      setRatingCount(reviews.length + 1);
+      postReviewData(
+        reviewCallback,
+        {
+          body: commentText,
+          username: user.name,
+          stars: ratingNum,
+          parentId: recipeId,
+        },
+        `Bearer ${user.token}`,
+      );
+    }
   };
 
   console.log(commentText, reviews);
