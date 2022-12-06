@@ -149,7 +149,7 @@ function RecipeReviews(props: Props): React.Node {
         />
       </div>
       <div className="stars-cont">
-        <h3 className="recipe-avg">{recipeRating}</h3>
+        <h3 className="recipe-avg">{Math.round(recipeRating * 10) / 10}</h3>
         <div className="recipe-stars-cont">
           {recipeStars}
         </div>
