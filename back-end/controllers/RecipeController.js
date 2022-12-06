@@ -7,6 +7,7 @@ const { ObjectId } = require('mongoose').Types;
 const Recipe = require('../models/Recipe');
 const Ingredient = require('../models/Ingredient');
 const User = require('../models/User');
+const ReviewComment = require('../models/ReviewComment');
 
 class RecipeController {
   static async TestRecipeFunction(req, res) {
@@ -109,6 +110,7 @@ class RecipeController {
           author: user.name,
           name: recipe.name,
           ingredients: recipe.ingredients,
+          rating: 0,
           steps: recipe.steps,
           cover: recipe.cover,
         });
@@ -180,14 +182,21 @@ class RecipeController {
       const rec = recipes[i];
       const user = await User.findOne({ id: rec.userId });
       if (!user) return res.status(500).json({ message: 'Could not find user' });
+      const averageRatingAggregate = await ReviewComment.aggregate([
+        { $match: { parentId: rec.id } },
+        { $group: { _id: { parentId: rec.id }, average: { $avg: '$stars' } } },
+      ]);
+      const averageRating = averageRatingAggregate[0]?.average || 5;
       rec.author = user.name;
       const freshRec = {
         _id: rec.id,
         userId: rec.userId,
         name: rec.name,
         ingredients: rec.ingredients,
+        rating: averageRating,
         steps: rec.steps,
         author: user.name,
+        likes: rec.likes,
         cover: rec.cover,
         createdAt: rec.createdAt,
         updatedAt: rec.updatedAt,
@@ -202,7 +211,26 @@ class RecipeController {
   // single recipe in a page
   static async SingleRecipe(req, res) {
     const recipe = await Recipe.findOne({ _id: req.params.id });
-    return res.status(200).json(recipe);
+    const user = await User.findOne({ id: recipe.userId });
+    const averageRatingAggregate = await ReviewComment.aggregate([
+      { $match: { parentId: recipe.id } },
+      { $group: { _id: { parentId: recipe.id }, average: { $avg: '$stars' } } },
+    ]);
+    const averageRating = averageRatingAggregate[0]?.average || 5;
+    console.log('Average rating is', averageRating);
+    return res.status(200).json({
+      _id: recipe.id,
+      userId: recipe.userId,
+      name: recipe.name,
+      ingredients: recipe.ingredients,
+      steps: recipe.steps,
+      author: user.name,
+      likes: recipe.likes,
+      rating: averageRating,
+      cover: recipe.cover,
+      createdAt: recipe.createdAt,
+      updatedAt: recipe.updatedAt,
+    });
     // try {
     //   Recipe.findOne({ _id: req.params.id }).then((rec) => {
     //     console.log(res.status);
@@ -263,12 +291,18 @@ class RecipeController {
       const rec = recipes[i];
       const user = await User.findOne({ id: rec.userId });
       if (!user) return res.status(500).json({ message: 'Could not find user' });
+      const averageRatingAggregate = await ReviewComment.aggregate([
+        { $match: { parentId: rec.id } },
+        { $group: { _id: { parentId: rec.id }, average: { $avg: '$stars' } } },
+      ]);
+      const averageRating = averageRatingAggregate[0]?.average || 5;
       rec.author = user.name;
       const freshRec = {
         _id: rec.id,
         userId: rec.userId,
         name: rec.name,
         ingredients: rec.ingredients,
+        rating: averageRating,
         steps: rec.steps,
         author: user.name,
         cover: rec.cover,
@@ -292,13 +326,38 @@ class RecipeController {
     // $options: changes modifedname to case-insensitive to match with name
     const modifiedname = req.params.name.replace('-', ' ');
 
-    Recipe.find({ name: { $regex: modifiedname, $options: 'i' } }, (err, rec) => {
-      if (err) {
-        console.log(err);
-      } else {
-        res.json(rec);
-      }
-    });
+    const recipes = await Recipe.find({ name: { $regex: modifiedname, $options: 'i' } });
+
+    const freshRecipes = [];
+    /* eslint-disable no-await-in-loop */
+    for (let i = 0; i < recipes.length; i += 1) {
+      const rec = recipes[i];
+      const user = await User.findOne({ id: rec.userId });
+      if (!user) return res.status(500).json({ message: 'Could not find user' });
+      const averageRatingAggregate = await ReviewComment.aggregate([
+        { $match: { parentId: rec.id } },
+        { $group: { _id: { parentId: rec.id }, average: { $avg: '$stars' } } },
+      ]);
+      const averageRating = averageRatingAggregate[0]?.average || 5;
+      rec.author = user.name;
+      const freshRec = {
+        _id: rec.id,
+        userId: rec.userId,
+        name: rec.name,
+        ingredients: rec.ingredients,
+        rating: averageRating,
+        steps: rec.steps,
+        author: user.name,
+        likes: rec.likes,
+        cover: rec.cover,
+        createdAt: rec.createdAt,
+        updatedAt: rec.updatedAt,
+      };
+      freshRecipes.push(freshRec);
+    }
+    /* eslint-enable no-await-in-loop */
+
+    return res.status(200).json(freshRecipes);
   }
 }
 
