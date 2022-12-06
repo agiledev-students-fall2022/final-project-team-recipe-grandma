@@ -41,6 +41,7 @@ function RecipeInDetailPage(): React.Node {
       imageURL={data.cover}
       name={data.name}
       recipeId={recipeId}
+      rating={data.rating}
       steps={data.steps}
       kitchen={kitchen}
     />
