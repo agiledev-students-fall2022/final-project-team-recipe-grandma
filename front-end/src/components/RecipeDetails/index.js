@@ -41,7 +41,7 @@ function RecipeDetails(props: Props): React.Node {
   } = props;
   const [isModalClosed, setModalClosed] = useState(true);
 
-  const ratingPercentage = rating * 20;
+  const ratingPercentage = Math.ceil(rating * 20);
 
   const ingredientElements = ingredients.map((ing, i) => {
     const className = kitchen && kitchen.length > 0 && !kitchen.includes(ing.name) ? 'rg-sr-ing' : 'rg-sr-ing ing-in-kitch';
@@ -82,7 +82,7 @@ function RecipeDetails(props: Props): React.Node {
             <h6>
               {ratingPercentage}
               &nbsp;
-              approval rating
+              % approval rating
             </h6>
           </div>
           <span className="material-icons-outlined">favorite</span>
