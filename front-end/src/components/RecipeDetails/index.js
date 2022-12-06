@@ -2,7 +2,6 @@ import * as React from 'react';
 import { useState } from 'react';
 import RecipeReviews from '../RecipeReviews';
 import RGButton from '../RGButton';
-import LikeButton from '../LikeButton';
 import RGSwipableModal from '../RGSwipableModal';
 import { BASE_API_URL } from '../../util';
 import './RecipeDetails.css';
@@ -42,8 +41,6 @@ function RecipeDetails(props: Props): React.Node {
   } = props;
   const [isModalClosed, setModalClosed] = useState(true);
 
-  console.log('Will be used for reviews', recipeId);
-
   const ratingPercentage = rating * 20;
 
   const ingredientElements = ingredients.map((ing, i) => {
@@ -75,23 +72,36 @@ function RecipeDetails(props: Props): React.Node {
     <div className="rg-sr-main container-fluid">
       <h1><strong>{name}</strong></h1>
       <img src={`${BASE_API_URL}/rgapi/media/${imageURL}`} alt="recipe" className="rg-sr-img" />
-      <section className="rg-sr-sec rg-sr-stats">
-        <span className="material-icons-outlined">
-          star
-        </span>
-        <div>
-          <p>Average of</p>
-          <h6>
-            {ratingPercentage}
-            approval rating
-          </h6>
-        </div>
-        <div className="like-btn-container">
-          <LikeButton
-            // onAction={() => setModalClosed(false)}
-            text="Like"
-          />
-        </div>
+      <section className="rg-sr-header">
+        <section className="rg-sr-sec rg-sr-stats">
+          <span className="material-icons-outlined">
+            star
+          </span>
+          <div>
+            <p>Average of</p>
+            <h6>
+              {ratingPercentage}
+              &nbsp;
+              approval rating
+            </h6>
+          </div>
+          <span className="material-icons-outlined">favorite</span>
+          <div>
+            <p>Received around</p>
+            <h6>
+              {Intl.NumberFormat('en', { notation: 'compact' }).format(3005000000)}
+              &nbsp;
+              likes
+            </h6>
+          </div>
+        </section>
+        <button
+          className="like-btn"
+          onClick={() => null}
+          type="button"
+        >
+          <span className="material-icons">favorite</span>
+        </button>
       </section>
       <section className="rg-sr-sec rg-sr-ingredients">
         <h4>Ingredients</h4>
