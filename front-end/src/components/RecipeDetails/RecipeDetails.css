@@ -112,8 +112,27 @@
   }
 }
 
-.like-btn-container {
-  padding-left: 45%;
-  float: right;
-  width: 300px;
+.rg-sr-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.rg-sr-header .like-btn {
+  box-shadow: 3px 3px 6px rgba(0,0,0,0.25);
+  color: pink;
+  background-color: white;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.5s ease-in-out;
+}
+
+.rg-sr-header .like-btn:hover {
+  color: white;
+  background-color: pink;
 }
