@@ -183,10 +183,10 @@ class RecipeController {
       const user = await User.findOne({ id: rec.userId });
       if (!user) return res.status(500).json({ message: 'Could not find user' });
       const averageRatingAggregate = await ReviewComment.aggregate([
-        { $match: { parentId: rec.id } },
+        { $match: { parentId: ObjectId(rec.id) } },
         { $group: { _id: { parentId: rec.id }, average: { $avg: '$stars' } } },
       ]);
-      const averageRating = averageRatingAggregate[0]?.average || 5;
+      const averageRating = averageRatingAggregate[0]?.average || 0;
       rec.author = user.name;
       const freshRec = {
         _id: rec.id,
@@ -213,10 +213,10 @@ class RecipeController {
     const recipe = await Recipe.findOne({ _id: req.params.id });
     const user = await User.findOne({ id: recipe.userId });
     const averageRatingAggregate = await ReviewComment.aggregate([
-      { $match: { parentId: recipe.id } },
+      { $match: { parentId: ObjectId(recipe.id) } },
       { $group: { _id: { parentId: recipe.id }, average: { $avg: '$stars' } } },
     ]);
-    const averageRating = averageRatingAggregate[0]?.average || 5;
+    const averageRating = averageRatingAggregate[0]?.average || 0;
     console.log('Average rating is', averageRating);
     return res.status(200).json({
       _id: recipe.id,
@@ -292,10 +292,10 @@ class RecipeController {
       const user = await User.findOne({ id: rec.userId });
       if (!user) return res.status(500).json({ message: 'Could not find user' });
       const averageRatingAggregate = await ReviewComment.aggregate([
-        { $match: { parentId: rec.id } },
+        { $match: { parentId: ObjectId(rec.id) } },
         { $group: { _id: { parentId: rec.id }, average: { $avg: '$stars' } } },
       ]);
-      const averageRating = averageRatingAggregate[0]?.average || 5;
+      const averageRating = averageRatingAggregate[0]?.average || 0;
       rec.author = user.name;
       const freshRec = {
         _id: rec.id,
