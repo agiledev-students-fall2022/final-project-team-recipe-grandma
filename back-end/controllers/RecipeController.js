@@ -306,6 +306,7 @@ class RecipeController {
         steps: rec.steps,
         author: user.name,
         cover: rec.cover,
+        likes: rec.likes,
         createdAt: rec.createdAt,
         updatedAt: rec.updatedAt,
       };
@@ -313,6 +314,7 @@ class RecipeController {
     }
     /* eslint-enable no-await-in-loop */
 
+    freshRecipes.sort((a, b) => parseFloat(b.likes) - parseFloat(a.likes));
     res.status(200).json(freshRecipes);
     return true;
   }
