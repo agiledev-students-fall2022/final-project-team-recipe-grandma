@@ -15,7 +15,7 @@ const ReviewComment = mongoose.Schema(
       required: true,
     },
     parentId: {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
       required: true,
     },
   },

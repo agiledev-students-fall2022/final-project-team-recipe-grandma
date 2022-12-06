@@ -37,6 +37,18 @@ function RGRecipe(props: Props): React.Node {
 
   if (!authorID) return null; // Remove later
 
+  // const formatLikeCounter = (value) => {
+  //   const { length } = (`${Math.abs(parseInt(value, 10))}`);
+  //   const index = Math.ceil((length - 3) / 3);
+  //   const suffix = ['K', 'M', 'B', 'T'];
+
+  //   if (length < 4) return value;
+
+  //   return (value / (index ** 1000))
+  //     .toFixed(1)
+  //     .replace(/\.0$/, '') + suffix[index - 1];
+  // };
+
   const remainder = rating % Math.floor(rating);
   const starValues = Array.from({ length: Math.floor(rating) }, () => 1);
   if (remainder > 0) {
@@ -79,14 +91,16 @@ function RGRecipe(props: Props): React.Node {
             <div className="rg-blanket" />
           </div>
           <div className="mini-details">
-            Rating:
-            <span>
-              {stars}
-            </span>
-            <div className="count-number">
-              Count:
+            <div className="rating-box">
+              Rating:
               <span>
-                100
+                {stars}
+              </span>
+            </div>
+            <div className="like-counter">
+              <span className="material-icons like-icon">favorite</span>
+              <span>
+                {Intl.NumberFormat('en', { notation: 'compact' }).format(3005000000)}
               </span>
             </div>
           </div>
