@@ -20,6 +20,10 @@ function RecipeReviews(props: Props): React.Node {
   const [ratingCount, setRatingCount] = useState(0);
   const [reviews, setReviews] = useState([]);
   const [isUploading, setIsUploading] = useState(false);
+  const [errorMsgVisible, setErrorMsgVisible] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const errorMsg = 'Review is emtpy';
+  const submittedMsg = 'Review submitted!';
   const user = useSelector(selectUser);
   const {
     recipeRating,
@@ -35,29 +39,43 @@ function RecipeReviews(props: Props): React.Node {
   }, []);
 
   const handleReviewPost = () => {
-    const reviewCallback = () => {
-      console.log('Review Uploaded');
-      setIsUploading(false);
-    };
-    setReviews((currReviews) => [...currReviews, {
-      body: commentText,
-      username: user.name,
-      stars: ratingNum,
-      parentId: recipeId,
-    }]);
-    setIsUploading(true);
-    setRatingCount(reviews.length + 1);
-    postReviewData(
-      reviewCallback,
-      {
+    if (commentText !== '') {
+      setErrorMsgVisible(false);
+      setSubmitted(true);
+      const reviewCallback = () => {
+        console.log('Review Uploaded');
+        setIsUploading(false);
+      };
+      setReviews((currReviews) => [...currReviews, {
         body: commentText,
         username: user.name,
         stars: ratingNum,
         parentId: recipeId,
-      },
-      `Bearer ${user.token}`,
-    );
+      }]);
+      setIsUploading(true);
+      setRatingCount(reviews.length + 1);
+      postReviewData(
+        reviewCallback,
+        {
+          body: commentText,
+          username: user.name,
+          stars: ratingNum,
+          parentId: recipeId,
+        },
+        `Bearer ${user.token}`,
+      );
+    } else {
+      setErrorMsgVisible(true);
+    }
   };
+
+  const errorNotifyComponent = !errorMsgVisible ? null : (
+    <p className="rg-review-error"><strong>{errorMsg}</strong></p>
+  );
+
+  const submittedComponent = !submitted ? null : (
+    <p className="rg-submitted-msg"><strong>{submittedMsg}</strong></p>
+  );
 
   console.log(commentText, reviews);
 
@@ -131,6 +149,8 @@ function RecipeReviews(props: Props): React.Node {
       <div className="star-ratings">
         {editableStars}
       </div>
+      {errorNotifyComponent}
+      {submittedComponent}
       <div className="submission-form">
         <h6>Comment</h6>
         <textarea
@@ -149,7 +169,7 @@ function RecipeReviews(props: Props): React.Node {
         />
       </div>
       <div className="stars-cont">
-        <h3 className="recipe-avg">{recipeRating}</h3>
+        <h3 className="recipe-avg">{Math.round(recipeRating * 10) / 10}</h3>
         <div className="recipe-stars-cont">
           {recipeStars}
         </div>
