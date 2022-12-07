@@ -248,14 +248,17 @@ export async function deleteRecipeLike(
   AuthStr: string,
 ): null {
   console.log(AuthStr);
-  const result = await axios.post(
-    `${BASE_API_URL}/rgapi/like/delete/${recipeId}`,
-    { headers: { Authorization: AuthStr } },
-  );
-  if (result) {
-    callback(result);
-  }
-  return result;
+  axios({
+    url: `${BASE_API_URL}/rgapi/like/delete`,
+    method: 'post',
+    data: { recipeId },
+    headers: { Authorization: AuthStr },
+  }).then((res) => {
+    console.log(res);
+    callback(res.data);
+  }).catch((err) => {
+    console.log(err);
+  });
 }
 
 export async function CheckRecipeIsLiked(

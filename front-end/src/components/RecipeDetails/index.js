@@ -63,8 +63,6 @@ function RecipeDetails(props: Props): React.Node {
       console.log('Likes', result);
       if (result != null && result.data.length >= 1) {
         setIsLiked(true);
-      } else {
-        setIsLiked(false);
       }
     };
     CheckRecipeIsLiked(checkIsLikedCallback, recipeId, `Bearer ${user.token}`);
@@ -72,7 +70,8 @@ function RecipeDetails(props: Props): React.Node {
 
   const handleLike = () => {
     const postCallback = (rec) => {
-      setRecipeLikes(rec.likes);
+      console.log('Data comeback', rec);
+      setRecipeLikes(rec?.data?.likes || 0);
       setIsLiked(true);
       console.log('Like uploaded');
     };
@@ -141,7 +140,7 @@ function RecipeDetails(props: Props): React.Node {
           <div>
             <p>Received around</p>
             <h6>
-              {recipeLikes}
+              {Intl.NumberFormat('en', { notation: 'compact' }).format(recipeLikes)}
               &nbsp;
               likes
             </h6>
