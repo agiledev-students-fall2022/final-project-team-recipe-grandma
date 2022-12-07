@@ -81,7 +81,6 @@ function RecipeDetails(props: Props): React.Node {
             <p>Average of</p>
             <h6>
               {ratingPercentage}
-              &nbsp;
               % approval rating
             </h6>
           </div>
