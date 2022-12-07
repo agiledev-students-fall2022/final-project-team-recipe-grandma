@@ -1,9 +1,16 @@
 import * as React from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { selectUser } from '../../features/auth/authSlice';
 import RecipeReviews from '../RecipeReviews';
 import RGButton from '../RGButton';
 import RGSwipableModal from '../RGSwipableModal';
-import { BASE_API_URL } from '../../util';
+import {
+  BASE_API_URL,
+  postLike,
+  fetchRecipeLikes,
+  deleteLike,
+} from '../../util';
 import './RecipeDetails.css';
 
 type Ingredient = $ReadOnly<{|
@@ -40,6 +47,51 @@ function RecipeDetails(props: Props): React.Node {
     rating,
   } = props;
   const [isModalClosed, setModalClosed] = useState(true);
+  const [recipeLikes, setRecipeLikes] = useState(0);
+  const [isLiked, setIsLiked] = useState(false);
+  const user = useSelector(selectUser);
+
+  useEffect(() => {
+    const likeCallback = (data) => {
+      setRecipeLikes(data.length);
+      const checkData = (item) => {
+        if (item.userId === user._id) {
+          setIsLiked(true);
+        }
+      };
+      data.map(checkData);
+    };
+    fetchRecipeLikes(likeCallback, recipeId);
+  }, []);
+
+  const handleLike = () => {
+    const postCallback = () => {
+      console.log('Like uploaded');
+    };
+    const deleteCallback = () => {
+      console.log('Like deleted');
+    };
+
+    if (isLiked) {
+      deleteLike(
+        deleteCallback,
+        {
+          recipeId,
+        },
+        `Bearer ${user.token}`,
+      );
+      setIsLiked(false);
+    } else {
+      postLike(
+        postCallback,
+        {
+          parentId: recipeId,
+        },
+        `Bearer ${user.token}`,
+      );
+      setIsLiked(true);
+    }
+  };
 
   const ratingPercentage = Math.ceil(rating * 20);
 
@@ -88,7 +140,7 @@ function RecipeDetails(props: Props): React.Node {
           <div>
             <p>Received around</p>
             <h6>
-              {Intl.NumberFormat('en', { notation: 'compact' }).format(3005000000)}
+              {recipeLikes}
               &nbsp;
               likes
             </h6>
@@ -96,7 +148,7 @@ function RecipeDetails(props: Props): React.Node {
         </section>
         <button
           className="like-btn"
-          onClick={() => null}
+          onClick={handleLike}
           type="button"
         >
           <span className="material-icons">favorite</span>
