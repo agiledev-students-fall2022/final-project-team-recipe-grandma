@@ -26,7 +26,8 @@ class LikeController {
             userId,
             parentId,
           }).then(async (like) => {
-            Recipe.update({ id: like.parentId }, { $inc: { likes: 1 } });
+            const likeupdatedRecipe = Recipe.findOne({ id: like.parentId });
+            Recipe.update({ id: likeupdatedRecipe.id }, { $inc: { likes: 1 } });
           });
           // res.status(200).json({ like });
         }
