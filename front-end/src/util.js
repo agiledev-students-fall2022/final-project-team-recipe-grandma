@@ -40,6 +40,10 @@ type ReviewContext = $ReadOnly<{|
   parentId: string
 |}>;
 
+type LikeContext = $ReadOnly<{|
+  parentId: string
+|}>;
+
 export const BASE_API_URL = `${process.env.REACT_APP_API_BASE}:${process.env.REACT_APP_API_PORT || 3000}`;
 
 export async function LoginUser(context: LoginContext): UserContext {
@@ -223,6 +227,50 @@ export async function postReviewData(
   }
 }
 
+export async function postLike(
+  callback: CallbackType,
+  context: LikeContext,
+  AuthStr: string,
+): null {
+  const {
+    parentId,
+  } = context;
+
+  const result = await axios.post(
+    `${BASE_API_URL}/rgapi/like/like`,
+    {
+      parentId,
+    },
+    { headers: { Authorization: AuthStr } },
+  );
+  return result;
+}
+
+export async function deleteLike(
+  callback: CallbackType,
+  context: LikeContext,
+  AuthStr: string,
+): null {
+  const {
+    recipeId,
+  } = context;
+  console.log(AuthStr);
+  const result = await axios.post(
+    `${BASE_API_URL}/rgapi/like/delete/${recipeId}`,
+    { headers: { Authorization: AuthStr } },
+  );
+  return result;
+}
+
+export async function fetchRecipeLikes(callback: CallbackType, parentId: string) {
+  const result = await axios(
+    `${BASE_API_URL}/rgapi/like/getlikebyrecipe/${parentId}`,
+  ).catch((err) => console.log(err.message));
+  if (result && Array.isArray(result.data)) {
+    callback(result.data);
+  }
+}
+
 // Requires auth
 export async function fetchMyRecipes(callback: CallbackType, AuthStr: string) {
   // need to change this after backend is done
@@ -261,5 +309,6 @@ export default {
   fetchIngredientData,
   fetchReviewData,
   fetchMyRecipes,
+  fetchRecipeLikes,
   LoginUser,
 };
