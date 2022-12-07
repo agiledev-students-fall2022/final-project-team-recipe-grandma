@@ -11,7 +11,8 @@ type Props = $ReadOnly<{|
   kitchenStringified?: string,
   rating?: number,
   recipeUrl: string,
-  title: string
+  title: string,
+  likes: number
 |}>;
 
 const defaultProps = {
@@ -31,6 +32,7 @@ function RGRecipe(props: Props): React.Node {
     rating,
     recipeUrl,
     title,
+    likes,
   } = props;
 
   const navigate = useNavigate();
@@ -100,7 +102,7 @@ function RGRecipe(props: Props): React.Node {
             <div className="like-counter">
               <span className="material-icons like-icon">favorite</span>
               <span>
-                {Intl.NumberFormat('en', { notation: 'compact' }).format(3005000000)}
+                {likes}
               </span>
             </div>
           </div>
