@@ -48,3 +48,7 @@
 .rg-review-error {
   color: red;
 }
+
+.rg-submitted-msg {
+  color: rgb(36, 211, 36);
+}
