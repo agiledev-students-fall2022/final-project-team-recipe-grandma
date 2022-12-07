@@ -227,7 +227,7 @@ export async function postReviewData(
 export async function fetchMyRecipes(callback: CallbackType, AuthStr: string) {
   // need to change this after backend is done
   const result = await axios(
-    `${BASE_API_URL}/rgapi/user/myrecipe`,
+    `${BASE_API_URL}/rgapi/recipe/user/myrecipe`,
     { headers: { Authorization: AuthStr } },
   ).catch((err) => console.log(err.message));
   console.log('MY RECIPES', result);

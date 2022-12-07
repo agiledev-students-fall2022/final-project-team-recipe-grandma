@@ -24,6 +24,6 @@ router.get('/all', RecipeController.GetRecipes);
 // single recipe
 router.get('/:id', authenticate, RecipeController.SingleRecipe);
 // get recipe by user id
-router.get('/user/:userid', authenticate, RecipeController.getRecipeByUser);
+router.get('/user/myrecipe', authenticate, RecipeController.getRecipeByUser);
 
 module.exports = router;
