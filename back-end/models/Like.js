@@ -6,7 +6,7 @@ const Like = mongoose.Schema(
       type: String,
       required: [true, 'Please add user ID'],
     },
-    recipeId: {
+    parentId: {
       type: String,
       required: [true, 'Please add recipe ID'],
     },
