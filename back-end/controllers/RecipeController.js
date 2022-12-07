@@ -101,6 +101,7 @@ class RecipeController {
         ingredients: ingredientIds,
         steps: stepsArr,
         cover: image.id,
+        likes: 0,
       }).then(async (recipe) => {
         const user = await User.findOne({ id: recipe.userId });
         if (!user) return res.status(500).json({ message: 'Could not find user' });
@@ -110,6 +111,7 @@ class RecipeController {
           name: recipe.name,
           ingredients: recipe.ingredients,
           rating: 0,
+          likes: recipe.likes,
           steps: recipe.steps,
           cover: recipe.cover,
         });
@@ -120,40 +122,6 @@ class RecipeController {
     } catch (err) {
       console.log(err);
       return res.status(500).json({ message: err.message });
-    }
-    return null;
-  }
-
-  // create a recipe
-  static async NewRecipe(req, res) {
-    const {
-      userId, username, name, ingredients, steps, imageURL,
-    } = req.body;
-    if (!userId || !username || !name || !ingredients || !steps || !imageURL) {
-      return res.status(400);
-    }
-    try {
-      Recipe.create({
-        userId,
-        username,
-        name,
-        ingredients,
-        steps,
-        imageURL,
-      }).then((recipe) => res.status(201).json({
-        userId: recipe.userId,
-        username: recipe.username,
-        name: recipe.name,
-        lowercasedName: recipe.name.toLowerCase().replace(' ', '-'),
-        ingredients: recipe.ingredients,
-        steps: recipe.steps,
-        imageURL: recipe.imageURL,
-      })).catch(() => {
-        throw new Error('Failed to create recipe');
-      });
-    } catch (err) {
-      console.log(err);
-      res.status(400).json({ message: err.message });
     }
     return null;
   }
@@ -196,6 +164,7 @@ class RecipeController {
         steps: rec.steps,
         author: user.name,
         cover: rec.cover,
+        likes: rec.likes,
         createdAt: rec.createdAt,
         updatedAt: rec.updatedAt,
       };
@@ -225,20 +194,10 @@ class RecipeController {
       author: user.name,
       rating: averageRating,
       cover: recipe.cover,
+      likes: recipe.likes,
       createdAt: recipe.createdAt,
       updatedAt: recipe.updatedAt,
     });
-    // try {
-    //   Recipe.findOne({ _id: req.params.id }).then((rec) => {
-    //     console.log(res.status);
-    //     return res.status(200).send(rec);
-    //   }).catch((err) => {
-    //     console.log(err);
-    //     // res.status(500).json({ message: 'Could not find recipe' });
-    //   });
-    // } catch (err) {
-    //   console.log(err);
-    // }
   }
 
   // recipes by user ID
@@ -304,6 +263,7 @@ class RecipeController {
         steps: rec.steps,
         author: user.name,
         cover: rec.cover,
+        likes: rec.likes,
         createdAt: rec.createdAt,
         updatedAt: rec.updatedAt,
       };
@@ -316,7 +276,7 @@ class RecipeController {
   }
 
   // recommendation algorithm 3: search by recipe name
-  static async RecommendedbyName(req, res) {
+  static async SearchbyName(req, res) {
     // if input from URL = big-night-pizza,
     // modifiedname = big night pizza,
     // $options: changes modifedname to case-insensitive to match with name
@@ -345,6 +305,7 @@ class RecipeController {
         steps: rec.steps,
         author: user.name,
         cover: rec.cover,
+        likes: rec.likes,
         createdAt: rec.createdAt,
         updatedAt: rec.updatedAt,
       };
