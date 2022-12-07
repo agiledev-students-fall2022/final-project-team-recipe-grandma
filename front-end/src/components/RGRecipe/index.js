@@ -96,7 +96,7 @@ function RGRecipe(props: Props): React.Node {
           </div>
           <div className="mini-details">
             <div className="rating-box">
-              Rating:
+              Ratings:
               <span>
                 {stars}
               </span>
