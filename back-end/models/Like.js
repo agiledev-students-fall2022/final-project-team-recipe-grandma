@@ -3,11 +3,11 @@ const mongoose = require('mongoose');
 const Like = mongoose.Schema(
   {
     userId: {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
       required: [true, 'Please add user ID'],
     },
     parentId: {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
       required: [true, 'Please add recipe ID'],
     },
   },
