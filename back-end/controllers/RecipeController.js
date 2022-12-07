@@ -1,8 +1,7 @@
 // const express = require('express');
 // const RecipeRouter = express.Router();
 // const axios = require('axios');
-// const data = require('../mockRecipeData.json');
-// const LikedRecipes = require('../mockLikedRecipeData.json');
+
 const { ObjectId } = require('mongoose').Types;
 const Recipe = require('../models/Recipe');
 const Ingredient = require('../models/Ingredient');
@@ -196,7 +195,6 @@ class RecipeController {
         rating: averageRating,
         steps: rec.steps,
         author: user.name,
-        likes: rec.likes,
         cover: rec.cover,
         createdAt: rec.createdAt,
         updatedAt: rec.updatedAt,
@@ -225,7 +223,6 @@ class RecipeController {
       ingredients: recipe.ingredients,
       steps: recipe.steps,
       author: user.name,
-      likes: recipe.likes,
       rating: averageRating,
       cover: recipe.cover,
       createdAt: recipe.createdAt,
@@ -318,8 +315,6 @@ class RecipeController {
     return true;
   }
 
-  // recommendation algorithm 2: search by user's likes
-
   // recommendation algorithm 3: search by recipe name
   static async RecommendedbyName(req, res) {
     // if input from URL = big-night-pizza,
@@ -349,7 +344,6 @@ class RecipeController {
         rating: averageRating,
         steps: rec.steps,
         author: user.name,
-        likes: rec.likes,
         cover: rec.cover,
         createdAt: rec.createdAt,
         updatedAt: rec.updatedAt,
