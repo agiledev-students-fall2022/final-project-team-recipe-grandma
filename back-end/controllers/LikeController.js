@@ -1,4 +1,5 @@
 const Like = require('../models/Like');
+const Recipe = require('../models/Recipe');
 // const Recipe = require('../models/Recipe');
 
 class LikeController {
@@ -21,11 +22,14 @@ class LikeController {
         if (likeExistence) {
           res.status(200).json({ message: 'Already liked!' });
         } else {
-          const result = Like.create({
+          Like.create({
             userId,
             parentId,
+          }).then(async (like) => {
+            const likeupdatedRecipe = Recipe.findOne({ id: like.parentId });
+            Recipe.update({ id: likeupdatedRecipe.id }, { $inc: { likes: 1 } });
           });
-          res.status(200).json({ result });
+          // res.status(200).json({ like });
         }
       }).catch((err) => res.status(400).json({ message: err.message }));
   }
