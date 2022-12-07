@@ -37,6 +37,8 @@ function RGRecipe(props: Props): React.Node {
 
   const navigate = useNavigate();
 
+  console.log('Tf');
+
   if (!authorID) return null; // Remove later
 
   // const formatLikeCounter = (value) => {
@@ -102,7 +104,7 @@ function RGRecipe(props: Props): React.Node {
             <div className="like-counter">
               <span className="material-icons like-icon">favorite</span>
               <span>
-                {likes}
+                {likes ? Intl.NumberFormat('en', { notation: 'compact' }).format(likes) : 0}
               </span>
             </div>
           </div>
