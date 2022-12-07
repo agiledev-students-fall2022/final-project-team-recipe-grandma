@@ -246,7 +246,8 @@ class RecipeController {
 
   // recipes by user ID
   static async getRecipeByUser(req, res) {
-    Recipe.find({ userId: req.params.userId }, (err, rec) => {
+    const { user } = req;
+    Recipe.find({ userId: user._id }, (err, rec) => {
       if (err) {
         console.log(err);
       } else {
