@@ -11,33 +11,28 @@ class LikeController {
 
   static async CreateLike(req, res) {
     const {
-      userId,
-      recipeId,
+      parentId,
     } = req.body;
-
-    try {
-      Like
-        .findOne({ userId, recipeId })
-        .then((likeExistence) => {
-          if (likeExistence) {
-            res.status(400).json({ message: 'Already liked!' });
-          } else {
-            Like.create({
-              userId,
-              recipeId,
-            });
-            console.log('Like created!');
-          }
-        }).catch((err) => res.status(400).json({ message: err.message }));
-    } catch (err) {
-      res.status(400).json({ message: err });
-    }
+    const { user } = req; // user info from auth
+    const userId = user.id;
+    Like
+      .findOne({ userId, parentId })
+      .then((likeExistence) => {
+        if (likeExistence) {
+          res.status(200).json({ message: 'Already liked!' });
+        } else {
+          const result = Like.create({
+            userId,
+            parentId,
+          });
+          res.status(200).json({ result });
+        }
+      }).catch((err) => res.status(400).json({ message: err.message }));
   }
 
   static async FindLikeByUser(req, res) {
-    const {
-      userId,
-    } = req.body;
+    const { user } = req;
+    const userId = user.id;
     Like.find({ userId }, (err, rec) => {
       if (err) {
         console.log(err);
@@ -48,26 +43,24 @@ class LikeController {
   }
 
   static async FindLikeByRecipe(req, res) {
-    const {
-      recipeId,
-    } = req.body;
-    Like.find({ recipeId }, (err, rec) => {
-      if (err) {
-        console.log(err);
-      } else {
-        res.json(rec);
-      }
-    });
+    Like.find({ parentId: req.params.parentId })
+      .then((liked) => {
+        if (liked) {
+          res.status(200).json(liked);
+        } else {
+          res.sendStatus(400);
+        }
+      });
   }
 
   // Count for recipe like
   static async CountLikeByRecipe(req, res) {
     const {
-      recipeId,
+      parentId,
     } = req.body;
 
     try {
-      const likeCount = Like.count({ recipeId });
+      const likeCount = Like.count({ parentId });
       res.json(likeCount);
     } catch (err) {
       res.status(400).json({ message: err });
@@ -75,16 +68,16 @@ class LikeController {
   }
 
   static async DeleteLike(req, res) {
-    const {
-      userId,
-      recipeId,
-    } = req.body;
-    try {
-      const RemoveLike = await Like.remove({ userId, recipeId });
-      res.json(RemoveLike);
-    } catch (err) {
-      res.json({ message: err.message });
-    }
+    const { user } = req;
+    Like.deleteOne({ userId: String(user.id), parentId: req.params.recipeId }).then((result) => {
+      res.status(200).json({
+        message: 'Like deleted',
+        result,
+      });
+    }).catch((err) => {
+      console.log(err);
+      res.status(400).json({ message: 'Like deletion rejected' });
+    });
   }
 }
 
