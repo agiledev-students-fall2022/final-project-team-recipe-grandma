@@ -24,11 +24,7 @@ const Recipe = mongoose.Schema({
   },
   cover: {
     type: mongoose.Schema.Types.ObjectId,
-  },
-  likes: {
-    type: Number,
-    required: false,
-  },
+  }
 }, { timestamps: true });
 
 module.exports = mongoose.model('Recipe', Recipe);
