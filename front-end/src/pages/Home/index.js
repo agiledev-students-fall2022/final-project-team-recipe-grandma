@@ -12,10 +12,20 @@ import RGBaseSearchBar from '../../components/RGBaseSearchBar';
 function Home(): React.Node {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [likeData, setLikeData] = useState([]);
 
   useEffect(() => {
     Util.fetchRecipeData(setData);
   }, []);
+
+  useEffect(() => {
+    const likeCallback = (apiData) => {
+      setLikeData((oldData) => [...oldData, apiData.length]);
+    };
+    for (let i = 0; i < data.length; i++) {
+      Util.fetchRecipeLikes(likeCallback, data[i]._id);
+    }
+  }, [data]);
 
   const onSearchAction = (searchText) => {
     const sanitizedText = searchText.toLowerCase().replace(' ', '-');
@@ -55,6 +65,7 @@ function Home(): React.Node {
               rating={item.rating}
               recipeUrl={`/recipe/${item._id}`}
               title={item.name}
+              likes={likeData[ind]}
             />
           )) : StringConfig.API_FAILURE_WARNING}
         </div>
