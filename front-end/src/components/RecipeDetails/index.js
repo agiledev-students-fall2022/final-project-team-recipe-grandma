@@ -7,9 +7,9 @@ import RGButton from '../RGButton';
 import RGSwipableModal from '../RGSwipableModal';
 import {
   BASE_API_URL,
-  postLike,
-  fetchRecipeLikes,
-  deleteLike,
+  postRecipeLike,
+  CheckRecipeIsLiked,
+  deleteRecipeLike,
 } from '../../util';
 import './RecipeDetails.css';
 
@@ -27,6 +27,7 @@ type Props = $ReadOnly<{|
   kitchen?: Array<string>,
   steps: Array<string>,
   name: string,
+  likes?: int,
   recipeId: string,
   rating?: float
 |}>;
@@ -34,6 +35,7 @@ type Props = $ReadOnly<{|
 const defaultProps = {
   kitchen: [],
   rating: 4,
+  likes: 0,
 };
 
 function RecipeDetails(props: Props): React.Node {
@@ -42,6 +44,7 @@ function RecipeDetails(props: Props): React.Node {
     ingredients,
     kitchen,
     recipeId,
+    likes,
     name,
     steps,
     rating,
@@ -51,44 +54,40 @@ function RecipeDetails(props: Props): React.Node {
   const [isLiked, setIsLiked] = useState(false);
   const user = useSelector(selectUser);
 
+  console.log('Token', user.token);
+
   useEffect(() => {
-    const likeCallback = (data) => {
-      setRecipeLikes(data.length);
-      const checkData = (item) => {
-        if (item.userId === user._id) {
-          setIsLiked(true);
-        }
-      };
-      data.map(checkData);
+    setRecipeLikes(likes);
+
+    const checkIsLikedCallback = (result) => {
+      console.log('Likes', result);
+      if (result != null && result.data.length >= 1) {
+        setIsLiked(true);
+      } else {
+        setIsLiked(false);
+      }
     };
-    fetchRecipeLikes(likeCallback, recipeId);
+    CheckRecipeIsLiked(checkIsLikedCallback, recipeId, `Bearer ${user.token}`);
   }, []);
 
   const handleLike = () => {
-    const postCallback = () => {
+    const postCallback = (rec) => {
+      setRecipeLikes(rec.likes);
+      setIsLiked(true);
       console.log('Like uploaded');
     };
     const deleteCallback = () => {
       console.log('Like deleted');
+      setIsLiked(false);
     };
 
     if (isLiked) {
-      deleteLike(
-        deleteCallback,
-        {
-          recipeId,
-        },
-        `Bearer ${user.token}`,
-      );
+      deleteRecipeLike(deleteCallback, recipeId, `Bearer ${user.token}`);
+      setRecipeLikes(recipeLikes - 1);
       setIsLiked(false);
     } else {
-      postLike(
-        postCallback,
-        {
-          parentId: recipeId,
-        },
-        `Bearer ${user.token}`,
-      );
+      postRecipeLike(postCallback, recipeId, `Bearer ${user.token}`);
+      setRecipeLikes(recipeLikes + 1);
       setIsLiked(true);
     }
   };
@@ -120,6 +119,8 @@ function RecipeDetails(props: Props): React.Node {
     </div>
   ));
 
+  const likedButtonClass = isLiked ? 'like-btn liked' : 'like-btn';
+
   return (
     <div className="rg-sr-main container-fluid">
       <h1><strong>{name}</strong></h1>
@@ -147,8 +148,8 @@ function RecipeDetails(props: Props): React.Node {
           </div>
         </section>
         <button
-          className="like-btn"
-          onClick={handleLike}
+          className={likedButtonClass}
+          onClick={() => handleLike()}
           type="button"
         >
           <span className="material-icons">favorite</span>
