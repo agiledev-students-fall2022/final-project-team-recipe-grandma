@@ -17,10 +17,10 @@ after((done) => {
   done();
 });
 
-let token;
+// let token;
 let userId;
-let recipeId;
-let likeId;
+// let parentId;
+// let likeId;
 // const basedir = path.resolve('./__tests__');
 
 const registerUser = {
@@ -36,15 +36,8 @@ const user = {
 
 const like = {
   userId: `${userId}`,
-  recipeId: `${recipeId}`,
+  parentID: '6390c7a32905a7c6e8d97873',
 };
-
-// make sure to replace the testUserCredentials with what you have in your database
-// const testUserCredentials = {
-//   email: 'lz2278@nyu.edu',
-//   password: 'Lifeiyifan@0405@',
-//   name: 'jenniferzheng',
-// };
 
 describe('workflow tests', () => {
   it('should register a user', async () => {
@@ -65,30 +58,41 @@ describe('workflow tests', () => {
       .end((err, res) => {
         expect(res).to.have.status(200);
         expect(res.body.email).to.equal(user.email);
-        token = res.body.token;
+        // token = res.body.token;
         userId = res.body._id;
       });
   });
 
-  it('should create a new like and add to database', async () => {
+  // it('should create a new like and add to database', async () => {
+  //   chai.request(server)
+  //     .post('/rgapi/like')
+  //     .set({ Authorization: `Bearer ${token}` })
+  //     .field(like)
+  //     .attach('file', `${basedir}/test.jpg`, 'test.jpg')
+  //     // .send(recipe)
+  //     .end((err, res) => {
+  //       expect(res).to.have.status(200);
+  //       expect(res.body.userID).to.equal(like.userID);
+  //       expect(res.body.parentID).to.equal(like.parentID);
+  //       likeId = res.body._id;
+  //     });
+  // });
+
+  it('should return like by recipeID', async () => {
     chai.request(server)
-      .post('/rgapi/like/like')
-      .set({ Authorization: `Bearer ${token}` })
-      .field(like)
-    //   .attach('file', `${basedir}/test.jpg`, 'test.jpg')
-      .send(like)
+      .get(`/rgapi/like/countlikebyrecipe/${like.parentId}`)
       .end((err, res) => {
-        expect(res).to.have.status(200);
-        expect(res.body.userId).to.equal(like.userId);
-        expect(res.body.recipeId).to.equal(like.recipeId);
+        res.body.should.not.be.a('null');
+        res.body.userId.should.equal(like.userId);
       });
   });
 
-  it('should return the deleted like', async () => {
+  it('should return a like by userID', async () => {
     chai.request(server)
-      .get(`/rgapi/like/delete/${likeId}`)
+      .get(`/rgapi/like/getlikebyrecipe/${like.userId}`)
       .end((err, res) => {
         res.body.should.not.be.a('null');
+        res.body.recipeId.should.equal(like.recipeId);
       });
   });
 });
