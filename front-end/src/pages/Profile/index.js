@@ -25,7 +25,7 @@ function Profile(): React.Node {
       });
       setData(mutatedData);
     };
-    Util.fetchMyRecipes(apiCallback, `Bearer ${user.token}`);
+    Util.fetchMyRecipes(apiCallback, user._id, `Bearer ${user.token}`);
   }, []);
 
   const logoutUser = () => {
@@ -43,6 +43,9 @@ function Profile(): React.Node {
       title={item.name}
     />
   ));
+
+  console.log('these are the user recipe data');
+  console.log(data);
 
   const renderPillBody = () => {
     switch (pillBodyType) {
