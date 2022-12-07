@@ -21,7 +21,9 @@ function RecipeReviews(props: Props): React.Node {
   const [reviews, setReviews] = useState([]);
   const [isUploading, setIsUploading] = useState(false);
   const [errorMsgVisible, setErrorMsgVisible] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
   const errorMsg = 'Review is emtpy';
+  const submittedMsg = 'Review submitted!';
   const user = useSelector(selectUser);
   const {
     recipeRating,
@@ -39,6 +41,7 @@ function RecipeReviews(props: Props): React.Node {
   const handleReviewPost = () => {
     if (commentText !== '') {
       setErrorMsgVisible(false);
+      setSubmitted(true);
       const reviewCallback = () => {
         console.log('Review Uploaded');
         setIsUploading(false);
@@ -68,6 +71,10 @@ function RecipeReviews(props: Props): React.Node {
 
   const errorNotifyComponent = !errorMsgVisible ? null : (
     <p className="rg-review-error"><strong>{errorMsg}</strong></p>
+  );
+
+  const submittedComponent = !submitted ? null : (
+    <p className="rg-submitted-msg"><strong>{submittedMsg}</strong></p>
   );
 
   console.log(commentText, reviews);
@@ -143,6 +150,7 @@ function RecipeReviews(props: Props): React.Node {
         {editableStars}
       </div>
       {errorNotifyComponent}
+      {submittedComponent}
       <div className="submission-form">
         <h6>Comment</h6>
         <textarea
