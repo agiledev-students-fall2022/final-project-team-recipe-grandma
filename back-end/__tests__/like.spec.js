@@ -40,7 +40,7 @@ const like = {
 };
 
 describe('workflow tests', () => {
-  it('Should register a user', async () => {
+  it('should register a user', async () => {
     chai.request(server)
       .post('/rgapi/user/register')
       .send(registerUser)
@@ -51,7 +51,7 @@ describe('workflow tests', () => {
       });
   });
 
-  it('Should login a user', async () => {
+  it('should login a user', async () => {
     chai.request(server)
       .post('/rgapi/user/login')
       .send(user)
@@ -78,7 +78,7 @@ describe('workflow tests', () => {
   //     });
   // });
 
-  it('Should return like by recipeID', async () => {
+  it('should return like by recipeID', async () => {
     chai.request(server)
       .get(`/rgapi/like/getlikebyrecipe/${like.parentId}`)
       .end((err, res) => {
@@ -86,14 +86,4 @@ describe('workflow tests', () => {
         res.body.userId.should.equal(like.userId);
       });
   });
-
-  // needs authentication process
-  // it('Should return a like of a user', async () => {
-  //   chai.request(server)
-  //     .get(`/rgapi/like/getlikebyuser`)
-  //     .end((err, res) => {
-  //       res.body.should.not.be.a('null');
-  //       res.body.recipeId.should.equal(like.recipeId);
-  //     });
-  // });
 });
