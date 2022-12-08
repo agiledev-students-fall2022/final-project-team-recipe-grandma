@@ -48,14 +48,14 @@ function Profile(): React.Node {
     switch (pillBodyType) {
       case 'recipes':
         return recipes;
-      case 'followers':
-        return (
-          <div>Followers</div>
-        );
-      case 'following':
-        return (
-          <div>Following</div>
-        );
+      // case 'followers':
+      //   return (
+      //     <div>Followers</div>
+      //   );
+      // case 'following':
+      //   return (
+      //     <div>Following</div>
+      //   );
       default:
         return recipes;
     }
@@ -95,18 +95,18 @@ function Profile(): React.Node {
               >
                 <span>My Recipes</span>
               </button>
-              <button
+              {/* <button
                 onClick={() => setPillBodyType('followers')}
                 type="button"
               >
                 <span>Followers</span>
-              </button>
-              <button
+              </button> */}
+              {/* <button
                 onClick={() => setPillBodyType('following')}
                 type="button"
               >
                 <span>Following</span>
-              </button>
+              </button> */}
             </div>
             {renderPillBody()}
           </div>
