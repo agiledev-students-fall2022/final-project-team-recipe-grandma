@@ -44,6 +44,7 @@ function RecipeInDetailPage(): React.Node {
       rating={data.rating}
       steps={data.steps}
       kitchen={kitchen}
+      likes={data.likes}
     />
   ) : null;
 
