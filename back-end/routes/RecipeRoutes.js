@@ -4,6 +4,14 @@ const upload = require('../middleware/upload');
 const { authenticate } = require('../middleware/auth');
 
 const router = express.Router();
+router.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.header(
+    'Access-Control-Allow-Headers',
+    'Origin, X-Requested-With, Content-Type, Accept',
+  );
+  next();
+});
 
 // test
 router.get('/test', authenticate, RecipeController.TestRecipeFunction);
