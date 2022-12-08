@@ -18,7 +18,7 @@ const connectDB = require('./config/db');
 const port = process.env.API_PORT || 5000;
 
 const corsOptions = {
-  origin: 'http://143.198.111.184:3000',
+  origin: `${process.env.FRONT_END_API_DOMAIN}:${process.env.FRONT_END_API_PORT}`,
   optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
   credentials: true, // Enables cookies. AJAX requests require withCredentials
 };
@@ -29,6 +29,7 @@ const app = express();
 
 // Middlewares
 app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));
 app.use(cookieParser());
 app.use(helmet());
 app.use(helmet.crossOriginResourcePolicy({ policy: 'cross-origin' }));
