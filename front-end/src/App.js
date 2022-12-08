@@ -43,11 +43,6 @@ function App(): React.Node {
       title: 'Profile',
       icon: 'person',
     },
-    {
-      routePath: '/',
-      title: 'Recipe',
-      icon: 'feed',
-    },
   ];
 
   return (
