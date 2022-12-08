@@ -44,6 +44,7 @@ This project came to be due to a recognized need amongst the group to be able to
 | Sprint 1 |Mohammed|Jennifer|Geon Tack, Yeonie, Oyungerel, Nghia|
 | Sprint 2 |Oyungerel|Nghia|Mohammed, Jennifer, Geon Tack, Yeonie|
 | Sprint 3 |Mohammed|Geon Tack|Jennifer, Yeonie, Oyungerel, Nghia|
+| Sprint 4 |Yeonie|Oyungerel|Jennifer, Mohammed, Geon Tack, Nghia|
 
 Each team will decide, using whatever decision-making process they prefer, on which two members will fill the initial roles of **Scrum Master** and **Product Owner**.
 
