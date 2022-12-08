@@ -110,6 +110,7 @@ function KitchenSearch(): React.Node {
         rating={item.rating}
         recipeUrl={`/recipe/${item._id}`}
         title={item.name}
+        likes={item.likes}
         kitchenStringified={JSON.stringify(kitchenInfo)}
       />
     )) : StringConfig.API_FAILURE_WARNING
