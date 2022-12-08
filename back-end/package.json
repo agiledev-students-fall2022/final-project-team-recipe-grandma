@@ -1,6 +1,7 @@
 {
   "name": "back-end",
   "version": "1.0.0",
+  "proxy": "http://localhost:8000",
   "description": "The back-end of your project will live in this directory.",
   "main": "index.js",
   "scripts": {
