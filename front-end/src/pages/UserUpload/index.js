@@ -75,7 +75,8 @@ function UserUpload(): React.Node {
     // Need to validate file type on back-end
     const file = e.target.files[0];
     const size = parseFloat(file.size / (1024 * 1024)).toFixed(2);
-    if (size >= 0.16) {
+    console.log(size);
+    if (size >= 1) {
       setFileError('File size cannot exceed more than 1MB');
       setRecipeCover(null);
       return;
