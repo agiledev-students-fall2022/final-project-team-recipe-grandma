@@ -41,6 +41,7 @@ function Profile(): React.Node {
       imageUrl={item.cover}
       recipeUrl={`recipe/${item._id}`}
       title={item.name}
+      likes={item.likes}
     />
   ));
 
