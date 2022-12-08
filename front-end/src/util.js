@@ -40,10 +40,6 @@ type ReviewContext = $ReadOnly<{|
   parentId: string
 |}>;
 
-type LikeContext = $ReadOnly<{|
-  parentId: string
-|}>;
-
 export const BASE_API_URL = `${process.env.REACT_APP_API_BASE}:${process.env.REACT_APP_API_PORT || 3000}`;
 
 export async function LoginUser(context: LoginContext): UserContext {
@@ -227,38 +223,56 @@ export async function postReviewData(
   }
 }
 
-export async function postLike(
+export async function postRecipeLike(
   callback: CallbackType,
-  context: LikeContext,
+  recipeId: string,
   AuthStr: string,
 ): null {
-  const {
-    parentId,
-  } = context;
-
   const result = await axios.post(
     `${BASE_API_URL}/rgapi/like/like`,
     {
-      parentId,
+      parentId: recipeId,
     },
     { headers: { Authorization: AuthStr } },
   );
+
+  if (result) {
+    callback(result);
+  }
   return result;
 }
 
-export async function deleteLike(
+export async function deleteRecipeLike(
   callback: CallbackType,
-  context: LikeContext,
+  recipeId: string,
   AuthStr: string,
 ): null {
-  const {
-    recipeId,
-  } = context;
   console.log(AuthStr);
-  const result = await axios.post(
-    `${BASE_API_URL}/rgapi/like/delete/${recipeId}`,
+  axios({
+    url: `${BASE_API_URL}/rgapi/like/delete`,
+    method: 'post',
+    data: { recipeId },
+    headers: { Authorization: AuthStr },
+  }).then((res) => {
+    console.log(res);
+    callback(res.data);
+  }).catch((err) => {
+    console.log(err);
+  });
+}
+
+export async function CheckRecipeIsLiked(
+  callback: CallbackType,
+  recipeId: string,
+  AuthStr: string,
+): null {
+  const result = await axios.get(
+    `${BASE_API_URL}/rgapi/like/check-recipe-liked/${recipeId}`,
     { headers: { Authorization: AuthStr } },
   );
+  if (result) {
+    callback(result);
+  }
   return result;
 }
 
