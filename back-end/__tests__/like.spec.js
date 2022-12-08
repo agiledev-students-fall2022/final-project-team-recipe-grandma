@@ -40,7 +40,7 @@ const like = {
 };
 
 describe('workflow tests', () => {
-  it('should register a user', async () => {
+  it('Should register a user', async () => {
     chai.request(server)
       .post('/rgapi/user/register')
       .send(registerUser)
@@ -51,7 +51,7 @@ describe('workflow tests', () => {
       });
   });
 
-  it('should login a user', async () => {
+  it('Should login a user', async () => {
     chai.request(server)
       .post('/rgapi/user/login')
       .send(user)
@@ -78,21 +78,22 @@ describe('workflow tests', () => {
   //     });
   // });
 
-  it('should return like by recipeID', async () => {
+  it('Should return like by recipeID', async () => {
     chai.request(server)
-      .get(`/rgapi/like/countlikebyrecipe/${like.parentId}`)
+      .get(`/rgapi/like/getlikebyrecipe/${like.parentId}`)
       .end((err, res) => {
         res.body.should.not.be.a('null');
         res.body.userId.should.equal(like.userId);
       });
   });
 
-  it('should return a like by userID', async () => {
-    chai.request(server)
-      .get(`/rgapi/like/getlikebyrecipe/${like.userId}`)
-      .end((err, res) => {
-        res.body.should.not.be.a('null');
-        res.body.recipeId.should.equal(like.recipeId);
-      });
-  });
+  // needs authentication process
+  // it('Should return a like of a user', async () => {
+  //   chai.request(server)
+  //     .get(`/rgapi/like/getlikebyuser`)
+  //     .end((err, res) => {
+  //       res.body.should.not.be.a('null');
+  //       res.body.recipeId.should.equal(like.recipeId);
+  //     });
+  // });
 });
