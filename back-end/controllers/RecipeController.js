@@ -102,7 +102,7 @@ class RecipeController {
         steps: stepsArr,
         cover: image.id,
       }).then(async (recipe) => {
-        const user = await User.findOne({ id: recipe.userId });
+        const user = await User.findOne({ _id: recipe.userId });
         if (!user) return res.status(500).json({ message: 'Could not find user' });
         return res.status(200).json({
           _id: recipe.id,
@@ -180,7 +180,7 @@ class RecipeController {
     /* eslint-disable no-await-in-loop */
     for (let i = 0; i < recipes.length; i += 1) {
       const rec = recipes[i];
-      const user = await User.findOne({ id: rec.userId });
+      const user = await User.findOne({ _id: rec.userId });
       if (!user) return res.status(500).json({ message: 'Could not find user' });
       const averageRatingAggregate = await ReviewComment.aggregate([
         { $match: { parentId: ObjectId(rec.id) } },
@@ -211,7 +211,7 @@ class RecipeController {
   // single recipe in a page
   static async SingleRecipe(req, res) {
     const recipe = await Recipe.findOne({ _id: req.params.id });
-    const user = await User.findOne({ id: recipe.userId });
+    const user = await User.findOne({ _id: recipe.userId });
     const averageRatingAggregate = await ReviewComment.aggregate([
       { $match: { parentId: ObjectId(recipe.id) } },
       { $group: { _id: { parentId: recipe.id }, average: { $avg: '$stars' } } },
@@ -290,7 +290,7 @@ class RecipeController {
     /* eslint-disable no-await-in-loop */
     for (let i = 0; i < recipes.length; i += 1) {
       const rec = recipes[i];
-      const user = await User.findOne({ id: rec.userId });
+      const user = await User.findOne({ _id: rec.userId });
       if (!user) return res.status(500).json({ message: 'Could not find user' });
       const averageRatingAggregate = await ReviewComment.aggregate([
         { $match: { parentId: ObjectId(rec.id) } },
@@ -332,7 +332,7 @@ class RecipeController {
     /* eslint-disable no-await-in-loop */
     for (let i = 0; i < recipes.length; i += 1) {
       const rec = recipes[i];
-      const user = await User.findOne({ id: rec.userId });
+      const user = await User.findOne({ _id: rec.userId });
       if (!user) return res.status(500).json({ message: 'Could not find user' });
       const averageRatingAggregate = await ReviewComment.aggregate([
         { $match: { parentId: rec.id } },
