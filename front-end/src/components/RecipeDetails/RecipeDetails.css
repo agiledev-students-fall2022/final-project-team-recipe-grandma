@@ -136,3 +136,13 @@
   color: white;
   background-color: pink;
 }
+
+.rg-sr-header .like-btn.liked {
+  color: white;
+  background-color: pink;
+}
+
+.rg-sr-header .like-btn.liked:hover {
+  color: pink;
+  background-color: white;
+}
