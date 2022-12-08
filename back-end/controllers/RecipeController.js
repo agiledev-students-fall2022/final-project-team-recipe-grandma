@@ -329,11 +329,8 @@ class RecipeController {
     return true;
   }
 
-  // recommendation algorithm 3: search by recipe name
-  static async RecommendedbyName(req, res) {
-    // if input from URL = big-night-pizza,
-    // modifiedname = big night pizza,
-    // $options: changes modifedname to case-insensitive to match with name
+  // search by recipe name
+  static async SearchbyName(req, res) {
     const modifiedname = req.params.name.replace('-', ' ');
 
     const recipes = await Recipe.find({ name: { $regex: modifiedname, $options: 'i' } });
