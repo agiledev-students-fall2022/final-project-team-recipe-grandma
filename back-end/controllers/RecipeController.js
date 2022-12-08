@@ -314,16 +314,23 @@ class RecipeController {
       freshRecipes.push(freshRec);
     }
     /* eslint-enable no-await-in-loop */
-
+    // sort the freshRecipes in descending order of likes
+    for (let j = 0; j < freshRecipes.length; j += 1) {
+      for (let k = j + 1; k < freshRecipes.length; k += 1) {
+        if (freshRecipes[j].likes > freshRecipes[k].likes) {
+          const temp = freshRecipes[j];
+          freshRecipes[j] = freshRecipes[k];
+          freshRecipes[k] = temp;
+        }
+      }
+    }
+    freshRecipes.reverse();
     res.status(200).json(freshRecipes);
     return true;
   }
 
-  // recommendation algorithm 3: search by recipe name
-  static async RecommendedbyName(req, res) {
-    // if input from URL = big-night-pizza,
-    // modifiedname = big night pizza,
-    // $options: changes modifedname to case-insensitive to match with name
+  // search by recipe name
+  static async SearchbyName(req, res) {
     const modifiedname = req.params.name.replace('-', ' ');
 
     const recipes = await Recipe.find({ name: { $regex: modifiedname, $options: 'i' } });
