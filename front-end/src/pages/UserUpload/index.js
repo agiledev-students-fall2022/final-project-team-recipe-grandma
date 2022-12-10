@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import Topbar, { TopbarType } from '../../components/Topbar';
 import RGInput from '../../components/UtilityComponents/RGInput';
+import LoadingIcon from '../../components/LoadingIcon';
 import RGButton from '../../components/RGButton';
 import * as Util from '../../util';
 import { selectUser } from '../../features/auth/authSlice';
@@ -20,6 +21,7 @@ function UserUpload(): React.Node {
   const [fileError, setFileError] = useState('Please upload an image.');
   const [existingIngredients, setExistingIngredientsList] = useState([]);
   const [isUploading, setIsUploading] = useState(false);
+  const [wasUploadSuccessful, setUploadSuccessful] = useState(false);
 
   const user = useSelector(selectUser);
 
@@ -61,8 +63,11 @@ function UserUpload(): React.Node {
     formData.append('file', recipeCover);
     formData.append('userId', user._id);
 
-    const apiCallback = () => {
+    const apiCallback = (callbackData) => {
       console.log('Uploaded!');
+      if (callbackData) {
+        setUploadSuccessful(true);
+      }
       setIsUploading(false);
     };
 
@@ -75,7 +80,7 @@ function UserUpload(): React.Node {
     // Need to validate file type on back-end
     const file = e.target.files[0];
     const size = parseFloat(file.size / (1024 * 1024)).toFixed(2);
-    console.log(size);
+
     if (size >= 1) {
       setFileError('File size cannot exceed more than 1MB');
       setRecipeCover(null);
@@ -269,6 +274,86 @@ function UserUpload(): React.Node {
     </div>
   ));
 
+  const uploadButtonText = wasUploadSuccessful ? 'Upload Successful' : 'Upload Your Recipe';
+
+  const mainBody = (
+    <div className="rg-upload-recipe">
+      <div
+        className="file-drop-zone"
+        onDrop={onDrop}
+        onDragOver={onDragOver}
+      >
+        <span className="icon material-icons-outlined">
+          file_upload
+        </span>
+        <h6>Upload your cover image</h6>
+        <p>A preview will appear below</p>
+        <input
+          accept="image/*"
+          onChange={handleFileInput}
+          type="file"
+        />
+      </div>
+      <div className="file-loading-status">
+        <div className="status-details">
+          <div className="main-icon">
+            <span className="main-icon material-icons">
+              article
+            </span>
+            <p>{recipeCover?.name || fileError }</p>
+          </div>
+          <span className="status-icon material-icons-outlined">
+            { recipeCover ? 'done' : 'close' }
+          </span>
+        </div>
+        <div className={recipeCover ? 'status-bar' : 'status-bar error'} />
+      </div>
+      <br />
+      <RGInput
+        onChange={(ev) => setTitleText(ev.target.value)}
+        type="text"
+        label="Recipe Title"
+        value={titleText}
+      />
+      <section className="ingredients-input">
+        <h6>
+          Ingredients
+          <span className="mx-3">
+            <RGButton
+              isFlat
+              onAction={addIngredient}
+              text="Add Ingredient"
+              width="max-content"
+            />
+          </span>
+        </h6>
+        {ingredientInputs}
+      </section>
+      <section className="instruction-inputs">
+        <h6>
+          Instructions
+          <span className="mx-3">
+            <RGButton
+              isFlat
+              onAction={addInstruction}
+              text="Add Instruction"
+              width="max-content"
+            />
+          </span>
+        </h6>
+        <p className="soft-comment">Click an instruction&apos;s number to delete it</p>
+        {instructionInputs}
+      </section>
+      <RGButton
+        className="mb-3"
+        isBoxed
+        onAction={onSubmit}
+        text={uploadButtonText}
+        disabled={isUploading || wasUploadSuccessful}
+      />
+    </div>
+  );
+
   return (
     <>
       <Topbar
@@ -277,81 +362,7 @@ function UserUpload(): React.Node {
         title="Create a recipe"
       />
       <section className="rga-section rg-ur-main">
-        <div className="rg-upload-recipe">
-          <div
-            className="file-drop-zone"
-            onDrop={onDrop}
-            onDragOver={onDragOver}
-          >
-            <span className="icon material-icons-outlined">
-              file_upload
-            </span>
-            <h6>Upload your cover image</h6>
-            <p>A preview will appear below</p>
-            <input
-              accept="image/*"
-              onChange={handleFileInput}
-              type="file"
-            />
-          </div>
-          <div className="file-loading-status">
-            <div className="status-details">
-              <div className="main-icon">
-                <span className="main-icon material-icons">
-                  article
-                </span>
-                <p>{recipeCover?.name || fileError }</p>
-              </div>
-              <span className="status-icon material-icons-outlined">
-                { recipeCover ? 'done' : 'close' }
-              </span>
-            </div>
-            <div className={recipeCover ? 'status-bar' : 'status-bar error'} />
-          </div>
-          <br />
-          <RGInput
-            onChange={(ev) => setTitleText(ev.target.value)}
-            type="text"
-            label="Recipe Title"
-            value={titleText}
-          />
-          <section className="ingredients-input">
-            <h6>
-              Ingredients
-              <span className="mx-3">
-                <RGButton
-                  isFlat
-                  onAction={addIngredient}
-                  text="Add Ingredient"
-                  width="max-content"
-                />
-              </span>
-            </h6>
-            {ingredientInputs}
-          </section>
-          <section className="instruction-inputs">
-            <h6>
-              Instructions
-              <span className="mx-3">
-                <RGButton
-                  isFlat
-                  onAction={addInstruction}
-                  text="Add Instruction"
-                  width="max-content"
-                />
-              </span>
-            </h6>
-            <p className="soft-comment">Click an instruction&apos;s number to delete it</p>
-            {instructionInputs}
-          </section>
-          <RGButton
-            className="mb-3"
-            isBoxed
-            onAction={onSubmit}
-            text="Upload Your Recipe"
-            disabled={isUploading}
-          />
-        </div>
+        { isUploading ? (<LoadingIcon />) : mainBody }
       </section>
     </>
   );
