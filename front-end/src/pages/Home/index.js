@@ -15,7 +15,11 @@ function Home(): React.Node {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    Util.fetchRecipeData(setData);
+    setIsLoading(true);
+    Util.fetchRecipeData((apiData) => {
+      setIsLoading(false);
+      setData(apiData);
+    });
   }, []);
 
   const onSearchAction = (searchText) => {
