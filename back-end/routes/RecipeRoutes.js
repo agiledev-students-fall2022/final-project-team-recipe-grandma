@@ -22,7 +22,7 @@ router.post('/search-by-ingredients/', authenticate, RecipeController.Recommende
 // search by recipe name
 router.get('/recbyname/:name', RecipeController.SearchbyName);
 // delete a recipe
-router.get('/delete/:id', RecipeController.DeleteRecipe);
+router.post('/delete', authenticate, RecipeController.DeleteRecipe);
 // get all recipes
 router.get('/all', RecipeController.GetRecipes);
 // single recipe
