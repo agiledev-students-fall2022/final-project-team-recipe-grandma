@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { selectUser } from '../../features/auth/authSlice';
@@ -10,6 +11,7 @@ import {
   postRecipeLike,
   CheckRecipeIsLiked,
   deleteRecipeLike,
+  deleteRecipeRequest,
 } from '../../util';
 import './RecipeDetails.css';
 
@@ -23,6 +25,7 @@ type Ingredient = $ReadOnly<{|
 
 type Props = $ReadOnly<{|
   imageURL: string,
+  authorId: string,
   ingredients: Array<Ingredient>,
   kitchen?: Array<string>,
   steps: Array<string>,
@@ -41,6 +44,7 @@ const defaultProps = {
 function RecipeDetails(props: Props): React.Node {
   const {
     imageURL,
+    authorId,
     ingredients,
     kitchen,
     recipeId,
@@ -52,7 +56,10 @@ function RecipeDetails(props: Props): React.Node {
   const [isModalClosed, setModalClosed] = useState(true);
   const [recipeLikes, setRecipeLikes] = useState(0);
   const [isLiked, setIsLiked] = useState(false);
+  const [deleteSuccessful, setDeleteSuccessful] = useState(false);
   const user = useSelector(selectUser);
+
+  const navigate = useNavigate();
 
   console.log('Token', user.token);
 
@@ -120,6 +127,28 @@ function RecipeDetails(props: Props): React.Node {
     </div>
   ));
 
+  const deleteRecipe = () => {
+    const deleteRecipeCallback = (apiData) => {
+      if (apiData.err) {
+        return;
+      }
+      setDeleteSuccessful(true);
+      navigate('/');
+    };
+    deleteRecipeRequest(deleteRecipeCallback, recipeId, `Bearer ${user.token}`);
+  };
+
+  const deleteButton = user._id === authorId ? (
+    <RGButton
+      onAction={deleteRecipe}
+      width="auto"
+      text={deleteSuccessful ? 'Delete Successful' : 'Delete Recipe'}
+      disabled={deleteSuccessful}
+      isBoxed
+      isFlat
+    />
+  ) : null;
+
   const likedButtonClass = isLiked ? 'like-btn liked' : 'like-btn';
 
   return (
@@ -156,6 +185,7 @@ function RecipeDetails(props: Props): React.Node {
           <span className="material-icons">favorite</span>
         </button>
       </section>
+      {deleteButton}
       <section className="rg-sr-sec rg-sr-ingredients">
         <h4>Ingredients</h4>
         <ul className="rg-sr-ing-list">
