@@ -2,12 +2,13 @@ import { useState, useEffect } from 'react';
 import * as React from 'react';
 // fetched all data from the API below into a file: '../../temp_recipedata.json'
 // import Recipe from '../../components/Recipe';
-import StringConfig from '../../StringConfig';
 import './Home.css';
 import * as Util from '../../util';
+import StringConfig from '../../StringConfig';
 import Topbar, { TopbarType } from '../../components/Topbar';
 import RGRecipe from '../../components/RGRecipe';
 import RGBaseSearchBar from '../../components/RGBaseSearchBar';
+import LoadingIcon from '../../components/LoadingIcon';
 
 function Home(): React.Node {
   const [data, setData] = useState([]);
@@ -26,7 +27,7 @@ function Home(): React.Node {
     };
     Util.searchRecipesByName(apiCallback, sanitizedText);
   };
-
+  const loadingOrFail = isLoading ? <LoadingIcon /> : StringConfig.API_FAILURE_WARNING;
   console.log('Recipes', data, isLoading);
 
   return (
@@ -46,7 +47,7 @@ function Home(): React.Node {
           />
         </div>
         <div className="recipes">
-          {data.length > 0 ? data.map((item, ind) => (
+          {data.length > 0 && !isLoading ? data.map((item, ind) => (
             <RGRecipe
               key={ind}
               author={item.author}
@@ -57,7 +58,7 @@ function Home(): React.Node {
               title={item.name}
               likes={item.likes}
             />
-          )) : StringConfig.API_FAILURE_WARNING}
+          )) : loadingOrFail}
         </div>
       </section>
     </>

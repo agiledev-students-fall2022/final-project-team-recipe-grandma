@@ -93,6 +93,8 @@ function RecipeDetails(props: Props): React.Node {
 
   const ratingPercentage = Math.ceil(rating * 20);
 
+  console.log('Our kitchen is', kitchen);
+
   const ingredientElements = ingredients.map((ing, i) => {
     const className = kitchen && kitchen.length > 0 && !kitchen.includes(ing.name) ? 'rg-sr-ing' : 'rg-sr-ing ing-in-kitch';
     return (
