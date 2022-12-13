@@ -1,26 +1,30 @@
 import * as React from 'react';
-import { useParams, useLocation } from 'react-router-dom';
+import { useParams, useLocation, RouteComponentProps } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
 import RecipeDetails from '../../components/RecipeDetails';
 import Topbar, { TopbarType } from '../../components/Topbar';
+import LoadingIcon from '../../components/LoadingIcon';
 import * as Util from '../../util';
 import './RecipeInDetail.css';
 import { selectUser } from '../../features/auth/authSlice';
 // import './ReviewButton.css';
 
-function RecipeInDetailPage(): React.Node {
+// type Props = $ReadOnly<{|
+// |}>
+
+function RecipeInDetailPage({ match }: RouteComponentProps): React.Node {
   const [data, setData] = useState();
   const [recipeName, setRecipeName] = useState('User Recipe');
   const { recipeId } = useParams();
 
   const user = useSelector(selectUser);
 
-  console.log(recipeId);
   const location = useLocation();
-  const kitchenData = location.state?.kitchen || [`${recipeId}`];
-  console.log(recipeId);
-  const kitchen = location.state?.kitchen ? JSON.parse(kitchenData) : kitchenData;
+  const kitchenData = location.state?.kitchen || [{ name: `${recipeId}` }];
+  console.log(match, recipeId, kitchenData);
+  const kitchenArr = location.state?.kitchen ? JSON.parse(kitchenData) : kitchenData;
+  const kitchen = kitchenArr.map((x) => x.name);
 
   const apiCallback = (apiData) => {
     setData(apiData);
@@ -40,13 +44,13 @@ function RecipeInDetailPage(): React.Node {
       ingredients={data.ingredients}
       imageURL={data.cover}
       name={data.name}
+      kitchen={kitchen}
       recipeId={recipeId}
       rating={data.rating}
       steps={data.steps}
-      kitchen={kitchen}
       likes={data.likes}
     />
-  ) : null;
+  ) : <LoadingIcon />;
 
   return (
     <section className="rga-section">
