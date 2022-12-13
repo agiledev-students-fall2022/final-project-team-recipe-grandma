@@ -13,6 +13,7 @@ import {
 } from '../../util';
 import './KitchenSearch.css';
 import RGButton from '../../components/RGButton';
+import LoadingIcon from '../../components/LoadingIcon';
 import { selectUser } from '../../features/auth/authSlice';
 
 function KitchenSearch(): React.Node {
@@ -21,6 +22,7 @@ function KitchenSearch(): React.Node {
   const [searchValue, setSearchValue] = useState('');
   const [displayIngDropdown, setDisplayIngDropdown] = useState(false);
   const [recipeData, setRecipeData] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const abortControllerRef = useRef(new AbortController());
 
@@ -29,12 +31,18 @@ function KitchenSearch(): React.Node {
   useEffect(() => {
     const controller = abortControllerRef.current;
     fetchIngredientData(setIngredients, controller);
-    fetchRecipeData(setRecipeData);
+    setIsLoading(true);
+    fetchRecipeData((data) => {
+      setRecipeData(data);
+      setIsLoading(false);
+    });
 
     return () => {
       controller.abort();
     };
   }, []);
+
+  const loadingOrFailure = isLoading ? <LoadingIcon /> : StringConfig.API_FAILURE_WARNING;
 
   console.log(ingredients);
 
@@ -75,7 +83,9 @@ function KitchenSearch(): React.Node {
   ));
 
   const searchForRecipes = () => {
+    setIsLoading(true);
     const apiCallback = (apiData) => {
+      setIsLoading(false);
       console.log(apiData);
       setRecipeData(apiData);
     };
@@ -101,7 +111,7 @@ function KitchenSearch(): React.Node {
   ));
 
   const generatedRecipes = (
-    recipeData.length > 0 ? recipeData.map((item) => (
+    recipeData.length > 0 && !isLoading ? recipeData.map((item) => (
       <RGRecipe
         key={item._id}
         author={item.author}
@@ -113,7 +123,7 @@ function KitchenSearch(): React.Node {
         likes={item.likes}
         kitchenStringified={JSON.stringify(kitchenInfo)}
       />
-    )) : StringConfig.API_FAILURE_WARNING
+    )) : loadingOrFailure
   );
 
   const onFocus = () => {

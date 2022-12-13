@@ -315,6 +315,7 @@ export async function publishRecipe(callback: CallbackType, recipeData: FormData
     callback(res.data);
   }).catch((err) => {
     console.log(err);
+    callback(null);
   });
 }
 

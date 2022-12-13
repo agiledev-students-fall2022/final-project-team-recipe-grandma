@@ -7,6 +7,7 @@ import { signIn } from '../../features/auth/authSlice';
 //  Permitted to use Redux for AUTH ONLY
 import { RegisterUser, LoginUser } from '../../util';
 import RGInput from '../UtilityComponents/RGInput';
+import LoadingIcon from '../LoadingIcon';
 import './AuthForm.css';
 
 type Props = $ReadOnly<{|
@@ -28,6 +29,7 @@ function LogIn(): React.Node {
   const [errorMsgVisible, setEMVisible] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
   const [emailText, setEmailText] = useState('');
+  const [isPolling, setIsPolling] = useState(false);
   // For a more secure approach, you could hash here & on the backend
   const [passwordText, setPasswordText] = useState('');
 
@@ -37,6 +39,7 @@ function LogIn(): React.Node {
   const emailError = AUTH_ERROR_ENUMS.USER_NOT_FOUND === errorMsgToEnum;
 
   const OnAuthCallback = (data) => {
+    setIsPolling(false);
     if (data.message) {
       setErrorMsg(data.message);
       setEMVisible(true);
@@ -56,6 +59,7 @@ function LogIn(): React.Node {
   };
 
   const handleLogin = () => {
+    setIsPolling(true);
     LoginUser({
       username: emailText,
       password: passwordText,
@@ -66,12 +70,14 @@ function LogIn(): React.Node {
   const errorNotifyComponent = !errorMsgVisible ? null : (
     <p className="rg-auth-error"><strong>{errorMsg}</strong></p>
   );
+  const displayLoadingIcon = isPolling ? (<LoadingIcon width={80} height={80} />) : null;
 
   return (
     <div className="rg-auth-form">
       <div className="rg-auth-form-header">
         <img src="/alegria/Surfer.png" alt="" className="rg-auth-banner" />
         <h1 className="rg-auth-form-title my-4"><strong>Sign In</strong></h1>
+        {displayLoadingIcon}
       </div>
       <div className="rg-auth-form-inputs mb-5">
         {errorNotifyComponent}
@@ -97,6 +103,7 @@ function LogIn(): React.Node {
           className="rg-auth-btn mt-2"
           onClick={handleLogin}
           type="button"
+          disabled={isPolling}
         >
           Sign In
         </button>
@@ -122,6 +129,7 @@ function Register(): React.Node {
   // For a more secure approach, you could hash here & on the backend
   const [passwordText, setPasswordText] = useState('');
   const [confirmedPasswordText, setConfirmedPasswordText] = useState('');
+  const [isPolling, setIsPolling] = useState(false);
   const dispatch = useDispatch();
 
   const errorMsgToEnum = errorMsg.toLowerCase().replaceAll(' ', '_');
@@ -131,6 +139,8 @@ function Register(): React.Node {
     || AUTH_ERROR_ENUMS.USER_CREATION_FAILED === errorMsgToEnum
   );
 
+  const displayLoadingIcon = isPolling ? (<LoadingIcon width={80} height={80} />) : null;
+
   const makeErrorMessageSpawn = () => {
     setEMVisible(true);
     setTimeout(() => {
@@ -139,6 +149,7 @@ function Register(): React.Node {
   };
 
   const OnAuthCallback = (data) => {
+    setIsPolling(false);
     if (data.message) {
       setErrorMsg(data.message);
       makeErrorMessageSpawn();
@@ -159,6 +170,7 @@ function Register(): React.Node {
       setErrorMsg(AUTH_ERROR_ENUMS.PASSWORDS_DO_NOT_MATCH.replaceAll('_', ' '));
       makeErrorMessageSpawn();
     } else {
+      setIsPolling(true);
       RegisterUser({
         email: emailText,
         name: usernameText,
@@ -177,6 +189,7 @@ function Register(): React.Node {
       <div className="rg-auth-form-header">
         <img src="/alegria/PineappleAndPainter.jpg" alt="" className="rg-auth-banner" />
         <h1 className="rg-auth-form-title my-4"><strong>Create Your Account</strong></h1>
+        {displayLoadingIcon}
       </div>
       <div className="rg-auth-form-inputs mb-5">
         {errorNotifyComponent}
@@ -220,6 +233,7 @@ function Register(): React.Node {
           className="rg-auth-btn mt-2"
           onClick={handleRegistation}
           type="button"
+          disabled={isPolling}
         >
           Sign Up
         </button>
