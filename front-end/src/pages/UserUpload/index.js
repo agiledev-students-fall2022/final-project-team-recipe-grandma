@@ -362,7 +362,7 @@ function UserUpload(): React.Node {
         title="Create a recipe"
       />
       <section className="rga-section rg-ur-main">
-        { isUploading ? (<LoadingIcon />) : mainBody }
+        { isUploading ? (<LoadingIcon width={80} />) : mainBody }
       </section>
     </>
   );
