@@ -1,0 +1,10 @@
+.title{
+    text-align: center; 
+}
+
+.foodImg{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 30%;  
+}

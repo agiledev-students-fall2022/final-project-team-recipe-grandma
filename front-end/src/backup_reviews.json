@@ -1,0 +1,32 @@
+{
+  "data": [
+    {
+      "id": "10233",
+      "name": "Sarah",
+      "comment": "This tastes good!",
+      "date": "2022-10-16",
+      "rating": 5
+    },
+    {
+      "id": "1023453",
+      "name": "Mark",
+      "comment": "It was too difficult to make.",
+      "date": "2022-10-16",
+      "rating": 2
+    },
+    {
+      "id": "388402",
+      "name": "John",
+      "comment": "Not a bad meal, but too heavy.",
+      "date": "2022-10-16",
+      "rating": 4
+    },
+    {
+      "id": "203233",
+      "name": "Alex",
+      "comment": "I enjoyed it, but not my kids.",
+      "date": "2022-10-16",
+      "rating": 3
+    }
+  ]
+}

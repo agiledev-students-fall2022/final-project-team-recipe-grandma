@@ -1,0 +1,28 @@
+.search-btn{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 30px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    background-color: gray;
+    color: white;
+    border-style: white;
+    cursor: pointer;
+    max-width: 100%;
+}
+
+.recipes-section {
+    /* background-color: #e0e2e3; */
+    padding: 10px;
+}
+
+.rg-recipes-search {
+    max-width: 500px;
+}
+
+.recipes {
+    padding: 10px;
+    margin: 0 auto;
+    max-width: 500px;
+}

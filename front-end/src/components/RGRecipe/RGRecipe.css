@@ -1,0 +1,118 @@
+.rg-recipe {
+  position: relative;
+  padding: 10px;
+  background-color: white;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  transition: 0.2s ease-in-out;
+  width: 100%;
+}
+
+.rg-recipe:hover {
+  box-shadow: 3px 3px 10px rgba(0,0,0,0.2);
+}
+
+/* .rg-recipe:hover {
+  background-color: #efefef;
+} */
+
+.rg-recipe-content .rg-img-container {
+  overflow: hidden;
+  position: relative;
+  border-radius: 5px;
+  padding: inherit;
+}
+
+.rg-recipe-content .rg-blanket {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: inherit;
+  padding: inherit;
+  background-color: black;
+  opacity: 0;
+  transition: 0.5s;
+}
+
+.rg-recipe-content:hover .rg-blanket {
+  opacity: 0.2;
+}
+
+.rg-recipe .rg-recipe-content img {
+  max-width: 100%;
+  border-radius: 5px;
+}
+
+.rg-recipe button {
+  position: relative;
+  width: 100%;
+}
+
+.rg-recipe .rg-recipe-cover {
+  width: 100%;
+}
+
+.rg-recipe .mini-details {
+  color: rgba(0,0,0,0.6);
+  /* letter-spacing: 0.5px; */
+  font-weight: bold;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+  align-items: left;
+}
+
+.rg-recipe .mini-details .rating-box {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.rg-recipe .mini-details .rating-box > span {
+  color: rgb(255, 202, 9);
+  vertical-align: bottom;
+  margin-left: 5px;
+}
+
+.rg-recipe .main-details {
+  display: flex;
+  flex-direction: row;
+}
+
+.rg-recipe .main-details .avatar {
+  border-radius: 50%;
+  max-height: 40px;
+}
+
+.rg-recipe .main-details div {
+  padding: 10px;
+  padding-top: 0;
+}
+
+.rg-recipe .main-details div > * {
+  margin: 0;
+}
+
+.rg-recipe .main-details div h6 {
+  font-weight: bold;
+  font-size: 1em;
+}
+
+.rg-recipe .main-details div p {
+  color: #b7b7b7;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 0.8em;
+}
+
+.like-counter {
+  color: pink;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}

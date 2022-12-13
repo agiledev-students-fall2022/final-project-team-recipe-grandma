@@ -1,0 +1,69 @@
+.rg-user-profile {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
+.rg-user-profile > div {
+  max-width: 400px;
+  flex-direction: column;
+  max-width: 400px;
+  display: flex;
+  justify-content: center;
+}
+
+.rg-user-profile .profile-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 20px;
+}
+
+.rg-user-profile .profile-header .profile-info {
+  margin-left: 10px;
+}
+
+.rg-user-profile .profile-header .profile-info button {
+  border: 1px solid #d3d3d3;
+  color: black;
+  background-color: white;
+  border-radius: 5px;
+  padding: 5px 15px;
+}
+
+.rg-user-profile .profile-header img {
+  border-radius: 50%;
+  max-width: 100px;
+}
+
+.rg-user-profile .rg-pillbar {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* .rg-user-profile .rg-pillbar .rg-pillbar-header {
+  overflow-x: scroll;
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+} */
+
+.rg-user-profile .rg-pillbar .rg-pillbar-header > button {
+  padding: 10px 80px;
+  transition: 0.5s;
+  border-bottom: 3px solid transparent;
+  text-align: center;
+  min-width: max-content;
+  flex: 1;
+  color: #d3d3d3;
+}
+
+.rg-user-profile .rg-pillbar .rg-pillbar-header > button.active {
+  background-color: rgba(0,0,0,0.1);
+  border-bottom: 3px solid #ffa845;
+  color: black;
+}
