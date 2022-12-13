@@ -20,6 +20,9 @@ class LikeController {
     if (existingLike) return res.status(200).json({ message: 'Already liked!' });
 
     const rec = await Recipe.findOne({ _id: parentId });
+    if (!rec) {
+      return res.status(400).send({ err: 'Recipe does not exist' });
+    }
     const newLike = await Like.create({ userId, parentId });
     if (newLike) {
       rec.likes += 1;

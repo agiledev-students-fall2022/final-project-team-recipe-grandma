@@ -46,6 +46,7 @@ function RecipeInDetailPage({ match }: RouteComponentProps): React.Node {
       name={data.name}
       kitchen={kitchen}
       recipeId={recipeId}
+      authorId={data.userId}
       rating={data.rating}
       steps={data.steps}
       likes={data.likes}
