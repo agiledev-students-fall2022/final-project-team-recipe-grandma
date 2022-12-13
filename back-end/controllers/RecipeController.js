@@ -173,7 +173,7 @@ class RecipeController {
 
   // get all recipes
   static async GetRecipes(req, res) {
-    const recipes = await Recipe.find({});
+    const recipes = await Recipe.find({}).sort({ createdAt: 'desc' });
     if (!recipes) return res.status(500).json({ message: 'Could not fetch recipes' });
 
     const freshRecipes = [];
@@ -276,7 +276,7 @@ class RecipeController {
       return output;
     });
 
-    const recipes = await Recipe.find({ ingredients: { $all: matchQuery } }).catch((err) => {
+    const recipes = await Recipe.find({ ingredients: { $all: matchQuery } }).sort({ createdAt: 'asc' }).catch((err) => {
       console.log(err);
       res.status(401).json({ message: 'An error occurred searching for ingredients' });
     });
@@ -290,6 +290,7 @@ class RecipeController {
     /* eslint-disable no-await-in-loop */
     for (let i = 0; i < recipes.length; i += 1) {
       const rec = recipes[i];
+      console.log(rec.createdAt);
       const user = await User.findOne({ _id: rec.userId });
       if (!user) return res.status(500).json({ message: 'Could not find user' });
       const averageRatingAggregate = await ReviewComment.aggregate([
@@ -333,7 +334,7 @@ class RecipeController {
   static async SearchbyName(req, res) {
     const modifiedname = req.params.name.replace('-', ' ');
 
-    const recipes = await Recipe.find({ name: { $regex: modifiedname, $options: 'i' } });
+    const recipes = await Recipe.find({ name: { $regex: modifiedname, $options: 'i' } }).sort({ createdAt: 'desc' });
 
     const freshRecipes = [];
     /* eslint-disable no-await-in-loop */
