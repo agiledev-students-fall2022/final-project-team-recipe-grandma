@@ -103,15 +103,6 @@
   align-self: flex-start;
 }
 
-@media(min-width: 400px) {
-  .rg-sr-main {
-    margin-top: 50px;
-  }
-  .rg-sr-main > h1 {
-    display: block;
-  }
-}
-
 .rg-sr-header {
   display: flex;
   justify-content: space-between;
@@ -145,4 +136,13 @@
 .rg-sr-header .like-btn.liked:hover {
   color: pink;
   background-color: white;
+}
+
+@media(min-width: 400px) {
+  .rg-sr-main {
+    margin-top: 50px;
+  }
+  .rg-sr-main > h1 {
+    display: block;
+  }
 }
