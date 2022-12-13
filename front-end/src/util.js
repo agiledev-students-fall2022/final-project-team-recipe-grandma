@@ -223,6 +223,25 @@ export async function postReviewData(
   }
 }
 
+export async function deleteRecipeRequest(
+  callback: CallbackType,
+  recipeId: string,
+  AuthStr: string,
+): null {
+  axios({
+    url: `${BASE_API_URL}/rgapi/recipe/delete`,
+    method: 'post',
+    data: { id: recipeId },
+    headers: { Authorization: AuthStr },
+  }).then((res) => {
+    console.log(res);
+    callback(res.data);
+  }).catch((err) => {
+    console.log(err);
+    callback({ err });
+  });
+}
+
 export async function postRecipeLike(
   callback: CallbackType,
   recipeId: string,

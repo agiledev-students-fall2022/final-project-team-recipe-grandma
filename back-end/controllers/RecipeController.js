@@ -161,14 +161,19 @@ class RecipeController {
 
   // delete recipe
   static async DeleteRecipe(req, res) {
-    Recipe.deleteOne({ _id: req.params.id }, (err, rec) => {
-      if (err) {
-        console.log(err);
-      } else {
-        res.json(rec);
-      }
+    const { user } = req;
+    const rec1 = await Recipe.findOne({ _id: req.body.id, userId: user._id });
+    if (!rec1) {
+      return res.status(400).send({ err: 'Invalid request.' });
+    }
+    await Recipe.deleteOne({ _id: req.body.id }).then((rec) => {
+      res.json(rec);
       console.log('A recipe deleted!');
+    }).catch((err) => {
+      res.status(500).send({ err: err.message });
     });
+
+    return null;
   }
 
   // get all recipes
