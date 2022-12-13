@@ -23,34 +23,6 @@ body {
   position: relative;
 }
 
-@media(max-width: 400px) {
-  .rg-navbar ~ .rga-section {
-    margin-bottom: 100px;
-  }
-
-  .rg-topbar ~ .rga-section {
-    margin-top: 80px;
-  }
-}
-
-@media(min-width: 400px) {
-  .rg-topbar {
-    display: none;
-  }
-
-  .rg-navbar ~ * {
-    margin-left: 100px;
-    max-width: calc(100% - 100px);
-  }
-
-  .rg-navbar ~ .rga-section {
-    height: 100%;
-  }
-
-  .root-section {
-    max-width: calc(100% - 100px);
-  }
-}
 .App {
   text-align: center;
 }
@@ -93,4 +65,33 @@ body {
 
 button {
   all: unset;
+}
+
+@media(max-width: 400px) {
+  .rg-navbar ~ .rga-section {
+    margin-bottom: 100px;
+  }
+
+  .rg-topbar ~ .rga-section {
+    margin-top: 80px;
+  }
+}
+
+@media(min-width: 400px) {
+  .rg-topbar {
+    display: none;
+  }
+
+  .rg-navbar ~ * {
+    margin-left: 100px;
+    max-width: calc(100% - 100px);
+  }
+
+  .rg-navbar ~ .rga-section {
+    height: 100%;
+  }
+
+  .root-section {
+    max-width: calc(100% - 100px);
+  }
 }

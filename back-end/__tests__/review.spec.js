@@ -2,12 +2,11 @@ process.env.NODE_ENV = 'test';
 const chai = require('chai');
 const { expect } = require('chai');
 const {
-  describe, it, after, before,
+  describe, it, after,
 } = require('mocha');
-const chaiHttp = require('chai-http');
 const mongoose = require('mongoose');
+const chaiHttp = require('chai-http');
 const server = require('../index');
-const { ObjectId } = require('mongodb');
 
 chai.use(chaiHttp);
 
@@ -24,12 +23,11 @@ const testUserCredentials = {
   name: 'howdy',
 };
 
-after ((done) => {
+after((done) => {
   mongoose.connection.close();
   server.close();
   done();
 });
-
 
 let token;
 describe('Log in', () => {
@@ -46,7 +44,8 @@ describe('Log in', () => {
         expect(res).to.have.status(200);
       });
     done();
-  })
+  });
+
   it('should log in', (done) => {
     chai.request(server)
       .post('/rgapi/user/login')
@@ -61,7 +60,7 @@ describe('Log in', () => {
         token = res;
         console.log(res);
       });
-      done();
+    done();
   });
   it('Should create a new review an upload it to database', () => {
     chai.request(server)

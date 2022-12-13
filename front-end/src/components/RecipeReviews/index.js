@@ -8,6 +8,7 @@ import { selectUser } from '../../features/auth/authSlice';
 import RGButton from '../RGButton';
 import SingleRecipeReview from '../SingleRecipeReview';
 import './RecipeReviews.css';
+import LoadingIcon from '../LoadingIcon';
 
 type Props = $ReadOnly<{|
   recipeRating: number,
@@ -151,6 +152,7 @@ function RecipeReviews(props: Props): React.Node {
       </div>
       {errorNotifyComponent}
       {submittedComponent}
+      {isUploading ? <LoadingIcon /> : null}
       <div className="submission-form">
         <h6>Comment</h6>
         <textarea
