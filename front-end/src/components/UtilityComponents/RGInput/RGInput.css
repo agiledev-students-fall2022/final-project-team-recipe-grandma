@@ -1,0 +1,91 @@
+.rg-input-box {
+  position: relative;
+  width: 100%;
+  overflow: none;
+}
+
+.rg-input-box input {
+  width: 100%;
+  padding: 8px 20px;
+  border: solid 1px #d3d3d3;
+}
+
+.rg-input-box.rgi-box input {
+  border-radius: 5px;
+}
+
+.rg-input-box.rgi-curved input {
+  border-radius: 30px;
+}
+
+.rg-input-box span {
+  position: absolute;
+  left: 0;
+  padding: 10px 20px;
+  pointer-events: none;
+  font-size: 1em;
+  text-transform: uppercase;
+  transition: 0.2s ease-in-out;
+  color: #d3d3d3;
+}
+
+.rg-input-box.rgi-error input {
+  border: solid 1px #ff2f2f;
+}
+
+.rg-input-box.rgi-error span {
+  color: #ff2f2f;
+  transform: translateX(10px) translateY(-7px);
+  font-size: 0.65em;
+  padding: 0 10px;
+  background-color: white;
+}
+
+.rg-input-box.rgi-error input:focus ~ span {
+  color: #ff2f2f;
+  transform: translateX(10px) translateY(-7px);
+  font-size: 0.65em;
+  padding: 0 10px;
+  background-color: white;
+}
+
+.rg-input-box input:focus ~ span
+{
+  color: #ffa845;
+  transform: translateX(10px) translateY(-7px);
+  font-size: 0.65em;
+  padding: 0 10px;
+  background-color: white;
+}
+
+.rg-input-box.raised input ~ span {
+  transform: translateX(10px) translateY(-7px);
+  font-size: 0.65em;
+  padding: 0 10px;
+  background-color: white;
+}
+
+.rg-input-box.rgi-labeled span {
+  transform: translateX(10px) translateY(-7px);
+  font-size: 0.65em;
+  padding: 0 10px;
+  background-color: white;
+}
+
+.rg-input-box input:focus {
+  outline: none;
+  border: solid 1px #ffa845;
+}
+
+.rg-input-box.rgi-error input:focus {
+  border: solid 1px #ff2f2f;
+}
+
+.rg-input {
+  padding: 8px 20px;
+  border: solid 1px #d3d3d3;
+  border-radius: 30px;
+  margin: 10px 0;
+  width: 100%;
+  transition: 0.5s;
+}

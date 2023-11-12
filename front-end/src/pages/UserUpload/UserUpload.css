@@ -1,0 +1,236 @@
+
+.rg-ur-main {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+}
+
+.rg-upload-recipe {
+  max-width: 800px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+}
+
+.rg-upload-recipe .file-drop-zone {
+  border: 1px solid #d3d3d3;
+  background-color: #fffcfc;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  position: relative;
+  cursor: pointer;
+}
+
+.rg-upload-recipe .file-drop-zone .icon {
+  font-size: 4em;
+}
+
+.rg-upload-recipe .file-drop-zone h6 {
+  color: black;
+  font-size: 1em;
+}
+
+.rg-upload-recipe .file-drop-zone p {
+  color: rgba(0,0,0,0.5);
+  font-size: 0.7em;
+}
+
+.rg-upload-recipe .file-drop-zone input {
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.rg-upload-recipe .soft-comment {
+  color: rgba(0,0,0,0.5);
+  font-size: 0.7em;
+}
+
+.rg-upload-recipe .file-loading-status {
+  width: 100%;
+  background-color: white;
+  box-shadow: 0px 3px 6px rgba(0,0,0,0.2);
+  display: flex;
+  flex-direction: column;
+}
+
+.rg-upload-recipe .file-loading-status > * {
+  width: 100%;
+}
+
+.file-loading-status .status-details {
+  display: flex;
+  flex-direction: row;
+  min-width: 100%;
+  align-items: center;
+  padding: 10px;
+}
+
+.file-loading-status .status-details .main-icon {
+  justify-self: flex-start;
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.file-loading-status .status-details .main-icon p {
+  margin-bottom: 0;
+  margin-left: 10px;
+  text-align: left;
+  width: 100%;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: 0.8em;
+}
+
+.file-loading-status .status-details .status-icon {
+  justify-self: flex-end;
+  flex: 1;
+  text-align: right;
+  font-size: 0.9em;
+}
+
+.file-loading-status .status-bar {
+  min-height: 3px;
+  width: 100%;
+  background-color: rgb(1, 181, 76);
+  border-radius: 10px;
+}
+
+.file-loading-status .status-bar.error {
+  background-color: red;
+}
+
+.rg-upload-recipe .instruction-inputs, .rg-upload-recipe .ingredients-input {
+  width: 100%;
+}
+
+.rg-upload-recipe .instruction-inputs .step-input {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  align-items: center;
+}
+
+.rg-upload-recipe section > h6 {
+  font-weight: bold;
+  color: rgba(0,0,0,0.4);
+  margin: 10px 0;
+}
+
+.rg-upload-recipe .instruction-inputs .step-input h6 {
+  margin-right: 10px;
+  font-size: 1.2em;
+  color: #ffa845;
+}
+
+.rg-upload-recipe .instruction-inputs .step-input {
+  margin: 10px 0;
+}
+
+.rg-upload-recipe .ingredients-input .ing-input {
+  display: flex;
+  flex-direction: row;
+  margin: 10px 0;
+  width: 100%;
+  justify-content: center;
+}
+
+.rg-upload-recipe .ingredients-input .ing-input .minus {
+  color: red;
+}
+
+.rg-upload-recipe .ingredients-input .ing-input > *:not(:first-child) {
+  flex: 1;
+  margin-left: 10px;
+}
+
+/* .rg-upload-recipe .ingredients-input .ing-field {
+  max-width: max-content;
+} */
+
+.rg-upload-recipe .ingredients-input .ing-field.input {
+  flex-grow: 5;
+}
+
+.rg-upload-recipe .ingredients-input .ing-field select {
+  /* appearance: none; */
+  border: none;
+  text-align: center;
+  position: relative;
+  display: grid;
+  grid-template-areas: "select";
+  grid-area: select;
+  align-items: center;
+  font-size: 0.8em;
+  align-self: center;
+  justify-self: center;
+}
+
+.rg-upload-recipe .ingredients-input .ing-field select:focus {
+  box-shadow: none!important;
+  border: none;
+  outline: none;
+}
+
+.rg-upload-recipe .ingredients-input .ing-field select:after {
+  content: "";
+  width: 0.8em;
+  height: 0.5em;
+  background-color: black;
+  clip-path: polygon(100% 0%, 0 0%, 50% 100%);
+  grid-area: select;
+  justify-self: end;
+}
+
+.rg-upload-recipe .ingredients-input .ing-field {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.rg-upload-recipe .ingredients-input .ing-field p {
+  margin: 0;
+  text-align: center;
+}
+
+.rg-upload-recipe .ing-input-container .ingredients-dropdown {
+  height: 0;
+  overflow: hidden;
+}
+
+.rg-upload-recipe .ing-input-container:focus-within .ingredients-dropdown {
+  height: auto;
+  background-color: rgba(194, 212, 224, 0.4);
+  color: rgba(0,0,0,0.2);
+  padding: 10px;
+  font-weight: bold;
+  border-radius: 5px;
+}
+
+.rg-upload-recipe .ing-input-container .ingredients-dropdown .ing-recc:hover {
+  color: black;
+  cursor: pointer;
+}
+
+.rg-upload-recipe .ing-input-container .ingredients-dropdown .ing-recc {
+  display: block;
+  width: 100%;
+}
